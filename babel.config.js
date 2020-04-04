@@ -3,5 +3,16 @@ module.exports = (api) => {
 
   return {
     presets: ['babel-preset-expo'],
+    plugins: [
+      [
+        'module-resolver',
+        {
+          root: ['.'],
+          alias: {
+            '@': './src',
+          },
+        },
+      ],
+    ],
   };
 };
