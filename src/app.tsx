@@ -1,24 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-import { View } from 'react-native';
-import { registerRootComponent } from 'expo';
+import { ThemeProvider } from 'styled-components';
 
-import SSS from '@/sss';
-
-const Wrapper = styled(View)`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  background: yellow;
-`;
+import theme from '@/theme';
+import Game from '@/scenes/game';
 
 const App = () => {
   return (
-    <Wrapper>
-      <SSS />
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Game />
+    </ThemeProvider>
   );
 };
 
-export default registerRootComponent(App);
+export default App;

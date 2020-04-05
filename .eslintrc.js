@@ -5,7 +5,6 @@ module.exports = {
     ecmaVersion: 6,
     project: './tsconfig.json',
   },
-  parser: '@typescript-eslint/parser',
   extends: [
     '@react-native-community',
     'airbnb-typescript',
@@ -13,7 +12,10 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/react',
   ],
-  rules: {},
+  plugins: ['prettier'],
+  rules: {
+    'prettier/prettier': 'error',
+  },
   settings: {
     'import/resolver': {
       alias: {

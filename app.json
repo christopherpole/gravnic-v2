@@ -3,7 +3,7 @@
     "name": "Gravnic V2",
     "slug": "gravnic-v2",
     "platforms": ["ios", "android", "web"],
-    "entryPoint": "./src/app.tsx",
+    "entryPoint": "./src/main.tsx",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
