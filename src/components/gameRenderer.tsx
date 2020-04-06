@@ -3,87 +3,121 @@ import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
 
-import { ENTITIES_DATA } from '@/config';
-import entities from '@/assets/entities.png';
+import { ENTITY_SIZE, ENTITY_MOVE_SPEED } from '@/config';
+import entitiesSpritesheet from '@/assets/entities.png';
+import IEntityData from '@/types/entityData';
 
 const Wrapper = styled(GLView)`
   aspect-ratio: 1;
   width: 100%;
 `;
 
-const GameRenderer = () => (
-  <Wrapper
-    onContextCreate={async (context) => {
-      const app = new PIXI.Application({
-        context,
-        antialias: true,
-        resolution: 1,
-        transparent: true,
-      });
+interface IProps {
+  entitiesData: IEntityData[];
+}
 
-      const texture = await PIXI.Texture.fromExpoAsync(entities);
-      const entitiesContainer = new PIXI.Container(99999, {
-        scale: false,
-        position: false,
-      });
-      let sprite;
+interface ISprites {
+  [id: number]: {
+    x: number;
+    y: number;
+  };
+}
 
-      ENTITIES_DATA.forEach((entityRowData, i) => {
-        entityRowData.forEach(async (entityData, j) => {
-          if (entityData.staticEntity) {
-            sprite = PIXI.Sprite.from(texture);
+const entities: ISprites = {};
+let entitiesData: IEntityData[];
 
-            sprite.height = 150;
-            sprite.width = 150;
-            sprite.x = j * 150;
-            sprite.y = i * 150;
-            entitiesContainer.addChild(sprite);
-          }
+const GameRenderer = (props: IProps) => {
+  ({ entitiesData } = props);
 
-          if (entityData.movableEntity) {
-            sprite = PIXI.Sprite.from(texture);
+  return (
+    <Wrapper
+      onContextCreate={async (context) => {
+        const app = new PIXI.Application({
+          context,
+          antialias: true,
+          resolution: 1,
+          transparent: true,
+        });
 
-            sprite.height = 150;
-            sprite.width = 150;
-            sprite.x = j * 150;
-            sprite.y = i * 150;
+        const entitiesTexture = await PIXI.Texture.fromExpoAsync(
+          entitiesSpritesheet,
+        );
 
-            if (entityData.movableEntity.color) {
-              sprite.tint = entityData.movableEntity.color.replace('#', '0x');
+        const entitiesContainer = new PIXI.Container(99999, {
+          scale: false,
+          position: false,
+        });
+
+        /**
+         *  Renders the the entitiesSpritesheet based on the game state
+         */
+        const renderEntities = () => {
+          entitiesData.forEach((entityData: IEntityData) => {
+            const entitySprite = PIXI.Sprite.from(entitiesTexture);
+            entitySprite.x = entityData.x;
+            entitySprite.y = entityData.y;
+            entitySprite.height = ENTITY_SIZE;
+            entitySprite.width = ENTITY_SIZE;
+
+            if (entityData.color) {
+              entitySprite.tint = entityData.color;
             }
 
-            entitiesContainer.addChild(sprite);
-          }
-        });
-      });
+            entitiesContainer.addChild(entitySprite);
+            entities[entityData.id] = entitySprite;
+          });
+        };
 
-      //  Resize the entities container so that it fits on the screen
-      const entitiesContainerAspectRatio =
-        entitiesContainer.width / entitiesContainer.height;
+        const update = () => {
+          entitiesData.forEach((entityData) => {
+            if (entityData.x > entities[entityData.id].x) {
+              entities[entityData.id].x += ENTITY_MOVE_SPEED;
+            }
+            if (entityData.x < entities[entityData.id].x) {
+              entities[entityData.id].x -= ENTITY_MOVE_SPEED;
+            }
+            if (entityData.y < entities[entityData.id].y) {
+              entities[entityData.id].y -= ENTITY_MOVE_SPEED;
+            }
+            if (entityData.y > entities[entityData.id].y) {
+              entities[entityData.id].y += ENTITY_MOVE_SPEED;
+            }
+          });
+        };
 
-      //  Resize if bigger than the x axis
-      if (entitiesContainer.width > app.renderer.width) {
-        entitiesContainer.width = app.renderer.width;
-        entitiesContainer.height =
-          app.renderer.width / entitiesContainerAspectRatio;
-      }
+        renderEntities();
 
-      //  Resize if bigger than the y axis
-      if (entitiesContainer.height > app.renderer.height) {
-        entitiesContainer.height = app.renderer.height;
-        entitiesContainer.width =
-          app.renderer.height * entitiesContainerAspectRatio;
-      }
+        //  Resize the entitiesSpritesheet container so that it fits on the screen
+        const entitiesContainerAspectRatio =
+          entitiesContainer.width / entitiesContainer.height;
 
-      //  Centre the entities container
-      entitiesContainer.x =
-        app.renderer.width / 2 - entitiesContainer.width / 2;
-      entitiesContainer.y =
-        app.renderer.height / 2 - entitiesContainer.height / 2;
+        //  Resize if bigger than the x axis
+        if (entitiesContainer.width > app.renderer.width) {
+          entitiesContainer.width = app.renderer.width;
+          entitiesContainer.height =
+            app.renderer.width / entitiesContainerAspectRatio;
+        }
 
-      app.stage.addChild(entitiesContainer);
-    }}
-  />
-);
+        //  Resize if bigger than the y axis
+        if (entitiesContainer.height > app.renderer.height) {
+          entitiesContainer.height = app.renderer.height;
+          entitiesContainer.width =
+            app.renderer.height * entitiesContainerAspectRatio;
+        }
+
+        //  Centre the entitiesSpritesheet container
+        entitiesContainer.x =
+          app.renderer.width / 2 - entitiesContainer.width / 2;
+        entitiesContainer.y =
+          app.renderer.height / 2 - entitiesContainer.height / 2;
+
+        //  Setup the game loop
+        app.ticker.add(() => update());
+
+        app.stage.addChild(entitiesContainer);
+      }}
+    />
+  );
+};
 
 export default GameRenderer;
