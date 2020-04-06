@@ -19,6 +19,9 @@
     "react-native-screens": "~2.2.0",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
@@ -26,6 +29,7 @@
     "@react-native-community/eslint-config": "^1.0.0",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.61.17",
+    "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "babel-preset-expo": "~8.1.0",

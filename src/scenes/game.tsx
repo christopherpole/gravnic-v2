@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
-import { getInitialGameState, changeGravityDirection } from 'gravnic-game';
-import GestureRecognizer, {
-  swipeDirections,
-} from 'react-native-swipe-gestures';
+import GestureRecognizer from 'react-native-swipe-gestures';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { GAME_STATE, ENTITY_SIZE } from '@/config';
+import { makeMove } from '@/actions';
+import IState from '@/types/state';
+import { ENTITY_SIZE } from '@/config';
 import IEntityData from '@/types/entityData';
 import IGameState from '@/types/gameState';
 import GameRenderer from '@/components/gameRenderer';
@@ -43,10 +43,8 @@ const ActionsWrapper = styled(View)`
 `;
 
 const GameScene = () => {
-  let initialGameState = getInitialGameState(GAME_STATE);
-  initialGameState = initialGameState[initialGameState.length - 1];
-
-  const [gameState, setGameState] = useState<IGameState>(initialGameState);
+  const gameState = useSelector((state: IState) => state.gameState);
+  const dispatch = useDispatch();
 
   const getEntitiesData = (inputGameState: IGameState) => {
     const entitiesData: IEntityData[] = [];
@@ -87,28 +85,7 @@ const GameScene = () => {
     <Wrapper>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
-          let direction;
-
-          switch (swipeDirection) {
-            case swipeDirections.SWIPE_UP:
-              direction = 'MOVE_UP';
-              break;
-            case swipeDirections.SWIPE_RIGHT:
-              direction = 'MOVE_RIGHT';
-              break;
-            case swipeDirections.SWIPE_DOWN:
-              direction = 'MOVE_DOWN';
-              break;
-            case swipeDirections.SWIPE_LEFT:
-              direction = 'MOVE_LEFT';
-              break;
-            default:
-          }
-
-          initialGameState = changeGravityDirection(gameState, direction);
-          initialGameState = initialGameState[initialGameState.length - 1];
-
-          setGameState(initialGameState);
+          dispatch(makeMove(swipeDirection));
         }}
         config={{
           velocityThreshold: 0.2,
