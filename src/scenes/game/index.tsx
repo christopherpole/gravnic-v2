@@ -9,7 +9,7 @@ import {
   DIRECTIONAL_OFFSET_THRESHOLD,
 } from '@/config';
 import { makeMove } from '@/actions';
-import GameRenderer from '@/components/gameRenderer';
+import GameRenderer from '@/scenes/game/renderer';
 import Actions from '@/components/actions';
 import Button from '@/components/button';
 
