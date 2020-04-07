@@ -22,19 +22,19 @@ interface ISprites {
   };
 }
 
-const entitySprites: ISprites = {};
 let entitiesData: IEntityData[];
 
 const GameRenderer = () => {
+  const entitySprites: ISprites = {};
   const gameState = useSelector((state: IState) => state.gameState);
   entitiesData = getEntitiesDataFromGameState(gameState);
 
   return (
     <Wrapper
       onContextCreate={async (context) => {
-        let app: any;
-        let entitiesTexture: any;
-        let entitiesContainer: any;
+        let app: typeof PIXI.Application;
+        let entitiesTexture: typeof PIXI.Texture;
+        let entitiesContainer: typeof PIXI.Container;
 
         /**
          * Load assets to be used for the game
@@ -50,7 +50,7 @@ const GameRenderer = () => {
          */
         const renderEntities = () => {
           entitiesData.forEach((entityData: IEntityData) => {
-            //  Cretae the sprite
+            //  Create the sprite
             const entitySprite = PIXI.Sprite.from(entitiesTexture);
 
             //  Resize the sprite
@@ -115,7 +115,7 @@ const GameRenderer = () => {
               app.renderer.height * entitiesContainerAspectRatio;
           }
 
-          //  Centre the entitiesSpritesheet container
+          //  Centre the entities container
           entitiesContainer.x =
             app.renderer.width / 2 - entitiesContainer.width / 2;
           entitiesContainer.y =
