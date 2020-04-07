@@ -7,7 +7,7 @@ const theme = {
     },
   },
   spacing: {
-    small: '2%',
+    small: '1%',
     medium: '5%',
     large: '10%',
   },

@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
+import {
+  SWIPE_VELOCITY_THRESHOLD,
+  DIRECTIONAL_OFFSET_THRESHOLD,
+} from '@/config';
 import { makeMove } from '@/actions';
-import IState from '@/types/state';
-import { ENTITY_SIZE } from '@/config';
-import IEntityData from '@/types/entityData';
-import IGameState from '@/types/gameState';
 import GameRenderer from '@/components/gameRenderer';
 import Actions from '@/components/actions';
 import Button from '@/components/button';
@@ -43,43 +43,7 @@ const ActionsWrapper = styled(View)`
 `;
 
 const GameScene = () => {
-  const gameState = useSelector((state: IState) => state.gameState);
   const dispatch = useDispatch();
-
-  const getEntitiesData = (inputGameState: IGameState) => {
-    const entitiesData: IEntityData[] = [];
-
-    //  Add the static entities
-    inputGameState.forEach((entityRow, i) => {
-      entityRow.forEach((entityData, j) => {
-        if (entityData.staticEntity) {
-          entitiesData.push({
-            id: entityData.staticEntity.id,
-            x: j * ENTITY_SIZE,
-            y: i * ENTITY_SIZE,
-          });
-        }
-      });
-    });
-
-    //  Add the movable entities
-    inputGameState.forEach((entityRow, i) => {
-      entityRow.forEach((entityData, j) => {
-        if (entityData.movableEntity) {
-          entitiesData.push({
-            id: entityData.movableEntity.id,
-            x: j * ENTITY_SIZE,
-            y: i * ENTITY_SIZE,
-            color: entityData.movableEntity.color
-              ? entityData.movableEntity.color.replace('#', '0x')
-              : undefined,
-          });
-        }
-      });
-    });
-
-    return entitiesData;
-  };
 
   return (
     <Wrapper>
@@ -88,14 +52,15 @@ const GameScene = () => {
           dispatch(makeMove(swipeDirection));
         }}
         config={{
-          velocityThreshold: 0.2,
-          directionalOffsetThreshold: 50,
+          velocityThreshold: SWIPE_VELOCITY_THRESHOLD,
+          directionalOffsetThreshold: DIRECTIONAL_OFFSET_THRESHOLD,
         }}
       >
         <GameAreaWrapper>
-          <GameRenderer entitiesData={getEntitiesData(gameState)} />
+          <GameRenderer />
         </GameAreaWrapper>
       </StyledGestureRecognizer>
+
       <ActionsWrapper>
         <Actions>
           <Button>Menu</Button>

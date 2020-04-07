@@ -1,5 +1,11 @@
 import IGameState from '@/types/gameState';
 
+//  Swiping
+export const SWIPE_VELOCITY_THRESHOLD = 0.2;
+export const DIRECTIONAL_OFFSET_THRESHOLD = 50;
+
+//  Game renderer
+export const MAX_ENTITIES_COUNT = 1000;
 export const ENTITY_MOVE_SPEED = 10;
 export const ENTITY_SIZE = 100;
 export const GAME_STATE: IGameState = [

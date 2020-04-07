@@ -2,19 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
+import { useSelector } from 'react-redux';
 
-import { ENTITY_SIZE, ENTITY_MOVE_SPEED } from '@/config';
+import IState from '@/types/state';
+import { ENTITY_SIZE, ENTITY_MOVE_SPEED, MAX_ENTITIES_COUNT } from '@/config';
 import entitiesSpritesheet from '@/assets/entities.png';
 import IEntityData from '@/types/entityData';
+import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
 
 const Wrapper = styled(GLView)`
   aspect-ratio: 1;
   width: 100%;
 `;
-
-interface IProps {
-  entitiesData: IEntityData[];
-}
 
 interface ISprites {
   [id: number]: {
@@ -26,8 +25,9 @@ interface ISprites {
 const entities: ISprites = {};
 let entitiesData: IEntityData[];
 
-const GameRenderer = (props: IProps) => {
-  ({ entitiesData } = props);
+const GameRenderer = () => {
+  const gameState = useSelector((state: IState) => state.gameState);
+  entitiesData = getEntitiesDataFromGameState(gameState);
 
   return (
     <Wrapper
@@ -43,7 +43,8 @@ const GameRenderer = (props: IProps) => {
           entitiesSpritesheet,
         );
 
-        const entitiesContainer = new PIXI.Container(99999, {
+        //  Container for the entities
+        const entitiesContainer = new PIXI.Container(MAX_ENTITIES_COUNT, {
           scale: false,
           position: false,
         });
