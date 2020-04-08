@@ -1,386 +1,389 @@
 import IGameState from '@/types/gameState';
 
 //  Swiping
-export const SWIPE_VELOCITY_THRESHOLD = 0.2;
-export const DIRECTIONAL_OFFSET_THRESHOLD = 50;
+export const SWIPE_VELOCITY_THRESHOLD = 0.3;
+export const DIRECTIONAL_OFFSET_THRESHOLD = 80;
 
 //  Game renderer
 export const MAX_ENTITIES_COUNT = 1000;
-export const ENTITY_MOVE_SPEED = 10;
+export const ENTITY_MOVE_SPEED = 20;
 export const ENTITY_SIZE = 100;
-export const GAME_STATE: IGameState = [
-  [
-    { staticEntity: { entityId: 'FLOOR', id: 1 }, movableEntity: null },
-    {
-      staticEntity: { entityId: 'FLOOR', id: 3 },
-      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 2 },
-    },
-    { staticEntity: { entityId: 'FLOOR', id: 4 }, movableEntity: null },
-  ],
-];
-
 // export const GAME_STATE: IGameState = [
 //   [
 //     { staticEntity: { entityId: 'FLOOR', id: 1 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 2 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 3 }, movableEntity: null },
+//     {
+//       staticEntity: { entityId: 'FLOOR', id: 3 },
+//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 2 },
+//     },
 //     { staticEntity: { entityId: 'FLOOR', id: 4 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 5 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 6 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 7 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 8 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 9 }, movableEntity: null },
-//     { staticEntity: { entityId: 'FLOOR', id: 10 }, movableEntity: null },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 11 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 13 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 12 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 15 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 14 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 17 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 16 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 19 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 18 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 21 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 20 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 23 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 22 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 25 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 24 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 27 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 26 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 29 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 28 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 30 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 32 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 31 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 34 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 33 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 36 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 35 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 38 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 37 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 40 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 39 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 42 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 41 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 44 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 43 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 46 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 45 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 48 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 47 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 49 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 51 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 50 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 53 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 52 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 55 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 54 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 57 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 56 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 59 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 58 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 61 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 60 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 63 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 62 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 65 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 64 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 67 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 66 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 68 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 70 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 69 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 72 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 71 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 74 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 73 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 76 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 75 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 78 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 77 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 80 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 79 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 82 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 81 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 84 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 83 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 86 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 85 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 87 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 89 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 88 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 91 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 90 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 93 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 92 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 95 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 94 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 97 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 96 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 99 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 98 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 101 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 100 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 103 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 102 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 105 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 104 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 106 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 108 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 107 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 110 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 109 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 112 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 111 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 114 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 113 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 116 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 115 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 118 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 117 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 120 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 119 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 122 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 121 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 124 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 123 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 125 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 127 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 126 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 129 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 128 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 131 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 130 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 133 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 132 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 135 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 134 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 137 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 136 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 139 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 138 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 141 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 140 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 143 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 142 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 144 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 146 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 145 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 148 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 147 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 150 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 149 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 152 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 151 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 154 },
-//       movableEntity: { entityId: 'BLOCK', color: '#008000', id: 153 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 156 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 155 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 158 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 157 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 160 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 159 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 162 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 161 },
-//     },
-//   ],
-//   [
-//     { staticEntity: { entityId: 'FLOOR', id: 163 }, movableEntity: null },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 165 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 164 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 167 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 166 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 169 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 168 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 171 },
-//       movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 170 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 173 },
-//       movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 172 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 175 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 174 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 177 },
-//       movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 176 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 179 },
-//       movableEntity: { entityId: 'BLOCK', color: '#800080', id: 178 },
-//     },
-//     {
-//       staticEntity: { entityId: 'FLOOR', id: 181 },
-//       movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 180 },
-//     },
 //   ],
 // ];
+
+export const GAME_STATE: IGameState = [
+  [
+    { staticEntity: { entityId: 'FLOOR', id: 1 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 2 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 3 }, movableEntity: null },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 5 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 4 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 7 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 6 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 9 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 8 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 11 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 10 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 13 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 12 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 15 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 14 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 17 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 16 },
+    },
+  ],
+  [
+    { staticEntity: { entityId: 'FLOOR', id: 18 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 19 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 20 }, movableEntity: null },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 22 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 21 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 24 },
+      movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 23 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 26 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 25 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 28 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 27 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 30 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 29 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 32 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 31 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 34 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 33 },
+    },
+  ],
+  [
+    { staticEntity: { entityId: 'FLOOR', id: 35 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 36 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 37 }, movableEntity: null },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 39 },
+      movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 38 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 41 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 40 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 43 },
+      movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 42 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 45 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 44 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 47 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 46 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 49 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 48 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 51 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 50 },
+    },
+  ],
+  [
+    { staticEntity: { entityId: 'FLOOR', id: 52 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 53 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 54 }, movableEntity: null },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 56 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 55 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 58 },
+      movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 57 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 60 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 59 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 62 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 61 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 64 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 63 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 66 },
+      movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 65 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 68 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 67 },
+    },
+  ],
+  [
+    { staticEntity: { entityId: 'FLOOR', id: 69 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 70 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 71 }, movableEntity: null },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 73 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 72 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 75 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 74 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 77 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 76 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 79 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 78 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 81 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 80 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 83 },
+      movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 82 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 85 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 84 },
+    },
+  ],
+  [
+    { staticEntity: { entityId: 'FLOOR', id: 86 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 87 }, movableEntity: null },
+    { staticEntity: { entityId: 'FLOOR', id: 88 }, movableEntity: null },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 90 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 89 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 92 },
+      movableEntity: { entityId: 'BLOCK', color: '#FF8C00', id: 91 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 94 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 93 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 96 },
+      movableEntity: { entityId: 'BLOCK', color: '#008000', id: 95 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 98 },
+      movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 97 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 100 },
+      movableEntity: { entityId: 'BLOCK', color: '#FFFF00', id: 99 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 102 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 101 },
+    },
+  ],
+  [
+    {
+      staticEntity: { entityId: 'FLOOR', id: 103 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 104 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 105 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 107 },
+      movableEntity: { entityId: 'BLOCK', color: '#800080', id: 106 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 109 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 108 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 111 },
+      movableEntity: { entityId: 'BLOCK', color: '#8B4513', id: 110 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 113 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 112 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 115 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 114 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 117 },
+      movableEntity: { entityId: 'BLOCK', color: '#0000FF', id: 116 },
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 119 },
+      movableEntity: { entityId: 'BLOCK', color: '#ff0000', id: 118 },
+    },
+  ],
+  [
+    {
+      staticEntity: { entityId: 'FLOOR', id: 120 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 121 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 122 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 123 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 124 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 125 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 126 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 127 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 128 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 129 },
+      movableEntity: null,
+    },
+  ],
+  [
+    {
+      staticEntity: { entityId: 'FLOOR', id: 130 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 131 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 132 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 133 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 134 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 135 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 136 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 137 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 138 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 139 },
+      movableEntity: null,
+    },
+  ],
+  [
+    {
+      staticEntity: { entityId: 'FLOOR', id: 140 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 141 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 142 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 143 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 144 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 145 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 146 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 147 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 148 },
+      movableEntity: null,
+    },
+    {
+      staticEntity: { entityId: 'FLOOR', id: 149 },
+      movableEntity: null,
+    },
+  ],
+];

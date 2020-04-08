@@ -4,7 +4,7 @@ import IState from '@/types/state';
 import { MAKE_MOVE, IAction } from '@/actions';
 
 const initialState = {
-  gameState: GAME_STATE,
+  gameStateHistory: [[GAME_STATE]],
 };
 
 const reducer = (state: IState = initialState, action: IAction) => {
@@ -12,7 +12,10 @@ const reducer = (state: IState = initialState, action: IAction) => {
     case MAKE_MOVE: {
       return {
         ...state,
-        gameState: action.payload.gameState,
+        gameStateHistory: [
+          ...state.gameStateHistory,
+          action.payload.newGameStates,
+        ],
       };
     }
     default: {

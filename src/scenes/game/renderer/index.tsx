@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 import IState from '@/types/state';
 import { ENTITY_SIZE, ENTITY_MOVE_SPEED, MAX_ENTITIES_COUNT } from '@/config';
 import entitiesSpritesheet from '@/assets/entities.png';
-import IEntityData from '@/types/entityData';
+// import IEntityData from '@/types/entityData';
+import IGameState from '@/types/gameState';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
 
 const Wrapper = styled(GLView)`
@@ -23,15 +24,19 @@ interface ISprites {
 }
 
 //  This needs to be kept here for it to work
-let entitiesData: IEntityData[];
-const entitySprites: ISprites = {};
+let remainingMoves: IGameState[] = [];
 
 const GameRenderer = () => {
-  entitiesData = getEntitiesDataFromGameState(
-    useSelector((state: IState) => state.gameState),
+  const gameStateHistory = useSelector(
+    (state: IState) => state.gameStateHistory,
   );
 
+  useEffect(() => {
+    remainingMoves = [...gameStateHistory[gameStateHistory.length - 1]];
+  }, [gameStateHistory]);
+
   const onGLContextCreate = async (context: any) => {
+    const entitySprites: ISprites = {};
     let app: typeof PIXI.Application;
     let entitiesTexture: typeof PIXI.Texture;
     let entitiesContainer: typeof PIXI.Container;
@@ -47,7 +52,7 @@ const GameRenderer = () => {
      * Renders the entities for the first time
      */
     const renderEntities = () => {
-      entitiesData.forEach((entityData: IEntityData) => {
+      getEntitiesDataFromGameState(remainingMoves[0]).forEach((entityData) => {
         //  Create the sprite
         const entitySprite = PIXI.Sprite.from(entitiesTexture);
 
@@ -74,22 +79,36 @@ const GameRenderer = () => {
      * The update loop
      */
     const update = () => {
+      if (!remainingMoves.length) return;
+
       //  Move all of the entities where applicable
-      entitiesData.forEach((entityData) => {
+      let entitiesMoving = false;
+
+      getEntitiesDataFromGameState(remainingMoves[0]).forEach((entityData) => {
         //  x-axis
         if (entityData.x > entitySprites[entityData.id].x) {
           entitySprites[entityData.id].x += ENTITY_MOVE_SPEED;
+          entitiesMoving = true;
         } else if (entityData.x < entitySprites[entityData.id].x) {
           entitySprites[entityData.id].x -= ENTITY_MOVE_SPEED;
+          entitiesMoving = true;
         }
 
         //  y-axis
         if (entityData.y < entitySprites[entityData.id].y) {
           entitySprites[entityData.id].y -= ENTITY_MOVE_SPEED;
+          entitiesMoving = true;
         } else if (entityData.y > entitySprites[entityData.id].y) {
           entitySprites[entityData.id].y += ENTITY_MOVE_SPEED;
+          entitiesMoving = true;
         }
       });
+
+      //  If entities have stopped moving then remove the current move from the stack
+      if (!entitiesMoving) {
+        remainingMoves.shift();
+        update();
+      }
     };
 
     /**

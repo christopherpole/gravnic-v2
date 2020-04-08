@@ -9,7 +9,7 @@ export const MAKE_MOVE = 'MAKE_MOVE';
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
   payload: {
-    gameState: IGameState;
+    newGameStates: IGameState[];
   };
 }
 
@@ -22,7 +22,7 @@ export const makeMove = (
     | swipeDirections.SWIPE_DOWN
     | swipeDirections.SWIPE_LEFT,
 ) => (dispatch: (action: IMakeMove) => void, getState: () => IState) => {
-  const { gameState } = getState();
+  const { gameStateHistory } = getState();
   let direction;
 
   //  Determine which direction we want to move in
@@ -43,14 +43,17 @@ export const makeMove = (
   }
 
   //  Calculate the latest game state from the given direction
-  const newGameStates = changeGravityDirection(gameState, direction);
-  const lastGameState = newGameStates[newGameStates.length - 1];
+  const lastMove = gameStateHistory[gameStateHistory.length - 1];
+  const newGameStates = changeGravityDirection(
+    lastMove[lastMove.length - 1],
+    direction,
+  );
 
   //  Dispatch the action
   dispatch({
     type: MAKE_MOVE,
     payload: {
-      gameState: lastGameState,
+      newGameStates,
     },
   });
 };
