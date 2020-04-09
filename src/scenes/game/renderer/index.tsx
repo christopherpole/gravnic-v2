@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import IState from '@/types/state';
 import {
@@ -11,6 +11,7 @@ import {
   ENTITY_FADE_SPEED,
   MAX_ENTITIES_COUNT,
 } from '@/config';
+import { setEntitiesMoving } from '@/actions';
 import entitiesSpritesheet from '@/assets/entities.png';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
@@ -35,6 +36,8 @@ const GameRenderer = () => {
   const gameStateHistory = useSelector(
     (state: IState) => state.gameStateHistory,
   );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     //  Convert new game state moves to entities data to animate
@@ -127,6 +130,11 @@ const GameRenderer = () => {
       if (!entitiesMoving) {
         remainingEntitiesData.shift();
         update();
+      }
+
+      //  If there's nothing left to animate then allow moves again
+      if (remainingEntitiesData.length === 0) {
+        dispatch(setEntitiesMoving(false));
       }
     };
 

@@ -1,10 +1,11 @@
 import { GAME_STATE } from '@/config';
 
 import IState from '@/types/state';
-import { MAKE_MOVE, IAction } from '@/actions';
+import { MAKE_MOVE, SET_ENTITIES_MOVING, IAction } from '@/actions';
 
 const initialState = {
   gameStateHistory: [[GAME_STATE]],
+  entitiesMoving: false,
 };
 
 const reducer = (state: IState = initialState, action: IAction) => {
@@ -16,8 +17,17 @@ const reducer = (state: IState = initialState, action: IAction) => {
           ...state.gameStateHistory,
           action.payload.newGameStates,
         ],
+        entitiesMoving: true,
       };
     }
+
+    case SET_ENTITIES_MOVING: {
+      return {
+        ...state,
+        entitiesMoving: action.payload.entitiesMoving,
+      };
+    }
+
     default: {
       return state;
     }
