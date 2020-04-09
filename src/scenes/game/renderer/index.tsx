@@ -11,7 +11,7 @@ import {
   ENTITY_FADE_SPEED,
   MAX_ENTITIES_COUNT,
 } from '@/config';
-import { setEntitiesMoving } from '@/actions';
+import { setEntitiesMoving, setLevelLoaded } from '@/actions';
 import entitiesSpritesheet from '@/assets/entities.png';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
@@ -29,22 +29,25 @@ interface ISprites {
   };
 }
 
-//  This needs to be kept here for it to work
+//  These needs to be kept here for it to work
 let remainingEntitiesData: IEntityData[][] = [];
+let loaded: boolean = false;
 
 const GameRenderer = () => {
   const gameStateHistory = useSelector(
     (state: IState) => state.gameStateHistory,
   );
+  const levelLoaded = useSelector((state: IState) => state.levelLoaded);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     //  Convert new game state moves to entities data to animate
+    loaded = levelLoaded;
     remainingEntitiesData = [
       ...gameStateHistory[gameStateHistory.length - 1],
     ].map((gameState) => getEntitiesDataFromGameState(gameState));
-  }, [gameStateHistory]);
+  }, [levelLoaded, gameStateHistory]);
 
   const onGLContextCreate = async (context: any) => {
     const entitySprites: ISprites = {};
@@ -60,9 +63,48 @@ const GameRenderer = () => {
     };
 
     /**
+     * Resize the entities container so that it fits on the screen
+     */
+    const resizeEntitiesContainer = () => {
+      const entitiesContainerAspectRatio =
+        entitiesContainer.width / entitiesContainer.height;
+
+      //  Resize if bigger than the x axis
+      if (entitiesContainer.width > app.renderer.width) {
+        entitiesContainer.width = app.renderer.width;
+        entitiesContainer.height =
+          app.renderer.width / entitiesContainerAspectRatio;
+      }
+
+      //  Resize if bigger than the y axis
+      if (entitiesContainer.height > app.renderer.height) {
+        entitiesContainer.height = app.renderer.height;
+        entitiesContainer.width =
+          app.renderer.height * entitiesContainerAspectRatio;
+      }
+
+      //  Centre the entities container
+      entitiesContainer.x =
+        app.renderer.width / 2 - entitiesContainer.width / 2;
+      entitiesContainer.y =
+        app.renderer.height / 2 - entitiesContainer.height / 2;
+    };
+    /**
      * Renders the entities for the first time
      */
     const renderEntities = () => {
+      if (!remainingEntitiesData.length) return;
+
+      //  Remove any existing level from the stage
+      app.stage.removeChild(entitiesContainer);
+
+      //  Create container for the entities
+      entitiesContainer = new PIXI.Container(MAX_ENTITIES_COUNT, {
+        scale: false,
+        position: false,
+      });
+
+      //  Draw the initial game state
       remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
         const entitySprite = PIXI.Sprite.from(entitiesTexture);
@@ -84,17 +126,27 @@ const GameRenderer = () => {
         entitiesContainer.addChild(entitySprite);
         entitySprites[entityData.id] = entitySprite;
       });
+
+      app.stage.addChild(entitiesContainer);
+      resizeEntitiesContainer();
+
+      dispatch(setLevelLoaded(true));
     };
 
     /**
      * The update loop
      */
     const update = () => {
+      //  If the level isn't loaded then don't do anything
+      if (!loaded) {
+        renderEntities();
+      }
+
+      //  If there is no animations to perform then don't do anything
       if (!remainingEntitiesData.length) return;
 
       //  Move all of the entities where applicable
       let entitiesMoving = false;
-
       remainingEntitiesData[0].forEach((entityData) => {
         const currentEntitySprite = entitySprites[entityData.id];
 
@@ -139,34 +191,6 @@ const GameRenderer = () => {
     };
 
     /**
-     * Resize the entities container so that it fits on the screen
-     */
-    const resizeEntitiesContainer = () => {
-      const entitiesContainerAspectRatio =
-        entitiesContainer.width / entitiesContainer.height;
-
-      //  Resize if bigger than the x axis
-      if (entitiesContainer.width > app.renderer.width) {
-        entitiesContainer.width = app.renderer.width;
-        entitiesContainer.height =
-          app.renderer.width / entitiesContainerAspectRatio;
-      }
-
-      //  Resize if bigger than the y axis
-      if (entitiesContainer.height > app.renderer.height) {
-        entitiesContainer.height = app.renderer.height;
-        entitiesContainer.width =
-          app.renderer.height * entitiesContainerAspectRatio;
-      }
-
-      //  Centre the entities container
-      entitiesContainer.x =
-        app.renderer.width / 2 - entitiesContainer.width / 2;
-      entitiesContainer.y =
-        app.renderer.height / 2 - entitiesContainer.height / 2;
-    };
-
-    /**
      * Init the game
      */
     const init = async () => {
@@ -181,16 +205,8 @@ const GameRenderer = () => {
       //  Load in any assets required
       await loadAssets();
 
-      //  Create container for the entities
-      entitiesContainer = new PIXI.Container(MAX_ENTITIES_COUNT, {
-        scale: false,
-        position: false,
-      });
-
       //  Render the entities onto the stage
       renderEntities();
-      resizeEntitiesContainer();
-      app.stage.addChild(entitiesContainer);
 
       //  Setup the game loop
       app.ticker.add(() => update());

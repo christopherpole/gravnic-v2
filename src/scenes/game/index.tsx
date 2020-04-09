@@ -8,7 +8,7 @@ import {
   SWIPE_VELOCITY_THRESHOLD,
   DIRECTIONAL_OFFSET_THRESHOLD,
 } from '@/config';
-import { makeMove } from '@/actions';
+import { makeMove, resetLevel } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Actions from '@/components/actions';
 import Button from '@/components/button';
@@ -65,7 +65,13 @@ const GameScene = () => {
         <Actions>
           <Button>Menu</Button>
           <Button>Undo</Button>
-          <Button>Restart</Button>
+          <Button
+            onPress={() => {
+              dispatch(resetLevel());
+            }}
+          >
+            Restart
+          </Button>
           <Button>Settings</Button>
         </Actions>
       </ActionsWrapper>

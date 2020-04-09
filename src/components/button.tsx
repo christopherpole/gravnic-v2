@@ -18,10 +18,11 @@ const ButtonText = styled(Text)`
 
 interface IProps {
   children: string;
+  onPress?: () => void;
 }
 
-const Button = ({ children }: IProps) => (
-  <Wrapper>
+const Button = ({ children, ...rest }: IProps) => (
+  <Wrapper {...rest}>
     <ButtonText>{children}</ButtonText>
   </Wrapper>
 );

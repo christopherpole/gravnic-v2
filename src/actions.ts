@@ -6,6 +6,8 @@ import { swipeDirections } from 'react-native-swipe-gestures';
 
 export const MAKE_MOVE = 'MAKE_MOVE';
 export const SET_ENTITIES_MOVING = 'SET_ENTITIES_MOVING';
+export const RESET_LEVEL = 'RESET_LEVEL';
+export const SET_LEVEL_LOADED = 'SET_LEVEL_LOADED';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -19,8 +21,21 @@ export interface ISetEntitiesMoving {
     entitiesMoving: boolean;
   };
 }
+export interface IResetLevel {
+  type: typeof RESET_LEVEL;
+}
+export interface ISetLevelLoaded {
+  type: typeof SET_LEVEL_LOADED;
+  payload: {
+    levelLoaded: boolean;
+  };
+}
 
-export type IAction = IMakeMove | ISetEntitiesMoving;
+export type IAction =
+  | IMakeMove
+  | ISetEntitiesMoving
+  | IResetLevel
+  | ISetLevelLoaded;
 
 export const makeMove = (
   swipeDirection:
@@ -70,9 +85,22 @@ export const makeMove = (
   });
 };
 
-export const setEntitiesMoving = (entitiesMoving: boolean) => ({
+export const setEntitiesMoving = (
+  entitiesMoving: boolean,
+): ISetEntitiesMoving => ({
   type: SET_ENTITIES_MOVING,
   payload: {
     entitiesMoving,
+  },
+});
+
+export const resetLevel = (): IResetLevel => ({
+  type: RESET_LEVEL,
+});
+
+export const setLevelLoaded = (levelLoaded: boolean): ISetLevelLoaded => ({
+  type: SET_LEVEL_LOADED,
+  payload: {
+    levelLoaded,
   },
 });
