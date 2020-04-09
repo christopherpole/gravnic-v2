@@ -7,6 +7,7 @@ interface IStaticEntity extends IEntity {}
 
 interface IMovableEntity extends IEntity {
   color?: string;
+  fading?: boolean;
 }
 
 interface ITileData {

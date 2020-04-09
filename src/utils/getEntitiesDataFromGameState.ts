@@ -31,6 +31,7 @@ const getEntitiesDataFromGameState = (inputGameState: IGameState) => {
           id: entityData.movableEntity.id,
           x: j * ENTITY_SIZE,
           y: i * ENTITY_SIZE,
+          fading: entityData.movableEntity.fading,
           color: entityData.movableEntity.color
             ? entityData.movableEntity.color.replace('#', '0x')
             : undefined,

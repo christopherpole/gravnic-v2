@@ -5,10 +5,14 @@ import { GLView } from 'expo-gl';
 import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
-import { ENTITY_SIZE, ENTITY_MOVE_SPEED, MAX_ENTITIES_COUNT } from '@/config';
+import {
+  ENTITY_SIZE,
+  ENTITY_MOVE_SPEED,
+  ENTITY_FADE_SPEED,
+  MAX_ENTITIES_COUNT,
+} from '@/config';
 import entitiesSpritesheet from '@/assets/entities.png';
-// import IEntityData from '@/types/entityData';
-import IGameState from '@/types/gameState';
+import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
 
 const Wrapper = styled(GLView)`
@@ -20,11 +24,12 @@ interface ISprites {
   [id: number]: {
     x: number;
     y: number;
+    alpha: number;
   };
 }
 
 //  This needs to be kept here for it to work
-let remainingMoves: IGameState[] = [];
+let remainingEntitiesData: IEntityData[][] = [];
 
 const GameRenderer = () => {
   const gameStateHistory = useSelector(
@@ -32,7 +37,10 @@ const GameRenderer = () => {
   );
 
   useEffect(() => {
-    remainingMoves = [...gameStateHistory[gameStateHistory.length - 1]];
+    //  Convert new game state moves to entities data to animate
+    remainingEntitiesData = [
+      ...gameStateHistory[gameStateHistory.length - 1],
+    ].map((gameState) => getEntitiesDataFromGameState(gameState));
   }, [gameStateHistory]);
 
   const onGLContextCreate = async (context: any) => {
@@ -52,7 +60,7 @@ const GameRenderer = () => {
      * Renders the entities for the first time
      */
     const renderEntities = () => {
-      getEntitiesDataFromGameState(remainingMoves[0]).forEach((entityData) => {
+      remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
         const entitySprite = PIXI.Sprite.from(entitiesTexture);
 
@@ -79,34 +87,45 @@ const GameRenderer = () => {
      * The update loop
      */
     const update = () => {
-      if (!remainingMoves.length) return;
+      if (!remainingEntitiesData.length) return;
 
       //  Move all of the entities where applicable
       let entitiesMoving = false;
 
-      getEntitiesDataFromGameState(remainingMoves[0]).forEach((entityData) => {
+      remainingEntitiesData[0].forEach((entityData) => {
+        const currentEntitySprite = entitySprites[entityData.id];
+
         //  x-axis
-        if (entityData.x > entitySprites[entityData.id].x) {
-          entitySprites[entityData.id].x += ENTITY_MOVE_SPEED;
+        if (entityData.x > currentEntitySprite.x) {
+          currentEntitySprite.x += ENTITY_MOVE_SPEED;
           entitiesMoving = true;
-        } else if (entityData.x < entitySprites[entityData.id].x) {
-          entitySprites[entityData.id].x -= ENTITY_MOVE_SPEED;
+        } else if (entityData.x < currentEntitySprite.x) {
+          currentEntitySprite.x -= ENTITY_MOVE_SPEED;
           entitiesMoving = true;
         }
 
         //  y-axis
-        if (entityData.y < entitySprites[entityData.id].y) {
-          entitySprites[entityData.id].y -= ENTITY_MOVE_SPEED;
+        if (entityData.y < currentEntitySprite.y) {
+          currentEntitySprite.y -= ENTITY_MOVE_SPEED;
           entitiesMoving = true;
-        } else if (entityData.y > entitySprites[entityData.id].y) {
-          entitySprites[entityData.id].y += ENTITY_MOVE_SPEED;
+        } else if (entityData.y > currentEntitySprite.y) {
+          currentEntitySprite.y += ENTITY_MOVE_SPEED;
           entitiesMoving = true;
+        }
+
+        //  Opacity
+        if (entityData.fading) {
+          currentEntitySprite.alpha -= ENTITY_FADE_SPEED / ENTITY_SIZE;
+
+          if (currentEntitySprite.alpha > 0) {
+            entitiesMoving = true;
+          }
         }
       });
 
       //  If entities have stopped moving then remove the current move from the stack
       if (!entitiesMoving) {
-        remainingMoves.shift();
+        remainingEntitiesData.shift();
         update();
       }
     };
