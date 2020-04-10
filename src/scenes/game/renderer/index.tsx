@@ -10,6 +10,7 @@ import {
   ENTITY_MOVE_SPEED,
   ENTITY_FADE_SPEED,
   MAX_ENTITIES_COUNT,
+  UNDOING_SPEED_MULTIPLIER,
 } from '@/config';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions';
 import entitiesSpritesheet from '@/assets/entities.png';
@@ -29,25 +30,54 @@ interface ISprites {
   };
 }
 
-//  These needs to be kept here for it to work
-let remainingEntitiesData: IEntityData[][] = [];
-let loaded: boolean = false;
+interface ICurrentState {
+  remainingEntitiesData: IEntityData[][];
+  loaded: boolean;
+  undoing: boolean;
+}
+
+//  @FIXME - These needs to be kept here for it to work. What a mess
+const currentState: ICurrentState = {
+  remainingEntitiesData: [],
+  loaded: false,
+  undoing: false,
+};
 
 const GameRenderer = () => {
   const gameStateHistory = useSelector(
     (state: IState) => state.gameStateHistory,
   );
   const levelLoaded = useSelector((state: IState) => state.levelLoaded);
+  const undoing = useSelector((state: IState) => state.undoing);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //  Convert new game state moves to entities data to animate
-    loaded = levelLoaded;
-    remainingEntitiesData = [
+    //  Get the most recent moves
+    let gameStatesToAnimate = [
       ...gameStateHistory[gameStateHistory.length - 1],
-    ].map((gameState) => getEntitiesDataFromGameState(gameState));
-  }, [levelLoaded, gameStateHistory]);
+    ];
+
+    //  If we're undoing then reverse the array and add the last state of the previous move
+    if (undoing) {
+      const previousMove = gameStateHistory[gameStateHistory.length - 2];
+      gameStatesToAnimate.reverse();
+      gameStatesToAnimate.push(previousMove[previousMove.length - 1]);
+    }
+    //  If we've just stopped undoing then no need to animate the latest move
+    else if (currentState.undoing && !undoing) {
+      gameStatesToAnimate = [];
+    }
+
+    //  Convert new game state moves to entities data to animate
+    currentState.loaded = levelLoaded;
+    currentState.undoing = undoing;
+
+    //  Convert the game states to entities data
+    currentState.remainingEntitiesData = gameStatesToAnimate.map((gameState) =>
+      getEntitiesDataFromGameState(gameState),
+    );
+  }, [levelLoaded, gameStateHistory, undoing]);
 
   const onGLContextCreate = async (context: any) => {
     const entitySprites: ISprites = {};
@@ -93,7 +123,7 @@ const GameRenderer = () => {
      * Renders the entities for the first time
      */
     const renderEntities = () => {
-      if (!remainingEntitiesData.length) return;
+      if (!currentState.remainingEntitiesData.length) return;
 
       //  Remove any existing level from the stage
       app.stage.removeChild(entitiesContainer);
@@ -105,7 +135,7 @@ const GameRenderer = () => {
       });
 
       //  Draw the initial game state
-      remainingEntitiesData[0].forEach((entityData) => {
+      currentState.remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
         const entitySprite = PIXI.Sprite.from(entitiesTexture);
 
@@ -138,41 +168,53 @@ const GameRenderer = () => {
      */
     const update = () => {
       //  If the level isn't loaded then don't do anything
-      if (!loaded) {
+      if (!currentState.loaded) {
         renderEntities();
       }
 
       //  If there is no animations to perform then don't do anything
-      if (!remainingEntitiesData.length) return;
+      if (!currentState.remainingEntitiesData.length) return;
 
       //  Move all of the entities where applicable
       let entitiesMoving = false;
-      remainingEntitiesData[0].forEach((entityData) => {
+      currentState.remainingEntitiesData[0].forEach((entityData) => {
         const currentEntitySprite = entitySprites[entityData.id];
+
+        //  Undoing speed multiplier
+        const moveSpeed =
+          ENTITY_MOVE_SPEED *
+          (currentState.undoing ? UNDOING_SPEED_MULTIPLIER : 1);
+        const fadeSpeed =
+          ENTITY_FADE_SPEED *
+          (currentState.undoing ? UNDOING_SPEED_MULTIPLIER : 1);
 
         //  x-axis
         if (entityData.x > currentEntitySprite.x) {
-          currentEntitySprite.x += ENTITY_MOVE_SPEED;
+          currentEntitySprite.x += moveSpeed;
           entitiesMoving = true;
         } else if (entityData.x < currentEntitySprite.x) {
-          currentEntitySprite.x -= ENTITY_MOVE_SPEED;
+          currentEntitySprite.x -= moveSpeed;
           entitiesMoving = true;
         }
 
         //  y-axis
         if (entityData.y < currentEntitySprite.y) {
-          currentEntitySprite.y -= ENTITY_MOVE_SPEED;
+          currentEntitySprite.y -= moveSpeed;
           entitiesMoving = true;
         } else if (entityData.y > currentEntitySprite.y) {
-          currentEntitySprite.y += ENTITY_MOVE_SPEED;
+          currentEntitySprite.y += moveSpeed;
           entitiesMoving = true;
         }
 
         //  Opacity
         if (entityData.fading) {
-          currentEntitySprite.alpha -= ENTITY_FADE_SPEED / ENTITY_SIZE;
+          currentEntitySprite.alpha -=
+            (fadeSpeed / ENTITY_SIZE) * (currentState.undoing ? -1 : 1);
 
-          if (currentEntitySprite.alpha > 0) {
+          if (
+            (!currentState.undoing && currentEntitySprite.alpha > 0) ||
+            (currentState.undoing && currentEntitySprite.alpha < 1)
+          ) {
             entitiesMoving = true;
           }
         }
@@ -180,12 +222,12 @@ const GameRenderer = () => {
 
       //  If entities have stopped moving then remove the current move from the stack
       if (!entitiesMoving) {
-        remainingEntitiesData.shift();
+        currentState.remainingEntitiesData.shift();
         update();
       }
 
       //  If there's nothing left to animate then allow moves again
-      if (remainingEntitiesData.length === 0) {
+      if (currentState.remainingEntitiesData.length === 0) {
         dispatch(setEntitiesMoving(false));
       }
     };

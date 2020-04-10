@@ -8,7 +8,7 @@ import {
   SWIPE_VELOCITY_THRESHOLD,
   DIRECTIONAL_OFFSET_THRESHOLD,
 } from '@/config';
-import { makeMove, resetLevel } from '@/actions';
+import { makeMove, resetLevel, setUndoing } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Actions from '@/components/actions';
 import Button from '@/components/button';
@@ -64,7 +64,13 @@ const GameScene = () => {
       <ActionsWrapper>
         <Actions>
           <Button>Menu</Button>
-          <Button>Undo</Button>
+          <Button
+            onPress={() => {
+              dispatch(setUndoing(true));
+            }}
+          >
+            Undo
+          </Button>
           <Button
             onPress={() => {
               dispatch(resetLevel());

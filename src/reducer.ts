@@ -5,14 +5,16 @@ import {
   MAKE_MOVE,
   SET_ENTITIES_MOVING,
   RESET_LEVEL,
-  IAction,
   SET_LEVEL_LOADED,
+  SET_UNDOING,
+  IAction,
 } from '@/actions';
 
 const initialState = {
   gameStateHistory: [[GAME_STATE]],
   entitiesMoving: false,
   levelLoaded: false,
+  undoing: false,
 };
 
 const reducer = (state: IState = initialState, action: IAction) => {
@@ -29,9 +31,20 @@ const reducer = (state: IState = initialState, action: IAction) => {
     }
 
     case SET_ENTITIES_MOVING: {
+      let { gameStateHistory } = state;
+      const { undoing } = state;
+
+      if (undoing && gameStateHistory.length > 1) {
+        gameStateHistory = [
+          ...gameStateHistory.slice(0, gameStateHistory.length - 1),
+        ];
+      }
+
       return {
         ...state,
+        gameStateHistory,
         entitiesMoving: action.payload.entitiesMoving,
+        undoing: false,
       };
     }
 
@@ -41,6 +54,7 @@ const reducer = (state: IState = initialState, action: IAction) => {
         gameStateHistory: initialState.gameStateHistory,
         levelLoaded: false,
         entitiesMoving: false,
+        undoing: false,
       };
     }
 
@@ -48,6 +62,16 @@ const reducer = (state: IState = initialState, action: IAction) => {
       return {
         ...state,
         levelLoaded: action.payload.levelLoaded,
+      };
+    }
+
+    case SET_UNDOING: {
+      return {
+        ...state,
+        undoing:
+          state.gameStateHistory.length > 1
+            ? action.payload.undoing
+            : state.undoing,
       };
     }
 
