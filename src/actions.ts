@@ -84,13 +84,15 @@ export const makeMove = (
     direction,
   );
 
-  //  Dispatch the action
-  dispatch({
-    type: MAKE_MOVE,
-    payload: {
-      newGameStates,
-    },
-  });
+  //  Dispatch the action if there is some sort of update
+  if (newGameStates.length > 1) {
+    dispatch({
+      type: MAKE_MOVE,
+      payload: {
+        newGameStates,
+      },
+    });
+  }
 };
 
 export const setEntitiesMoving = (

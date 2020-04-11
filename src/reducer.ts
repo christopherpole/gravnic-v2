@@ -69,7 +69,7 @@ const reducer = (state: IState = initialState, action: IAction) => {
       return {
         ...state,
         undoing:
-          state.gameStateHistory.length > 1
+          !state.entitiesMoving && state.gameStateHistory.length > 1
             ? action.payload.undoing
             : state.undoing,
       };
