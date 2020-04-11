@@ -85,7 +85,10 @@ export const makeMove = (
   );
 
   //  Dispatch the action if there is some sort of update
-  if (newGameStates.length > 1) {
+  if (
+    JSON.stringify(lastMove[lastMove.length - 1]) !==
+    JSON.stringify(newGameStates[newGameStates.length - 1])
+  ) {
     dispatch({
       type: MAKE_MOVE,
       payload: {
