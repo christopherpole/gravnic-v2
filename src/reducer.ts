@@ -1,4 +1,4 @@
-import { GAME_STATE } from '@/config';
+import { TEST_LEVEL } from '@/config';
 
 import IState from '@/types/state';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@/actions';
 
 const initialState = {
-  gameStateHistory: [[GAME_STATE]],
+  gameStateHistory: [[TEST_LEVEL.gameState]],
   entitiesMoving: false,
   levelLoaded: false,
   undoing: false,

@@ -10,7 +10,7 @@ const theme = {
   spacing: {
     small: '1%',
     medium: '5%',
-    large: '10%',
+    large: '15%',
   },
 };
 

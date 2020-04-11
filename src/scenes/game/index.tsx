@@ -10,6 +10,7 @@ import {
 } from '@/config';
 import { makeMove, resetLevel, setUndoing } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
+import Stars from '@/scenes/game/stars';
 import Actions from '@/components/actions';
 import Button from '@/components/button';
 import IState from '@/types/state';
@@ -20,6 +21,10 @@ const Wrapper = styled(View)`
   align-items: center;
   justify-content: center;
   background: #ddd;
+`;
+
+const StarsWrapper = styled(View)`
+  padding-top: ${(props) => props.theme.spacing.large};
 `;
 
 const StyledGestureRecognizer = styled(GestureRecognizer)`
@@ -61,6 +66,9 @@ const GameScene = () => {
           directionalOffsetThreshold: DIRECTIONAL_OFFSET_THRESHOLD,
         }}
       >
+        <StarsWrapper>
+          <Stars />
+        </StarsWrapper>
         <GameAreaWrapper>
           <GameRenderer />
         </GameAreaWrapper>

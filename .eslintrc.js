@@ -18,6 +18,7 @@ module.exports = {
     'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
     'global-require': 'off',
+    'react/no-array-index-key': 'off',
   },
   settings: {
     'import/resolver': {
