@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Text, TouchableOpacity } from 'react-native';
 
 const Wrapper = styled(TouchableOpacity)`
@@ -10,6 +10,12 @@ const Wrapper = styled(TouchableOpacity)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: ${props.theme.colors.disabled};
+    `}
 `;
 
 const ButtonText = styled(Text)`
@@ -19,6 +25,7 @@ const ButtonText = styled(Text)`
 interface IProps {
   children: string;
   onPress?: () => void;
+  disabled?: boolean;
 }
 
 const Button = ({ children, ...rest }: IProps) => (

@@ -66,12 +66,15 @@ const reducer = (state: IState = initialState, action: IAction) => {
     }
 
     case SET_UNDOING: {
+      const undoing =
+        !state.entitiesMoving && state.gameStateHistory.length > 1
+          ? action.payload.undoing
+          : state.undoing;
+
       return {
         ...state,
-        undoing:
-          !state.entitiesMoving && state.gameStateHistory.length > 1
-            ? action.payload.undoing
-            : state.undoing,
+        undoing,
+        entitiesMoving: undoing,
       };
     }
 

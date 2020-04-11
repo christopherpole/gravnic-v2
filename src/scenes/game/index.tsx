@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   SWIPE_VELOCITY_THRESHOLD,
@@ -12,6 +12,7 @@ import { makeMove, resetLevel, setUndoing } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Actions from '@/components/actions';
 import Button from '@/components/button';
+import IState from '@/types/state';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -44,6 +45,10 @@ const ActionsWrapper = styled(View)`
 
 const GameScene = () => {
   const dispatch = useDispatch();
+  const undoButtonDisabled = useSelector(
+    (state: IState) =>
+      state.entitiesMoving || state.gameStateHistory.length <= 1,
+  );
 
   return (
     <Wrapper>
@@ -65,6 +70,7 @@ const GameScene = () => {
         <Actions>
           <Button>Menu</Button>
           <Button
+            disabled={undoButtonDisabled}
             onPress={() => {
               dispatch(setUndoing(true));
             }}

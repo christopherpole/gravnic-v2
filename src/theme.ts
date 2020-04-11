@@ -1,6 +1,7 @@
 const theme = {
   colors: {
     primary: 'red',
+    disabled: '#999',
     fonts: {
       primary: 'black',
       secondary: 'white',
