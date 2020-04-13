@@ -20,7 +20,7 @@ const Wrapper = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background: #ddd;
+  background: ${(props) => props.theme.colors.background};
 `;
 
 const StarsWrapper = styled(View)`

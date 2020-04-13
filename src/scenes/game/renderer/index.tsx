@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
 import { useSelector, useDispatch } from 'react-redux';
+import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
 import IState from '@/types/state';
 import {
@@ -138,6 +139,7 @@ const GameRenderer = () => {
       currentState.remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
         const entitySprite = PIXI.Sprite.from(entitiesTexture);
+        // const entitySprite = PIXI.Sprite.from(entitiesTexture);
 
         //  Resize the sprite
         entitySprite.height = ENTITY_SIZE;
@@ -159,6 +161,10 @@ const GameRenderer = () => {
 
       app.stage.addChild(entitiesContainer);
       resizeEntitiesContainer();
+
+      //  Add the shadow
+      const filter = new DropShadowFilter(undefined, 5, 5, undefined, 0.3);
+      entitiesContainer.filters = [filter];
 
       dispatch(setLevelLoaded(true));
     };
