@@ -16,8 +16,10 @@ const Wrapper = styled(View)`
 const Star = styled(View)<{ used?: boolean; large?: boolean }>`
   width: 5%;
   aspect-ratio: 1;
-  background: yellow;
+  background: #ffd700;
   margin: 0 2.5%;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  border: 1px solid ${(props) => props.theme.colors.disabled};
 
   ${(props) =>
     props.used &&

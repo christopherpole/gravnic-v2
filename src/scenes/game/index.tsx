@@ -11,9 +11,9 @@ import {
 import { makeMove, resetLevel, setUndoing } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Stars from '@/scenes/game/stars';
-import Actions from '@/components/actions';
 import Button from '@/components/button';
 import IState from '@/types/state';
+import undoImg from '@/assets/undo.png';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -25,6 +25,7 @@ const Wrapper = styled(View)`
 
 const StarsWrapper = styled(View)`
   padding-top: ${(props) => props.theme.spacing.large};
+  width: 100%;
 `;
 
 const StyledGestureRecognizer = styled(GestureRecognizer)`
@@ -43,16 +44,17 @@ const GameAreaWrapper = styled(View)`
 `;
 
 const ActionsWrapper = styled(View)`
-  width: 100%;
-  padding: ${(props) => props.theme.spacing.medium};
-  padding-top: 0;
+  flex-direction: row;
+  display: flex;
+  padding-bottom: ${(props) => props.theme.spacing.large};
 `;
 
 const GameScene = () => {
   const dispatch = useDispatch();
-  const undoButtonDisabled = useSelector(
-    (state: IState) =>
-      state.entitiesMoving || state.gameStateHistory.length <= 1,
+
+  const showGameButtons = useSelector(
+    ({ gameStateHistory, undoing }: IState) =>
+      gameStateHistory.length > (undoing ? 2 : 1),
   );
 
   return (
@@ -75,25 +77,20 @@ const GameScene = () => {
       </StyledGestureRecognizer>
 
       <ActionsWrapper>
-        <Actions>
-          <Button>Menu</Button>
-          <Button
-            disabled={undoButtonDisabled}
-            onPress={() => {
-              dispatch(setUndoing(true));
-            }}
-          >
-            Undo
-          </Button>
-          <Button
-            onPress={() => {
-              dispatch(resetLevel());
-            }}
-          >
-            Restart
-          </Button>
-          <Button>Settings</Button>
-        </Actions>
+        <Button
+          disabled={!showGameButtons}
+          onPress={() => {
+            dispatch(setUndoing(true));
+          }}
+          image={undoImg}
+        />
+        <Button
+          disabled={!showGameButtons}
+          onPress={() => {
+            dispatch(resetLevel());
+          }}
+          image={undoImg}
+        />
       </ActionsWrapper>
     </Wrapper>
   );

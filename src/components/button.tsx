@@ -1,36 +1,34 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Text, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
 
 const Wrapper = styled(TouchableOpacity)`
-  flex: 1;
-  aspect-ratio: 1;
-  margin: 0 ${(props) => props.theme.spacing.small};
-  background: ${(props) => props.theme.colors.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 0 ${(props) => props.theme.spacing.medium};
+  height: 40px;
+  width: 40px;
 
   ${(props) =>
     props.disabled &&
     css`
-      background: ${props.theme.colors.disabled};
+      opacity: 0;
     `}
 `;
 
-const ButtonText = styled(Text)`
-  color: ${(props) => props.theme.colors.fonts.secondary};
+const StyledImage = styled(Image)`
+  display: flex;
+  height: 40px;
+  width: 40px;
 `;
 
 interface IProps {
-  children: string;
   onPress?: () => void;
   disabled?: boolean;
+  image: ImageSourcePropType;
 }
 
-const Button = ({ children, ...rest }: IProps) => (
+const Button = ({ image, ...rest }: IProps) => (
   <Wrapper {...rest}>
-    <ButtonText>{children}</ButtonText>
+    <StyledImage source={image} />
   </Wrapper>
 );
 

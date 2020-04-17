@@ -74,7 +74,6 @@ const reducer = (state: IState = initialState, action: IAction) => {
       return {
         ...state,
         undoing,
-        entitiesMoving: undoing,
       };
     }
 

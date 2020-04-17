@@ -8,10 +8,17 @@ const theme = {
       secondary: 'white',
     },
   },
+  sizing: {
+    small: '10px',
+    medium: '15px',
+    large: '20px',
+  },
   spacing: {
-    small: '1%',
-    medium: '5%',
-    large: '15%',
+    extraSmall: '1%',
+    small: '2%',
+    medium: '4%',
+    large: '10%',
+    extraLarge: '15%',
   },
 };
 
