@@ -14,6 +14,7 @@ import Stars from '@/scenes/game/stars';
 import Button from '@/components/button';
 import IState from '@/types/state';
 import undoImg from '@/assets/undo.png';
+import menuImg from '@/assets/menu.png';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -49,7 +50,13 @@ const ActionsWrapper = styled(View)`
   padding-bottom: ${(props) => props.theme.spacing.large};
 `;
 
-const GameScene = () => {
+interface IGameScene {
+  navigation: {
+    navigate: (routeName: string) => void;
+  };
+}
+
+const GameScene = ({ navigation }: IGameScene) => {
   const dispatch = useDispatch();
 
   const showGameButtons = useSelector(
@@ -77,6 +84,12 @@ const GameScene = () => {
       </StyledGestureRecognizer>
 
       <ActionsWrapper>
+        <Button
+          onPress={() => {
+            navigation.navigate('LevelSelect');
+          }}
+          image={menuImg}
+        />
         <Button
           disabled={!showGameButtons}
           onPress={() => {

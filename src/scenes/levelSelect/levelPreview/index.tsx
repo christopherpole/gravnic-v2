@@ -41,9 +41,9 @@ interface ILevelPreview extends ILevelData {
 const LevelPreview = ({ gameState, colorScheme }: ILevelPreview) => {
   return (
     <Wrapper background={colorScheme.background}>
-      {gameState.map((gameStateRow) => (
-        <Row>
-          {gameStateRow.map(({ staticEntity, movableEntity }) => {
+      {gameState.map((gameStateRow, i) => (
+        <Row key={`row-${i}`}>
+          {gameStateRow.map(({ staticEntity, movableEntity }, j) => {
             let color = 'transparent';
 
             if (staticEntity) {
@@ -54,7 +54,7 @@ const LevelPreview = ({ gameState, colorScheme }: ILevelPreview) => {
               color = colorScheme.blocks[movableEntity.color];
             }
 
-            return <Block color={color} />;
+            return <Block key={`block-${i}-${j}`} color={color} />;
           })}
         </Row>
       ))}

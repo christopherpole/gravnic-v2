@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView, View, Text } from 'react-native';
+import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
 
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import levelsData from '@/data/levels';
@@ -37,7 +37,13 @@ const LevelPreviewWrapper = styled(View)`
   width: 33.33333333%;
 `;
 
-const LevelSelectScene = () => {
+interface ILevelSelectScene {
+  navigation: {
+    navigate: (routeName: string) => void;
+  };
+}
+
+const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
   return (
     <Wrapper>
       <StarsCountWrapper>
@@ -46,12 +52,19 @@ const LevelSelectScene = () => {
       <ScrollView bounces={false}>
         <LevelsWrapper>
           {levelsData.map((levelData, i) => (
-            <LevelPreviewWrapper key={`level-preview-${i}`}>
-              <LevelPreview
-                {...levelData}
-                colorScheme={colorSchemes[Math.floor(i % colorSchemes.length)]}
-              />
-            </LevelPreviewWrapper>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('Game')}
+              key={`level-preview-${i}`}
+            >
+              <LevelPreviewWrapper>
+                <LevelPreview
+                  {...levelData}
+                  colorScheme={
+                    colorSchemes[Math.floor(i % colorSchemes.length)]
+                  }
+                />
+              </LevelPreviewWrapper>
+            </TouchableWithoutFeedback>
           ))}
         </LevelsWrapper>
       </ScrollView>
