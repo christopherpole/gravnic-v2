@@ -5,6 +5,7 @@ interface IState {
   entitiesMoving: boolean;
   levelLoaded: boolean;
   undoing: boolean;
+  selectedLevelId: string;
 }
 
 export default IState;

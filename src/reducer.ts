@@ -6,6 +6,7 @@ import {
   RESET_LEVEL,
   SET_LEVEL_LOADED,
   SET_UNDOING,
+  SET_SELECTED_LEVEL_ID,
   IAction,
 } from '@/actions';
 
@@ -14,6 +15,7 @@ const initialState = {
   entitiesMoving: false,
   levelLoaded: false,
   undoing: false,
+  selectedLevelId: '1',
 };
 
 const reducer = (state: IState = initialState, action: IAction) => {
@@ -73,6 +75,13 @@ const reducer = (state: IState = initialState, action: IAction) => {
       return {
         ...state,
         undoing,
+      };
+    }
+
+    case SET_SELECTED_LEVEL_ID: {
+      return {
+        ...state,
+        selectedLevelId: action.payload.selectedLevelId,
       };
     }
 

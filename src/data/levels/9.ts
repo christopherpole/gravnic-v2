@@ -1,7 +1,7 @@
 import ILevelData from '@/types/levelData';
 
 const levelData: ILevelData = {
-  id: 9,
+  id: '9',
   stars: {
     1: 2,
     2: 3,

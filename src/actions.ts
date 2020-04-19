@@ -9,6 +9,7 @@ export const SET_ENTITIES_MOVING = 'SET_ENTITIES_MOVING';
 export const RESET_LEVEL = 'RESET_LEVEL';
 export const SET_LEVEL_LOADED = 'SET_LEVEL_LOADED';
 export const SET_UNDOING = 'SET_UNDOING';
+export const SET_SELECTED_LEVEL_ID = 'SET_SELECTED_LEVEL_ID';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -37,13 +38,20 @@ export interface ISetUndoing {
     undoing: boolean;
   };
 }
+export interface ISetSelectedLevelId {
+  type: typeof SET_SELECTED_LEVEL_ID;
+  payload: {
+    selectedLevelId: string;
+  };
+}
 
 export type IAction =
   | IMakeMove
   | ISetEntitiesMoving
   | IResetLevel
   | ISetLevelLoaded
-  | ISetUndoing;
+  | ISetUndoing
+  | ISetSelectedLevelId;
 
 export const makeMove = (
   swipeDirection:
@@ -122,5 +130,14 @@ export const setUndoing = (undoing: boolean): ISetUndoing => ({
   type: SET_UNDOING,
   payload: {
     undoing,
+  },
+});
+
+export const setSelectedLevelId = (
+  selectedLevelId: string,
+): ISetSelectedLevelId => ({
+  type: SET_SELECTED_LEVEL_ID,
+  payload: {
+    selectedLevelId,
   },
 });

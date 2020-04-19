@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,18 +10,24 @@ import {
 } from '@/config';
 import { makeMove, resetLevel, setUndoing } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
+import colorSchemes from '@/data/colorSchemes';
 import Stars from '@/scenes/game/stars';
 import Button from '@/components/button';
 import IState from '@/types/state';
 import undoImg from '@/assets/undo.png';
 import menuImg from '@/assets/menu.png';
 
-const Wrapper = styled(View)`
+const Wrapper = styled(View)<{ background: string }>`
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
-  background: ${(props) => props.theme.colors.background};
+
+  ${(props) =>
+    props.background &&
+    css`
+      background: ${props.background};
+    `}
 `;
 
 const StarsWrapper = styled(View)`
@@ -65,7 +71,7 @@ const GameScene = ({ navigation }: IGameScene) => {
   );
 
   return (
-    <Wrapper>
+    <Wrapper background={colorSchemes[0].background}>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
           dispatch(makeMove(swipeDirection));

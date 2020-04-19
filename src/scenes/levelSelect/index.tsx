@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
 
+import { setSelectedLevelId } from '@/actions';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import levelsData from '@/data/levels';
 import colorSchemes from '@/data/colorSchemes';
@@ -44,6 +46,8 @@ interface ILevelSelectScene {
 }
 
 const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
       <StarsCountWrapper>
@@ -53,7 +57,10 @@ const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
         <LevelsWrapper>
           {levelsData.map((levelData, i) => (
             <TouchableWithoutFeedback
-              onPress={() => navigation.navigate('Game')}
+              onPress={() => {
+                dispatch(setSelectedLevelId(levelData.id));
+                navigation.navigate('Game');
+              }}
               key={`level-preview-${i}`}
             >
               <LevelPreviewWrapper>
