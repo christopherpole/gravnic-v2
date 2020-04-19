@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import IState from '@/types/state';
 import { setSelectedLevelId } from '@/actions';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
-import levelsData from '@/data/levels';
-import colorSchemes from '@/data/colorSchemes';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -47,15 +46,16 @@ interface ILevelSelectScene {
 
 const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
   const dispatch = useDispatch();
+  const levels = useSelector((state: IState) => state.levels);
 
   return (
     <Wrapper>
       <StarsCountWrapper>
-        <StarsCountText>0/{levelsData.length * 3}</StarsCountText>
+        <StarsCountText>0/{levels.length * 3}</StarsCountText>
       </StarsCountWrapper>
       <ScrollView bounces={false}>
         <LevelsWrapper>
-          {levelsData.map((levelData, i) => (
+          {levels.map((levelData, i) => (
             <TouchableWithoutFeedback
               onPress={() => {
                 dispatch(setSelectedLevelId(levelData.id));
@@ -64,12 +64,7 @@ const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
               key={`level-preview-${i}`}
             >
               <LevelPreviewWrapper>
-                <LevelPreview
-                  {...levelData}
-                  colorScheme={
-                    colorSchemes[Math.floor(i % colorSchemes.length)]
-                  }
-                />
+                <LevelPreview {...levelData} />
               </LevelPreviewWrapper>
             </TouchableWithoutFeedback>
           ))}

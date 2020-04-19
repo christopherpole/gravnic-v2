@@ -1,13 +1,18 @@
 import IGameState from '@/types/gameState';
 import IEntityData from '@/types/entityData';
 import { ENTITY_SIZE } from '@/config';
+import IColorScheme from '@/types/colorScheme';
 
 /**
  * Converts the given game state into entities data for use with the renderer
  * @param inputGameState The game state to convert to entities data
+ * @param colorScheme The color scheme to convert the block colors
  * @returns The calculated entities data
  */
-const getEntitiesDataFromGameState = (inputGameState: IGameState) => {
+const getEntitiesDataFromGameState = (
+  inputGameState: IGameState,
+  colorScheme: IColorScheme,
+) => {
   const entitiesData: IEntityData[] = [];
 
   //  Add the static entities
@@ -33,7 +38,10 @@ const getEntitiesDataFromGameState = (inputGameState: IGameState) => {
           y: i * ENTITY_SIZE,
           fading: entityData.movableEntity.fading,
           color: entityData.movableEntity.color
-            ? entityData.movableEntity.color.replace('#', '0x')
+            ? colorScheme.blocks[entityData.movableEntity.color].replace(
+                '#',
+                '0x',
+              )
             : undefined,
         });
       }

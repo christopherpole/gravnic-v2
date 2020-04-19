@@ -50,10 +50,17 @@ const GameRenderer = () => {
   );
   const levelLoaded = useSelector((state: IState) => state.levelLoaded);
   const undoing = useSelector((state: IState) => state.undoing);
+  const currentLevel = useSelector(({ levels, selectedLevelId }: IState) =>
+    levels.find(({ id }) => id === selectedLevelId),
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!currentLevel) {
+      throw new Error('No level');
+    }
+
     //  Get the most recent moves
     let gameStatesToAnimate = [
       ...gameStateHistory[gameStateHistory.length - 1],
@@ -76,9 +83,9 @@ const GameRenderer = () => {
 
     //  Convert the game states to entities data
     currentState.remainingEntitiesData = gameStatesToAnimate.map((gameState) =>
-      getEntitiesDataFromGameState(gameState),
+      getEntitiesDataFromGameState(gameState, currentLevel.colorScheme),
     );
-  }, [levelLoaded, gameStateHistory, undoing]);
+  }, [levelLoaded, gameStateHistory, undoing, currentLevel]);
 
   const onGLContextCreate = async (context: any) => {
     const entitySprites: ISprites = {};

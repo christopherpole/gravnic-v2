@@ -9,8 +9,13 @@ import {
   SET_SELECTED_LEVEL_ID,
   IAction,
 } from '@/actions';
+import colorSchemes from '@/data/colorSchemes';
 
 const initialState = {
+  levels: levelsData.map((levelData, i) => ({
+    colorScheme: colorSchemes[Math.floor(i % colorSchemes.length)],
+    ...levelData,
+  })),
   gameStateHistory: [[levelsData[0].gameState]],
   entitiesMoving: false,
   levelLoaded: false,

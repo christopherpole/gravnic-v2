@@ -10,7 +10,6 @@ import {
 } from '@/config';
 import { makeMove, resetLevel, setUndoing } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
-import colorSchemes from '@/data/colorSchemes';
 import Stars from '@/scenes/game/stars';
 import Button from '@/components/button';
 import IState from '@/types/state';
@@ -70,8 +69,18 @@ const GameScene = ({ navigation }: IGameScene) => {
       gameStateHistory.length > (undoing ? 2 : 1),
   );
 
+  const background = useSelector(({ levels, selectedLevelId }: IState) => {
+    const currentLevel = levels.find((level) => level.id === selectedLevelId);
+
+    if (!currentLevel) {
+      throw new Error('Level not found');
+    }
+
+    return currentLevel.colorScheme.background;
+  });
+
   return (
-    <Wrapper background={colorSchemes[0].background}>
+    <Wrapper background={background}>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
           dispatch(makeMove(swipeDirection));
