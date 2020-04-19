@@ -40,7 +40,7 @@ const LevelSelectScene = () => {
   return (
     <Wrapper>
       <StarsCountWrapper>
-        <StarsCountText>999/999</StarsCountText>
+        <StarsCountText>0/{levelsData.length * 3}</StarsCountText>
       </StarsCountWrapper>
       <ScrollView bounces={false}>
         <LevelsWrapper>
