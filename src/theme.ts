@@ -11,7 +11,7 @@ const theme = {
   sizing: {
     small: '10px',
     medium: '15px',
-    large: '20px',
+    large: '30px',
   },
   spacing: {
     extraSmall: '1%',

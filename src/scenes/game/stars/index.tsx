@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { TEST_LEVEL } from '@/config';
+import levelsData from '@/data/levels';
 import IState from '@/types/state';
 
 const Wrapper = styled(View)`
@@ -35,7 +35,7 @@ const Star = styled(View)<{ used?: boolean; large?: boolean }>`
 `;
 
 const Stars = () => {
-  const { stars } = TEST_LEVEL;
+  const { stars } = levelsData[0];
   const noOfMovesMade = useSelector(
     (state: IState) => state.gameStateHistory.length - (state.undoing ? 2 : 1),
   );

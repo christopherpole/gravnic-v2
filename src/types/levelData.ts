@@ -1,6 +1,7 @@
 import IGameState from '@/types/gameState';
 
 interface ILevelData {
+  id: number;
   gameState: IGameState;
   stars: {
     1: number;

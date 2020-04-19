@@ -1,5 +1,4 @@
-import { TEST_LEVEL } from '@/config';
-
+import levelsData from '@/data/levels';
 import IState from '@/types/state';
 import {
   MAKE_MOVE,
@@ -11,7 +10,7 @@ import {
 } from '@/actions';
 
 const initialState = {
-  gameStateHistory: [[TEST_LEVEL.gameState]],
+  gameStateHistory: [[levelsData[0].gameState]],
   entitiesMoving: false,
   levelLoaded: false,
   undoing: false,
