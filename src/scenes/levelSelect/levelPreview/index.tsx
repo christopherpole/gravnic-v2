@@ -2,14 +2,20 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 
+import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
 
-const Wrapper = styled(View)`
+const Wrapper = styled(View)<{ background: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
-  background: ${(props) => props.theme.colors.background};
+
+  ${(props) =>
+    props.background &&
+    css`
+      background: ${props.background};
+    `}
 `;
 
 const Row = styled(View)`
@@ -28,9 +34,13 @@ const Block = styled(View)<{ color: string }>`
     `}
 `;
 
-const LevelPreview = ({ gameState }: ILevelData) => {
+interface ILevelPreview extends ILevelData {
+  colorScheme: IColorScheme;
+}
+
+const LevelPreview = ({ gameState, colorScheme }: ILevelPreview) => {
   return (
-    <Wrapper>
+    <Wrapper background={colorScheme.background}>
       {gameState.map((gameStateRow) => (
         <Row>
           {gameStateRow.map(({ staticEntity, movableEntity }) => {
@@ -41,7 +51,7 @@ const LevelPreview = ({ gameState }: ILevelData) => {
             }
 
             if (movableEntity && movableEntity.color) {
-              color = movableEntity.color;
+              color = colorScheme.blocks[movableEntity.color];
             }
 
             return <Block color={color} />;

@@ -4,6 +4,7 @@ import { ScrollView, View, Text } from 'react-native';
 
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import levelsData from '@/data/levels';
+import colorSchemes from '@/data/colorSchemes';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -44,9 +45,12 @@ const LevelSelectScene = () => {
       </StarsCountWrapper>
       <ScrollView bounces={false}>
         <LevelsWrapper>
-          {levelsData.map((levelData) => (
-            <LevelPreviewWrapper key={`level-preview-${levelData.id}`}>
-              <LevelPreview {...levelData} />
+          {levelsData.map((levelData, i) => (
+            <LevelPreviewWrapper key={`level-preview-${i}`}>
+              <LevelPreview
+                {...levelData}
+                colorScheme={colorSchemes[Math.floor(i % colorSchemes.length)]}
+              />
             </LevelPreviewWrapper>
           ))}
         </LevelsWrapper>
