@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 
@@ -62,4 +62,4 @@ const LevelPreview = ({ gameState, colorScheme }: ILevelPreview) => {
   );
 };
 
-export default LevelPreview;
+export default memo(LevelPreview);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -74,4 +74,4 @@ const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
   );
 };
 
-export default LevelSelectScene;
+export default memo(LevelSelectScene);

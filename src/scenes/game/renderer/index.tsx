@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
@@ -88,7 +88,7 @@ const GameRenderer = () => {
   }, [levelLoaded, gameStateHistory, undoing, currentLevel]);
 
   const onGLContextCreate = async (context: any) => {
-    const entitySprites: ISprites = {};
+    let entitySprites: ISprites;
     let app: typeof PIXI.Application;
     let entitiesTexture: typeof PIXI.Texture;
     let entitiesContainer: typeof PIXI.Container;
@@ -135,6 +135,7 @@ const GameRenderer = () => {
 
       //  Remove any existing level from the stage
       app.stage.removeChild(entitiesContainer);
+      entitySprites = {};
 
       //  Create container for the entities
       entitiesContainer = new PIXI.Container(MAX_ENTITIES_COUNT, {
@@ -146,7 +147,6 @@ const GameRenderer = () => {
       currentState.remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
         const entitySprite = PIXI.Sprite.from(entitiesTexture);
-        // const entitySprite = PIXI.Sprite.from(entitiesTexture);
 
         //  Resize the sprite
         entitySprite.height = ENTITY_SIZE;
@@ -172,7 +172,6 @@ const GameRenderer = () => {
       //  Add the shadow
       const filter = new DropShadowFilter(undefined, 5, 5, undefined, 0.3);
       entitiesContainer.filters = [filter];
-
       dispatch(setLevelLoaded(true));
     };
 
@@ -273,4 +272,4 @@ const GameRenderer = () => {
   return <Wrapper onContextCreate={onGLContextCreate} />;
 };
 
-export default GameRenderer;
+export default memo(GameRenderer);

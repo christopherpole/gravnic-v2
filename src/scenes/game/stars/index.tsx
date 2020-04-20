@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -53,4 +53,4 @@ const Stars = () => {
   );
 };
 
-export default Stars;
+export default memo(Stars);

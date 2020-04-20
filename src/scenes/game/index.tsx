@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -124,4 +124,4 @@ const GameScene = ({ navigation }: IGameScene) => {
   );
 };
 
-export default GameScene;
+export default memo(GameScene);

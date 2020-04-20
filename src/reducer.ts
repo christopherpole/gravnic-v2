@@ -23,7 +23,7 @@ const initialState = {
   selectedLevelId: '1',
 };
 
-const reducer = (state: IState = initialState, action: IAction) => {
+const reducer = (state: IState = initialState, action: IAction): IState => {
   switch (action.type) {
     case MAKE_MOVE: {
       return {
@@ -57,7 +57,7 @@ const reducer = (state: IState = initialState, action: IAction) => {
     case RESET_LEVEL: {
       return {
         ...state,
-        gameStateHistory: initialState.gameStateHistory,
+        gameStateHistory: [state.gameStateHistory[0]],
         levelLoaded: false,
         entitiesMoving: false,
         undoing: false,
@@ -84,9 +84,21 @@ const reducer = (state: IState = initialState, action: IAction) => {
     }
 
     case SET_SELECTED_LEVEL_ID: {
+      const selectedLevel = state.levels.find(
+        ({ id }) => id === action.payload.selectedLevelId,
+      );
+
+      if (!selectedLevel) {
+        return state;
+      }
+
       return {
         ...state,
         selectedLevelId: action.payload.selectedLevelId,
+        levelLoaded: false,
+        entitiesMoving: false,
+        undoing: false,
+        gameStateHistory: [[selectedLevel.gameState]],
       };
     }
 
