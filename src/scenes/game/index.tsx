@@ -8,13 +8,19 @@ import {
   SWIPE_VELOCITY_THRESHOLD,
   DIRECTIONAL_OFFSET_THRESHOLD,
 } from '@/config';
-import { makeMove, resetLevel, setUndoing } from '@/actions';
+import {
+  makeMove,
+  resetLevel,
+  setUndoing,
+  setShowingSettings,
+} from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Stars from '@/scenes/game/stars';
 import Button from '@/components/button';
 import IState from '@/types/state';
 import undoImg from '@/assets/undo.png';
 import menuImg from '@/assets/menu.png';
+import settingsImg from '@/assets/settings.png';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -118,6 +124,12 @@ const GameScene = ({ navigation }: IGameScene) => {
             dispatch(resetLevel());
           }}
           image={undoImg}
+        />
+        <Button
+          onPress={() => {
+            dispatch(setShowingSettings(true));
+          }}
+          image={settingsImg}
         />
       </ActionsWrapper>
     </Wrapper>

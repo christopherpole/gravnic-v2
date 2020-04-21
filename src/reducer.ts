@@ -7,6 +7,7 @@ import {
   SET_LEVEL_LOADED,
   SET_UNDOING,
   SET_SELECTED_LEVEL_ID,
+  SET_SHOWING_SETTINGS,
   IAction,
 } from '@/actions';
 import colorSchemes from '@/data/colorSchemes';
@@ -21,6 +22,7 @@ const initialState = {
   levelLoaded: false,
   undoing: false,
   selectedLevelId: '1',
+  showingSettings: false,
 };
 
 const reducer = (state: IState = initialState, action: IAction): IState => {
@@ -99,6 +101,13 @@ const reducer = (state: IState = initialState, action: IAction): IState => {
         entitiesMoving: false,
         undoing: false,
         gameStateHistory: [[selectedLevel.gameState]],
+      };
+    }
+
+    case SET_SHOWING_SETTINGS: {
+      return {
+        ...state,
+        showingSettings: action.payload.showingSettings,
       };
     }
 

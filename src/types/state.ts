@@ -13,6 +13,7 @@ interface IState {
   levelLoaded: boolean;
   undoing: boolean;
   selectedLevelId: string;
+  showingSettings: boolean;
 }
 
 export default IState;

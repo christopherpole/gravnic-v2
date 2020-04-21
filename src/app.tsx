@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import theme from '@/theme';
+import Settings from '@/scenes/settings';
 import GameScene from '@/scenes/game';
 import LevelSelectScene from '@/scenes/levelSelect';
 import store from '@/store';
@@ -20,6 +21,7 @@ const App = () => {
             <Stack.Screen name="LevelSelect" component={LevelSelectScene} />
             <Stack.Screen name="Game" component={GameScene} />
           </Stack.Navigator>
+          <Settings />
         </NavigationContainer>
       </ThemeProvider>
     </Provider>

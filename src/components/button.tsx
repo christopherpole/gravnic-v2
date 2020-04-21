@@ -16,8 +16,8 @@ const Wrapper = styled(TouchableOpacity)`
 
 const StyledImage = styled(Image)`
   display: flex;
-  height: 40px;
-  width: 40px;
+  height: 100%;
+  width: 100%;
 `;
 
 interface IProps {

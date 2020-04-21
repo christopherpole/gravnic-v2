@@ -10,6 +10,7 @@ export const RESET_LEVEL = 'RESET_LEVEL';
 export const SET_LEVEL_LOADED = 'SET_LEVEL_LOADED';
 export const SET_UNDOING = 'SET_UNDOING';
 export const SET_SELECTED_LEVEL_ID = 'SET_SELECTED_LEVEL_ID';
+export const SET_SHOWING_SETTINGS = 'SET_SHOWING_SETTINGS';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -44,6 +45,12 @@ export interface ISetSelectedLevelId {
     selectedLevelId: string;
   };
 }
+export interface ISetShowingSettings {
+  type: typeof SET_SHOWING_SETTINGS;
+  payload: {
+    showingSettings: boolean;
+  };
+}
 
 export type IAction =
   | IMakeMove
@@ -51,7 +58,8 @@ export type IAction =
   | IResetLevel
   | ISetLevelLoaded
   | ISetUndoing
-  | ISetSelectedLevelId;
+  | ISetSelectedLevelId
+  | ISetShowingSettings;
 
 export const makeMove = (
   swipeDirection:
@@ -139,5 +147,14 @@ export const setSelectedLevelId = (
   type: SET_SELECTED_LEVEL_ID,
   payload: {
     selectedLevelId,
+  },
+});
+
+export const setShowingSettings = (
+  showingSettings: boolean,
+): ISetShowingSettings => ({
+  type: SET_SHOWING_SETTINGS,
+  payload: {
+    showingSettings,
   },
 });
