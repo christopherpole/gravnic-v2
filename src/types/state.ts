@@ -14,6 +14,7 @@ interface IState {
   undoing: boolean;
   selectedLevelId: string;
   showingSettings: boolean;
+  fastMode: boolean;
 }
 
 export default IState;

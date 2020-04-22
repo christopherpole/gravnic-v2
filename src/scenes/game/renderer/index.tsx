@@ -12,6 +12,7 @@ import {
   ENTITY_FADE_SPEED,
   MAX_ENTITIES_COUNT,
   UNDOING_SPEED_MULTIPLIER,
+  FAST_MODE_MULTIPLIER,
 } from '@/config';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions';
 import entitiesSpritesheet from '@/assets/entities.png';
@@ -35,6 +36,7 @@ interface ICurrentState {
   remainingEntitiesData: IEntityData[][];
   loaded: boolean;
   undoing: boolean;
+  fastMode: boolean;
 }
 
 //  @FIXME - These needs to be kept here for it to work. What a mess
@@ -42,6 +44,7 @@ const currentState: ICurrentState = {
   remainingEntitiesData: [],
   loaded: false,
   undoing: false,
+  fastMode: false,
 };
 
 const GameRenderer = () => {
@@ -50,6 +53,7 @@ const GameRenderer = () => {
   );
   const levelLoaded = useSelector((state: IState) => state.levelLoaded);
   const undoing = useSelector((state: IState) => state.undoing);
+  const fastMode = useSelector((state: IState) => state.fastMode);
   const currentLevel = useSelector(({ levels, selectedLevelId }: IState) =>
     levels.find(({ id }) => id === selectedLevelId),
   );
@@ -80,12 +84,13 @@ const GameRenderer = () => {
     //  Convert new game state moves to entities data to animate
     currentState.loaded = levelLoaded;
     currentState.undoing = undoing;
+    currentState.fastMode = fastMode;
 
     //  Convert the game states to entities data
     currentState.remainingEntitiesData = gameStatesToAnimate.map((gameState) =>
       getEntitiesDataFromGameState(gameState, currentLevel.colorScheme),
     );
-  }, [levelLoaded, gameStateHistory, undoing, currentLevel]);
+  }, [levelLoaded, gameStateHistory, undoing, currentLevel, fastMode]);
 
   const onGLContextCreate = async (context: any) => {
     let entitySprites: ISprites;
@@ -194,9 +199,11 @@ const GameRenderer = () => {
 
         //  Undoing speed multiplier
         const moveSpeed =
+          (currentState.fastMode ? FAST_MODE_MULTIPLIER : 1) *
           ENTITY_MOVE_SPEED *
           (currentState.undoing ? UNDOING_SPEED_MULTIPLIER : 1);
         const fadeSpeed =
+          (currentState.fastMode ? FAST_MODE_MULTIPLIER : 1) *
           ENTITY_FADE_SPEED *
           (currentState.undoing ? UNDOING_SPEED_MULTIPLIER : 1);
 

@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback, View, Text, Switch } from 'react-native';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import IState from '@/types/state';
-import { setShowingSettings } from '@/actions';
+import { setShowingSettings, setFastMode } from '@/actions';
 import Button from '@/components/button';
 import closeImg from '@/assets/close.png';
 
@@ -38,6 +38,10 @@ const WrapperInner = styled(View)`
   width: 100%;
 `;
 
+const CloseButtonWrapper = styled(View)`
+  margin-bottom: ${(props) => props.theme.spacing.large};
+`;
+
 const CloseButton = styled(Button)`
   align-self: flex-end;
   margin: 0;
@@ -45,8 +49,22 @@ const CloseButton = styled(Button)`
   width: 30px;
 `;
 
+const OptionsWrapper = styled(View)``;
+
+const OptionLabel = styled(Text)`
+  font-size: ${(props) => props.theme.sizing.medium};
+`;
+
+const OptionWrapper = styled(View)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const SettingsScene = () => {
   const showing = useSelector(({ showingSettings }: IState) => showingSettings);
+  const isFastMode = useSelector(({ fastMode }: IState) => fastMode);
   const dispatch = useDispatch();
 
   //  Don't render if not showing the settings menu
@@ -64,12 +82,26 @@ const SettingsScene = () => {
         <Backdrop />
       </TouchableWithoutFeedback>
       <WrapperInner>
-        <CloseButton
-          image={closeImg}
-          onPress={() => {
-            dispatch(setShowingSettings(false));
-          }}
-        />
+        <CloseButtonWrapper>
+          <CloseButton
+            image={closeImg}
+            onPress={() => {
+              dispatch(setShowingSettings(false));
+            }}
+          />
+        </CloseButtonWrapper>
+
+        <OptionsWrapper>
+          <OptionWrapper>
+            <OptionLabel>Fast mode</OptionLabel>
+            <Switch
+              value={isFastMode}
+              onValueChange={(val: boolean) => {
+                dispatch(setFastMode(val));
+              }}
+            />
+          </OptionWrapper>
+        </OptionsWrapper>
       </WrapperInner>
     </Wrapper>
   );

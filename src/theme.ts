@@ -9,9 +9,9 @@ const theme = {
     },
   },
   sizing: {
-    small: '10px',
-    medium: '15px',
-    large: '30px',
+    small: '14px',
+    medium: '18px',
+    large: '22px',
   },
   spacing: {
     extraSmall: '1%',

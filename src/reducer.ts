@@ -8,6 +8,7 @@ import {
   SET_UNDOING,
   SET_SELECTED_LEVEL_ID,
   SET_SHOWING_SETTINGS,
+  SET_FAST_MODE,
   IAction,
 } from '@/actions';
 import colorSchemes from '@/data/colorSchemes';
@@ -17,12 +18,13 @@ const initialState = {
     colorScheme: colorSchemes[Math.floor(i % colorSchemes.length)],
     ...levelData,
   })),
-  gameStateHistory: [[levelsData[0].gameState]],
+  gameStateHistory: [[levelsData[3].gameState]],
   entitiesMoving: false,
   levelLoaded: false,
   undoing: false,
-  selectedLevelId: '1',
+  selectedLevelId: '4',
   showingSettings: false,
+  fastMode: false,
 };
 
 const reducer = (state: IState = initialState, action: IAction): IState => {
@@ -108,6 +110,13 @@ const reducer = (state: IState = initialState, action: IAction): IState => {
       return {
         ...state,
         showingSettings: action.payload.showingSettings,
+      };
+    }
+
+    case SET_FAST_MODE: {
+      return {
+        ...state,
+        fastMode: action.payload.fastMode,
       };
     }
 

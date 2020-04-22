@@ -11,6 +11,7 @@ export const SET_LEVEL_LOADED = 'SET_LEVEL_LOADED';
 export const SET_UNDOING = 'SET_UNDOING';
 export const SET_SELECTED_LEVEL_ID = 'SET_SELECTED_LEVEL_ID';
 export const SET_SHOWING_SETTINGS = 'SET_SHOWING_SETTINGS';
+export const SET_FAST_MODE = 'SET_FAST_MODE';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -51,6 +52,12 @@ export interface ISetShowingSettings {
     showingSettings: boolean;
   };
 }
+export interface ISetFastMode {
+  type: typeof SET_FAST_MODE;
+  payload: {
+    fastMode: boolean;
+  };
+}
 
 export type IAction =
   | IMakeMove
@@ -59,7 +66,8 @@ export type IAction =
   | ISetLevelLoaded
   | ISetUndoing
   | ISetSelectedLevelId
-  | ISetShowingSettings;
+  | ISetShowingSettings
+  | ISetFastMode;
 
 export const makeMove = (
   swipeDirection:
@@ -156,5 +164,12 @@ export const setShowingSettings = (
   type: SET_SHOWING_SETTINGS,
   payload: {
     showingSettings,
+  },
+});
+
+export const setFastMode = (fastMode: boolean): ISetFastMode => ({
+  type: SET_FAST_MODE,
+  payload: {
+    fastMode,
   },
 });
