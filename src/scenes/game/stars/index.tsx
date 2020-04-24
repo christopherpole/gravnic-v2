@@ -37,7 +37,8 @@ const Star = styled(View)<{ used?: boolean; large?: boolean }>`
 const Stars = () => {
   const { stars } = levelsData[0];
   const noOfMovesMade = useSelector(
-    (state: IState) => state.gameStateHistory.length - (state.undoing ? 2 : 1),
+    (state: IState) =>
+      state.game.gameStateHistory.length - (state.game.undoing ? 2 : 1),
   );
 
   return (

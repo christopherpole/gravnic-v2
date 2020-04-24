@@ -49,14 +49,15 @@ const currentState: ICurrentState = {
 
 const GameRenderer = () => {
   const gameStateHistory = useSelector(
-    (state: IState) => state.gameStateHistory,
+    (state: IState) => state.game.gameStateHistory,
   );
-  const levelLoaded = useSelector((state: IState) => state.levelLoaded);
-  const undoing = useSelector((state: IState) => state.undoing);
-  const fastMode = useSelector((state: IState) => state.fastMode);
-  const currentLevel = useSelector(({ levels, selectedLevelId }: IState) =>
-    levels.find(({ id }) => id === selectedLevelId),
+  const levelLoaded = useSelector((state: IState) => state.game.levelLoaded);
+  const undoing = useSelector((state: IState) => state.game.undoing);
+  const currentLevel = useSelector(
+    ({ game: { levels, selectedLevelId } }: IState) =>
+      levels.find(({ id }) => id === selectedLevelId),
   );
+  const fastMode = useSelector((state: IState) => state.user.fastMode);
 
   const dispatch = useDispatch();
 
@@ -84,13 +85,16 @@ const GameRenderer = () => {
     //  Convert new game state moves to entities data to animate
     currentState.loaded = levelLoaded;
     currentState.undoing = undoing;
-    currentState.fastMode = fastMode;
 
     //  Convert the game states to entities data
     currentState.remainingEntitiesData = gameStatesToAnimate.map((gameState) =>
       getEntitiesDataFromGameState(gameState, currentLevel.colorScheme),
     );
-  }, [levelLoaded, gameStateHistory, undoing, currentLevel, fastMode]);
+  }, [levelLoaded, gameStateHistory, undoing, currentLevel]);
+
+  useEffect(() => {
+    currentState.fastMode = fastMode;
+  }, [fastMode]);
 
   const onGLContextCreate = async (context: any) => {
     let entitySprites: ISprites;

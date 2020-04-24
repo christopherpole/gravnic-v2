@@ -70,9 +70,11 @@ const OptionWrapper = styled(View)`
 `;
 
 const SettingsScene = () => {
-  const showing = useSelector(({ showingSettings }: IState) => showingSettings);
-  const isFastMode = useSelector(({ fastMode }: IState) => fastMode);
-  const locale = useSelector((state: IState) => state.locale);
+  const showing = useSelector(
+    ({ ui: { showingSettings } }: IState) => showingSettings,
+  );
+  const isFastMode = useSelector(({ user: { fastMode } }: IState) => fastMode);
+  const locale = useSelector((state: IState) => state.user.locale);
   const dispatch = useDispatch();
 
   //  Don't render if not showing the settings menu

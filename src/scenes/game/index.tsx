@@ -71,19 +71,21 @@ const GameScene = ({ navigation }: IGameScene) => {
   const dispatch = useDispatch();
 
   const showGameButtons = useSelector(
-    ({ gameStateHistory, undoing }: IState) =>
+    ({ game: { gameStateHistory, undoing } }: IState) =>
       gameStateHistory.length > (undoing ? 2 : 1),
   );
 
-  const background = useSelector(({ levels, selectedLevelId }: IState) => {
-    const currentLevel = levels.find((level) => level.id === selectedLevelId);
+  const background = useSelector(
+    ({ game: { levels, selectedLevelId } }: IState) => {
+      const currentLevel = levels.find((level) => level.id === selectedLevelId);
 
-    if (!currentLevel) {
-      throw new Error('Level not found');
-    }
+      if (!currentLevel) {
+        throw new Error('Level not found');
+      }
 
-    return currentLevel.colorScheme.background;
-  });
+      return currentLevel.colorScheme.background;
+    },
+  );
 
   return (
     <Wrapper background={background}>

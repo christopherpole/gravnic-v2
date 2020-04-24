@@ -86,7 +86,7 @@ export const makeMove = (
     | swipeDirections.SWIPE_DOWN
     | swipeDirections.SWIPE_LEFT,
 ) => (dispatch: (action: IMakeMove) => void, getState: () => IState) => {
-  const { gameStateHistory, entitiesMoving } = getState();
+  const { gameStateHistory, entitiesMoving } = getState().game;
   let direction;
 
   //  Don't allow the move if entities are already being animated
@@ -163,7 +163,10 @@ export const loadLevel = (selectedLevelId: string) => (
   dispatch: (action: ILoadLevel) => void,
   getState: () => IState,
 ) => {
-  const { levels } = getState();
+  const {
+    game: { levels },
+  } = getState();
+
   const selectedLevel = levels.find(
     ({ id }: { id: string }) => id === selectedLevelId,
   );

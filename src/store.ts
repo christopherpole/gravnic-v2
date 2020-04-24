@@ -1,18 +1,28 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { AsyncStorage } from 'react-native';
 import { persistStore, persistReducer } from 'redux-persist';
 
-import reducer from '@/reducer';
+import gameReducer from '@/reducers/game';
+import userReducer from '@/reducers/user';
+import uiReducer from '@/reducers/ui';
 
-const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['fastMode', 'locale'],
-};
+//  Persist the user reducer to localstorage
+const persistedUserReducer = persistReducer(
+  {
+    key: 'root',
+    storage: AsyncStorage,
+  },
+  userReducer,
+);
 
-const persistedReducer = persistReducer(persistConfig, reducer);
 const middleware = applyMiddleware(thunk);
 
-export const store = createStore(persistedReducer, middleware);
+const rootReducer = combineReducers({
+  game: gameReducer,
+  user: persistedUserReducer,
+  ui: uiReducer,
+});
+
+export const store = createStore(rootReducer, middleware);
 export const persistor = persistStore(store);

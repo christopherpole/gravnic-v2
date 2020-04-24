@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const IntlProviderComponent = ({ children }: IProps) => {
-  const locale = useSelector((state: IState) => state.locale);
+  const locale = useSelector((state: IState) => state.user.locale);
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>

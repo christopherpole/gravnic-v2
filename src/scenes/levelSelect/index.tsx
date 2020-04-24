@@ -46,7 +46,7 @@ interface ILevelSelectScene {
 
 const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
   const dispatch = useDispatch();
-  const levels = useSelector((state: IState) => state.levels);
+  const levels = useSelector((state: IState) => state.game.levels);
 
   return (
     <Wrapper>

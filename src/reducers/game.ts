@@ -1,6 +1,6 @@
+import IGame from '@/types/state/game';
 import levelsData from '@/data/levels';
-import IState from '@/types/state';
-import LanguageCode from '@/types/languageCodes';
+import colorSchemes from '@/data/colorSchemes';
 import {
   MAKE_MOVE,
   SET_ENTITIES_MOVING,
@@ -8,29 +8,22 @@ import {
   SET_LEVEL_LOADED,
   SET_UNDOING,
   LOAD_LEVEL,
-  SET_SHOWING_SETTINGS,
-  SET_FAST_MODE,
-  SET_LOCALE,
   IAction,
 } from '@/actions';
-import colorSchemes from '@/data/colorSchemes';
 
-const initialState = {
+const initialState: IGame = {
   levels: levelsData.map((levelData, i) => ({
     colorScheme: colorSchemes[Math.floor(i % colorSchemes.length)],
     ...levelData,
   })),
+  selectedLevelId: null,
   gameStateHistory: [],
   entitiesMoving: false,
   levelLoaded: false,
   undoing: false,
-  selectedLevelId: null,
-  showingSettings: false,
-  fastMode: false,
-  locale: 'en' as LanguageCode,
 };
 
-const reducer = (state: IState = initialState, action: IAction): IState => {
+const reducer = (state = initialState, action: IAction): IGame => {
   switch (action.type) {
     case MAKE_MOVE: {
       return {
@@ -98,27 +91,6 @@ const reducer = (state: IState = initialState, action: IAction): IState => {
         entitiesMoving: false,
         undoing: false,
         gameStateHistory: action.payload.gameStateHistory,
-      };
-    }
-
-    case SET_SHOWING_SETTINGS: {
-      return {
-        ...state,
-        showingSettings: action.payload.showingSettings,
-      };
-    }
-
-    case SET_FAST_MODE: {
-      return {
-        ...state,
-        fastMode: action.payload.fastMode,
-      };
-    }
-
-    case SET_LOCALE: {
-      return {
-        ...state,
-        locale: action.payload.locale,
       };
     }
 
