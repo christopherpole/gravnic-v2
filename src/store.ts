@@ -8,6 +8,7 @@ import reducer from '@/reducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['fastMode', 'locale'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

@@ -1,5 +1,6 @@
 import levelsData from '@/data/levels';
 import IState from '@/types/state';
+import LanguageCode from '@/types/languageCodes';
 import {
   MAKE_MOVE,
   SET_ENTITIES_MOVING,
@@ -9,6 +10,7 @@ import {
   SET_SELECTED_LEVEL_ID,
   SET_SHOWING_SETTINGS,
   SET_FAST_MODE,
+  SET_LOCALE,
   IAction,
 } from '@/actions';
 import colorSchemes from '@/data/colorSchemes';
@@ -25,6 +27,7 @@ const initialState = {
   selectedLevelId: '4',
   showingSettings: false,
   fastMode: false,
+  locale: 'en' as LanguageCode,
 };
 
 const reducer = (state: IState = initialState, action: IAction): IState => {
@@ -117,6 +120,13 @@ const reducer = (state: IState = initialState, action: IAction): IState => {
       return {
         ...state,
         fastMode: action.payload.fastMode,
+      };
+    }
+
+    case SET_LOCALE: {
+      return {
+        ...state,
+        locale: action.payload.locale,
       };
     }
 

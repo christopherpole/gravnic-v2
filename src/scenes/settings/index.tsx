@@ -1,10 +1,14 @@
 import React, { memo } from 'react';
 import { TouchableWithoutFeedback, View, Text, Switch } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
+import LanguageCodes from '@/types/languageCodes';
 import IState from '@/types/state';
-import { setShowingSettings, setFastMode } from '@/actions';
+import messages from '@/data/translations';
+import { setShowingSettings, setFastMode, setLocale } from '@/actions';
 import Button from '@/components/button';
 import closeImg from '@/assets/close.png';
 
@@ -49,7 +53,9 @@ const CloseButton = styled(Button)`
   width: 30px;
 `;
 
-const OptionsWrapper = styled(View)``;
+const OptionsWrapper = styled(View)`
+  margin-bottom: -${(props) => props.theme.spacing.medium};
+`;
 
 const OptionLabel = styled(Text)`
   font-size: ${(props) => props.theme.sizing.medium};
@@ -60,11 +66,13 @@ const OptionWrapper = styled(View)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: ${(props) => props.theme.spacing.medium};
 `;
 
 const SettingsScene = () => {
   const showing = useSelector(({ showingSettings }: IState) => showingSettings);
   const isFastMode = useSelector(({ fastMode }: IState) => fastMode);
+  const locale = useSelector((state: IState) => state.locale);
   const dispatch = useDispatch();
 
   //  Don't render if not showing the settings menu
@@ -93,12 +101,31 @@ const SettingsScene = () => {
 
         <OptionsWrapper>
           <OptionWrapper>
-            <OptionLabel>Fast mode</OptionLabel>
+            <OptionLabel>
+              <FormattedMessage id="fastMode" />
+            </OptionLabel>
             <Switch
               value={isFastMode}
               onValueChange={(val: boolean) => {
                 dispatch(setFastMode(val));
               }}
+            />
+          </OptionWrapper>
+
+          <OptionWrapper>
+            <OptionLabel>
+              <FormattedMessage id="language" />
+            </OptionLabel>
+            <RNPickerSelect
+              onValueChange={(val: LanguageCodes) => {
+                dispatch(setLocale(val));
+              }}
+              placeholder={{}}
+              value={locale}
+              items={Object.keys(messages).map((languageCode) => ({
+                label: messages[languageCode as LanguageCodes].fullLanguageName,
+                value: languageCode,
+              }))}
             />
           </OptionWrapper>
         </OptionsWrapper>

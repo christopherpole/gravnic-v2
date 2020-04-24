@@ -1,6 +1,7 @@
 import { changeGravityDirection } from 'gravnic-game';
 import IGameState from '@/types/gameState';
 import IState from '@/types/state';
+import LanguageCode from '@/types/languageCodes';
 //  @ts-ignore - what's wrong with this??
 import { swipeDirections } from 'react-native-swipe-gestures';
 
@@ -12,6 +13,7 @@ export const SET_UNDOING = 'SET_UNDOING';
 export const SET_SELECTED_LEVEL_ID = 'SET_SELECTED_LEVEL_ID';
 export const SET_SHOWING_SETTINGS = 'SET_SHOWING_SETTINGS';
 export const SET_FAST_MODE = 'SET_FAST_MODE';
+export const SET_LOCALE = 'SET_LOCALE';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -58,6 +60,12 @@ export interface ISetFastMode {
     fastMode: boolean;
   };
 }
+export interface ISetlocale {
+  type: typeof SET_LOCALE;
+  payload: {
+    locale: LanguageCode;
+  };
+}
 
 export type IAction =
   | IMakeMove
@@ -67,7 +75,8 @@ export type IAction =
   | ISetUndoing
   | ISetSelectedLevelId
   | ISetShowingSettings
-  | ISetFastMode;
+  | ISetFastMode
+  | ISetlocale;
 
 export const makeMove = (
   swipeDirection:
@@ -171,5 +180,12 @@ export const setFastMode = (fastMode: boolean): ISetFastMode => ({
   type: SET_FAST_MODE,
   payload: {
     fastMode,
+  },
+});
+
+export const setLocale = (locale: LanguageCode): ISetlocale => ({
+  type: SET_LOCALE,
+  payload: {
+    locale,
   },
 });

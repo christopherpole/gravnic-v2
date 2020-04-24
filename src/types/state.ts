@@ -1,5 +1,6 @@
 import IGameState from '@/types/gameState';
 import ILevelData from '@/types/levelData';
+import LanguageCodes from '@/types/languageCodes';
 import IColorScheme from './colorScheme';
 
 interface ILevelDataWithColorScheme extends ILevelData {
@@ -15,6 +16,7 @@ interface IState {
   selectedLevelId: string;
   showingSettings: boolean;
   fastMode: boolean;
+  locale: LanguageCodes;
 }
 
 export default IState;
