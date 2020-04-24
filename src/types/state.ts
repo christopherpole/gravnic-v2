@@ -13,7 +13,7 @@ interface IState {
   entitiesMoving: boolean;
   levelLoaded: boolean;
   undoing: boolean;
-  selectedLevelId: string;
+  selectedLevelId: string | null;
   showingSettings: boolean;
   fastMode: boolean;
   locale: LanguageCodes;

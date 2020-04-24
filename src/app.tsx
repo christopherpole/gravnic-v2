@@ -21,7 +21,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <IntlProvider>
             <NavigationContainer>
-              <Stack.Navigator headerMode="none" initialRouteName="Game">
+              <Stack.Navigator headerMode="none" initialRouteName="LevelSelect">
                 <Stack.Screen name="LevelSelect" component={LevelSelectScene} />
                 <Stack.Screen name="Game" component={GameScene} />
               </Stack.Navigator>

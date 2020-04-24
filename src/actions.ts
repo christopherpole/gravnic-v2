@@ -1,4 +1,4 @@
-import { changeGravityDirection } from 'gravnic-game';
+import { getInitialGameState, changeGravityDirection } from 'gravnic-game';
 import IGameState from '@/types/gameState';
 import IState from '@/types/state';
 import LanguageCode from '@/types/languageCodes';
@@ -10,7 +10,7 @@ export const SET_ENTITIES_MOVING = 'SET_ENTITIES_MOVING';
 export const RESET_LEVEL = 'RESET_LEVEL';
 export const SET_LEVEL_LOADED = 'SET_LEVEL_LOADED';
 export const SET_UNDOING = 'SET_UNDOING';
-export const SET_SELECTED_LEVEL_ID = 'SET_SELECTED_LEVEL_ID';
+export const LOAD_LEVEL = 'LOAD_LEVEL';
 export const SET_SHOWING_SETTINGS = 'SET_SHOWING_SETTINGS';
 export const SET_FAST_MODE = 'SET_FAST_MODE';
 export const SET_LOCALE = 'SET_LOCALE';
@@ -42,10 +42,11 @@ export interface ISetUndoing {
     undoing: boolean;
   };
 }
-export interface ISetSelectedLevelId {
-  type: typeof SET_SELECTED_LEVEL_ID;
+export interface ILoadLevel {
+  type: typeof LOAD_LEVEL;
   payload: {
     selectedLevelId: string;
+    gameStateHistory: IGameState[][];
   };
 }
 export interface ISetShowingSettings {
@@ -73,7 +74,7 @@ export type IAction =
   | IResetLevel
   | ISetLevelLoaded
   | ISetUndoing
-  | ISetSelectedLevelId
+  | ILoadLevel
   | ISetShowingSettings
   | ISetFastMode
   | ISetlocale;
@@ -158,14 +159,29 @@ export const setUndoing = (undoing: boolean): ISetUndoing => ({
   },
 });
 
-export const setSelectedLevelId = (
-  selectedLevelId: string,
-): ISetSelectedLevelId => ({
-  type: SET_SELECTED_LEVEL_ID,
-  payload: {
-    selectedLevelId,
-  },
-});
+export const loadLevel = (selectedLevelId: string) => (
+  dispatch: (action: ILoadLevel) => void,
+  getState: () => IState,
+) => {
+  const { levels } = getState();
+  const selectedLevel = levels.find(
+    ({ id }: { id: string }) => id === selectedLevelId,
+  );
+
+  if (!selectedLevel) {
+    throw new Error('Level not found');
+  }
+
+  const initialGameState = getInitialGameState(selectedLevel.gameState);
+
+  dispatch({
+    type: LOAD_LEVEL,
+    payload: {
+      selectedLevelId,
+      gameStateHistory: [initialGameState],
+    },
+  });
+};
 
 export const setShowingSettings = (
   showingSettings: boolean,

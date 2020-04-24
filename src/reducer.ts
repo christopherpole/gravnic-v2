@@ -7,7 +7,7 @@ import {
   RESET_LEVEL,
   SET_LEVEL_LOADED,
   SET_UNDOING,
-  SET_SELECTED_LEVEL_ID,
+  LOAD_LEVEL,
   SET_SHOWING_SETTINGS,
   SET_FAST_MODE,
   SET_LOCALE,
@@ -20,11 +20,11 @@ const initialState = {
     colorScheme: colorSchemes[Math.floor(i % colorSchemes.length)],
     ...levelData,
   })),
-  gameStateHistory: [[levelsData[3].gameState]],
+  gameStateHistory: [],
   entitiesMoving: false,
   levelLoaded: false,
   undoing: false,
-  selectedLevelId: '4',
+  selectedLevelId: null,
   showingSettings: false,
   fastMode: false,
   locale: 'en' as LanguageCode,
@@ -90,22 +90,14 @@ const reducer = (state: IState = initialState, action: IAction): IState => {
       };
     }
 
-    case SET_SELECTED_LEVEL_ID: {
-      const selectedLevel = state.levels.find(
-        ({ id }) => id === action.payload.selectedLevelId,
-      );
-
-      if (!selectedLevel) {
-        return state;
-      }
-
+    case LOAD_LEVEL: {
       return {
         ...state,
         selectedLevelId: action.payload.selectedLevelId,
         levelLoaded: false,
         entitiesMoving: false,
         undoing: false,
-        gameStateHistory: [[selectedLevel.gameState]],
+        gameStateHistory: action.payload.gameStateHistory,
       };
     }
 

@@ -4,7 +4,7 @@ import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IState from '@/types/state';
-import { setSelectedLevelId } from '@/actions';
+import { loadLevel } from '@/actions';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 
 const Wrapper = styled(View)`
@@ -58,7 +58,7 @@ const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
           {levels.map((levelData, i) => (
             <TouchableWithoutFeedback
               onPress={() => {
-                dispatch(setSelectedLevelId(levelData.id));
+                dispatch(loadLevel(levelData.id));
                 navigation.navigate('Game');
               }}
               key={`level-preview-${i}`}
