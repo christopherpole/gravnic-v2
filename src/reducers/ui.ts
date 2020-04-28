@@ -1,8 +1,13 @@
 import IUi from '@/types/state/ui';
-import { SET_SHOWING_SETTINGS, IAction } from '@/actions';
+import {
+  SET_SHOWING_SETTINGS,
+  SET_SHOWING_LEVEL_SELECT,
+  IAction,
+} from '@/actions';
 
 const initialState: IUi = {
   showingSettings: false,
+  showingLevelSelect: false,
 };
 
 const reducer = (state = initialState, action: IAction): IUi => {
@@ -11,6 +16,13 @@ const reducer = (state = initialState, action: IAction): IUi => {
       return {
         ...state,
         showingSettings: action.payload.showingSettings,
+      };
+    }
+
+    case SET_SHOWING_LEVEL_SELECT: {
+      return {
+        ...state,
+        showingLevelSelect: action.payload.showingLevelSelect,
       };
     }
 

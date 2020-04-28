@@ -37,6 +37,7 @@ interface ICurrentState {
   loaded: boolean;
   undoing: boolean;
   fastMode: boolean;
+  initalized: boolean;
 }
 
 //  @FIXME - These needs to be kept here for it to work. What a mess
@@ -45,6 +46,7 @@ const currentState: ICurrentState = {
   loaded: false,
   undoing: false,
   fastMode: false,
+  initalized: false,
 };
 
 const GameRenderer = () => {
@@ -259,6 +261,10 @@ const GameRenderer = () => {
      * Init the game
      */
     const init = async () => {
+      console.log('a');
+      if (currentState.initalized) return;
+      console.log('b');
+
       //  Create the Pixi application
       app = new PIXI.Application({
         context,
@@ -275,6 +281,8 @@ const GameRenderer = () => {
 
       //  Setup the game loop
       app.ticker.add(() => update());
+
+      currentState.initalized = true;
     };
 
     await init();

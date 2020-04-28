@@ -13,6 +13,8 @@ import {
   resetLevel,
   setUndoing,
   setShowingSettings,
+  loadInitialLevel,
+  setShowingLevelSelect,
 } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Stars from '@/scenes/game/stars';
@@ -61,13 +63,7 @@ const ActionsWrapper = styled(View)`
   padding-bottom: ${(props) => props.theme.spacing.large};
 `;
 
-interface IGameScene {
-  navigation: {
-    navigate: (routeName: string) => void;
-  };
-}
-
-const GameScene = ({ navigation }: IGameScene) => {
+const GameScene = () => {
   const dispatch = useDispatch();
 
   const showGameButtons = useSelector(
@@ -75,20 +71,19 @@ const GameScene = ({ navigation }: IGameScene) => {
       gameStateHistory.length > (undoing ? 2 : 1),
   );
 
-  const background = useSelector(
-    ({ game: { levels, selectedLevelId } }: IState) => {
-      const currentLevel = levels.find((level) => level.id === selectedLevelId);
-
-      if (!currentLevel) {
-        throw new Error('Level not found');
-      }
-
-      return currentLevel.colorScheme.background;
-    },
+  const currentLevel = useSelector(
+    ({ game: { levels, selectedLevelId } }: IState) =>
+      levels.find((level) => level.id === selectedLevelId),
   );
 
+  //  Load the first unsolved level available if there is no level
+  if (!currentLevel) {
+    dispatch(loadInitialLevel());
+    return null;
+  }
+
   return (
-    <Wrapper background={background}>
+    <Wrapper background={currentLevel.colorScheme.background}>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
           dispatch(makeMove(swipeDirection));
@@ -109,7 +104,7 @@ const GameScene = ({ navigation }: IGameScene) => {
       <ActionsWrapper>
         <Button
           onPress={() => {
-            navigation.navigate('LevelSelect');
+            dispatch(setShowingLevelSelect(true));
           }}
           image={menuImg}
         />

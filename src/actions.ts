@@ -14,6 +14,7 @@ export const LOAD_LEVEL = 'LOAD_LEVEL';
 export const SET_SHOWING_SETTINGS = 'SET_SHOWING_SETTINGS';
 export const SET_FAST_MODE = 'SET_FAST_MODE';
 export const SET_LOCALE = 'SET_LOCALE';
+export const SET_SHOWING_LEVEL_SELECT = 'SET_SHOWING_LEVEL_SELECT';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -68,6 +69,13 @@ export interface ISetlocale {
   };
 }
 
+export interface ISetShowingLevelSelect {
+  type: typeof SET_SHOWING_LEVEL_SELECT;
+  payload: {
+    showingLevelSelect: boolean;
+  };
+}
+
 export type IAction =
   | IMakeMove
   | ISetEntitiesMoving
@@ -77,7 +85,8 @@ export type IAction =
   | ILoadLevel
   | ISetShowingSettings
   | ISetFastMode
-  | ISetlocale;
+  | ISetlocale
+  | ISetShowingLevelSelect;
 
 export const makeMove = (
   swipeDirection:
@@ -206,5 +215,16 @@ export const setLocale = (locale: LanguageCode): ISetlocale => ({
   type: SET_LOCALE,
   payload: {
     locale,
+  },
+});
+
+export const loadInitialLevel = () => loadLevel('6');
+
+export const setShowingLevelSelect = (
+  showingLevelSelect: boolean,
+): ISetShowingLevelSelect => ({
+  type: SET_SHOWING_LEVEL_SELECT,
+  payload: {
+    showingLevelSelect,
   },
 });

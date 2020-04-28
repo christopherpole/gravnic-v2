@@ -4,12 +4,18 @@ import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IState from '@/types/state';
-import { loadLevel } from '@/actions';
+import { loadLevel, setShowingLevelSelect } from '@/actions';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 
 const Wrapper = styled(View)`
   display: flex;
   flex: 1;
+  position: absolute;
+  background: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 const StarsCountWrapper = styled(View)`
@@ -38,15 +44,15 @@ const LevelPreviewWrapper = styled(View)`
   width: 33.33333333%;
 `;
 
-interface ILevelSelectScene {
-  navigation: {
-    navigate: (routeName: string) => void;
-  };
-}
-
-const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
+const LevelSelectScene = () => {
   const dispatch = useDispatch();
   const levels = useSelector((state: IState) => state.game.levels);
+  const showing = useSelector((state: IState) => state.ui.showingLevelSelect);
+
+  //  Don't render the component if we aren't showing the level selector
+  if (!showing) {
+    return null;
+  }
 
   return (
     <Wrapper>
@@ -59,7 +65,7 @@ const LevelSelectScene = ({ navigation }: ILevelSelectScene) => {
             <TouchableWithoutFeedback
               onPress={() => {
                 dispatch(loadLevel(levelData.id));
-                navigation.navigate('Game');
+                dispatch(setShowingLevelSelect(false));
               }}
               key={`level-preview-${i}`}
             >
