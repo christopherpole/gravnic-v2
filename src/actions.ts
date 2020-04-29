@@ -259,7 +259,7 @@ export const updateProgress = () => (
     type: UPDATE_PROGRESS,
     payload: {
       levelId: selectedLevelId,
-      moveCount: gameStateHistory.length,
+      moveCount: gameStateHistory.length - 1,
     },
   });
 };

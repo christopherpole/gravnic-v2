@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
@@ -12,7 +12,11 @@ const Wrapper = styled(View)`
   align-items: center;
 `;
 
-const Star = styled(View)<{ used?: boolean; large?: boolean }>`
+const Star = styled(View)<{
+  achieved?: boolean;
+  used?: boolean;
+  large?: boolean;
+}>`
   width: 5%;
   aspect-ratio: 1;
   background: #ffd700;
@@ -22,6 +26,12 @@ const Star = styled(View)<{ used?: boolean; large?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${(props) =>
+    props.achieved &&
+    css`
+      background: purple;
+    `}
 
   ${(props) =>
     props.used &&
@@ -34,11 +44,6 @@ const Star = styled(View)<{ used?: boolean; large?: boolean }>`
     css`
       width: 8%;
     `}
-`;
-
-const Number = styled(Text)`
-  color: black;
-  font-weight: bold;
 `;
 
 const Stars = () => {
@@ -61,18 +66,21 @@ const Stars = () => {
       state.game.gameStateHistory.length - (state.game.undoing ? 2 : 1),
   );
 
+  //  Get the current record for the number of moves
+  const currentProgress = useSelector(
+    (state: IState) =>
+      state.user.progress[state.game.selectedLevelId as string],
+  );
+
   return (
     <Wrapper>
       {[...Array(stars[2])].map((i, index) => (
         <Star
+          achieved={index >= currentProgress - 1}
           key={`star-${index}`}
           used={index < noOfMovesMade}
           large={stars.includes(index + 1)}
-        >
-          {stars.includes(index + 1) && (
-            <Number>{3 - stars.indexOf(index + 1)}</Number>
-          )}
-        </Star>
+        />
       ))}
     </Wrapper>
   );
