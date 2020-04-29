@@ -1,10 +1,11 @@
 import IUser from '@/types/state/user';
 import LanguageCode from '@/types/languageCodes';
-import { SET_FAST_MODE, SET_LOCALE, IAction } from '@/actions';
+import { SET_FAST_MODE, SET_LOCALE, UPDATE_PROGRESS, IAction } from '@/actions';
 
 const initialState: IUser = {
   fastMode: false,
   locale: 'en' as LanguageCode,
+  progress: {},
 };
 
 const reducer = (state = initialState, action: IAction): IUser => {
@@ -20,6 +21,16 @@ const reducer = (state = initialState, action: IAction): IUser => {
       return {
         ...state,
         locale: action.payload.locale,
+      };
+    }
+
+    case UPDATE_PROGRESS: {
+      return {
+        ...state,
+        progress: {
+          ...state.progress,
+          [action.payload.levelId]: action.payload.moveCount,
+        },
       };
     }
 

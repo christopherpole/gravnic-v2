@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
-import { TouchableWithoutFeedback, ScrollView, View, Text } from 'react-native';
+import { TouchableWithoutFeedback, ScrollView, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IState from '@/types/state';
 import { loadLevel, setShowingLevelSelect } from '@/actions';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
+import Progress from './progress';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -16,20 +17,6 @@ const Wrapper = styled(View)`
   left: 0;
   right: 0;
   bottom: 0;
-`;
-
-const StarsCountWrapper = styled(View)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom-color: black;
-  border-bottom-width: 2px;
-`;
-
-const StarsCountText = styled(Text)`
-  padding: ${(props) => props.theme.spacing.medium};
-  font-size: ${(props) => props.theme.sizing.large};
-  color: red;
 `;
 
 const LevelsWrapper = styled(View)`
@@ -56,9 +43,8 @@ const LevelSelectScene = () => {
 
   return (
     <Wrapper>
-      <StarsCountWrapper>
-        <StarsCountText>0/{levels.length * 3}</StarsCountText>
-      </StarsCountWrapper>
+      <Progress />
+
       <ScrollView bounces={false}>
         <LevelsWrapper>
           {levels.map((levelData, i) => (

@@ -1,8 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useSelector, useDispatch } from 'react-redux';
+import { levelIsComplete } from 'gravnic-game';
 
 import {
   SWIPE_VELOCITY_THRESHOLD,
@@ -15,6 +16,7 @@ import {
   setShowingSettings,
   loadInitialLevel,
   setShowingLevelSelect,
+  updateProgress,
 } from '@/actions';
 import GameRenderer from '@/scenes/game/renderer';
 import Stars from '@/scenes/game/stars';
@@ -63,18 +65,56 @@ const ActionsWrapper = styled(View)`
   padding-bottom: ${(props) => props.theme.spacing.large};
 `;
 
+const LevelWonMessageWrapper = styled(View)`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: ${(props) => props.theme.spacing.medium};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LevelWonMessage = styled(Text)`
+  padding: ${(props) => props.theme.spacing.medium};
+  border: 2px solid black;
+  background: white;
+`;
+
 const GameScene = () => {
   const dispatch = useDispatch();
 
+  //  Get the current level data based on the current level ID
+  const currentLevel = useSelector(
+    ({ game: { levels, selectedLevelId } }: IState) =>
+      levels.find((level) => level.id === selectedLevelId),
+  );
+
+  //  Should we show the restart/undo buttons?
   const showGameButtons = useSelector(
     ({ game: { gameStateHistory, undoing } }: IState) =>
       gameStateHistory.length > (undoing ? 2 : 1),
   );
 
-  const currentLevel = useSelector(
-    ({ game: { levels, selectedLevelId } }: IState) =>
-      levels.find((level) => level.id === selectedLevelId),
+  //  Has the level been completed successfully?
+  const levelWon = useSelector(
+    ({
+      game: { undoing, entitiesMoving, gameStateHistory, selectedLevelId },
+    }: IState) => {
+      if (undoing || entitiesMoving || !selectedLevelId) return false;
+
+      const lastMove = gameStateHistory[gameStateHistory.length - 1];
+
+      return levelIsComplete(lastMove[lastMove.length - 1]);
+    },
   );
+
+  //  If a level has been won then let's update the user's progress
+  useEffect(() => {
+    if (levelWon) {
+      dispatch(updateProgress());
+    }
+  }, [levelWon, dispatch]);
 
   //  Load the first unsolved level available if there is no level
   if (!currentLevel) {
@@ -86,6 +126,7 @@ const GameScene = () => {
     <Wrapper background={currentLevel.colorScheme.background}>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
+          if (levelWon) return;
           dispatch(makeMove(swipeDirection));
         }}
         config={{
@@ -96,8 +137,13 @@ const GameScene = () => {
         <StarsWrapper>
           <Stars />
         </StarsWrapper>
+
         <GameAreaWrapper>
           <GameRenderer />
+
+          <LevelWonMessageWrapper>
+            {levelWon && <LevelWonMessage>You&apos;ve won!</LevelWonMessage>}
+          </LevelWonMessageWrapper>
         </GameAreaWrapper>
       </StyledGestureRecognizer>
 

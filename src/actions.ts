@@ -15,6 +15,7 @@ export const SET_SHOWING_SETTINGS = 'SET_SHOWING_SETTINGS';
 export const SET_FAST_MODE = 'SET_FAST_MODE';
 export const SET_LOCALE = 'SET_LOCALE';
 export const SET_SHOWING_LEVEL_SELECT = 'SET_SHOWING_LEVEL_SELECT';
+export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -76,6 +77,14 @@ export interface ISetShowingLevelSelect {
   };
 }
 
+export interface IUpdateProgress {
+  type: typeof UPDATE_PROGRESS;
+  payload: {
+    levelId: string;
+    moveCount: number;
+  };
+}
+
 export type IAction =
   | IMakeMove
   | ISetEntitiesMoving
@@ -86,7 +95,8 @@ export type IAction =
   | ISetShowingSettings
   | ISetFastMode
   | ISetlocale
-  | ISetShowingLevelSelect;
+  | ISetShowingLevelSelect
+  | IUpdateProgress;
 
 export const makeMove = (
   swipeDirection:
@@ -228,3 +238,28 @@ export const setShowingLevelSelect = (
     showingLevelSelect,
   },
 });
+
+export const updateProgress = () => (
+  dispatch: (action: IUpdateProgress) => void,
+  getState: () => IState,
+) => {
+  const {
+    game: { gameStateHistory, selectedLevelId, levels },
+  } = getState();
+
+  const selectedLevel = levels.find(
+    ({ id }: { id: string }) => id === selectedLevelId,
+  );
+
+  if (!selectedLevel || !selectedLevelId) {
+    throw new Error('Level not found');
+  }
+
+  dispatch({
+    type: UPDATE_PROGRESS,
+    payload: {
+      levelId: selectedLevelId,
+      moveCount: gameStateHistory.length,
+    },
+  });
+};

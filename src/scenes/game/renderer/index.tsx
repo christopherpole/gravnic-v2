@@ -261,9 +261,7 @@ const GameRenderer = () => {
      * Init the game
      */
     const init = async () => {
-      console.log('a');
       if (currentState.initalized) return;
-      console.log('b');
 
       //  Create the Pixi application
       app = new PIXI.Application({

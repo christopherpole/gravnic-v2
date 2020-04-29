@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import levelsData from '@/data/levels';
@@ -20,6 +20,9 @@ const Star = styled(View)<{ used?: boolean; large?: boolean }>`
   margin: 0 2.5%;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   border: 1px solid ${(props) => props.theme.colors.disabled};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   ${(props) =>
     props.used &&
@@ -32,6 +35,11 @@ const Star = styled(View)<{ used?: boolean; large?: boolean }>`
     css`
       width: 8%;
     `}
+`;
+
+const Number = styled(Text)`
+  color: black;
+  font-weight: bold;
 `;
 
 const Stars = () => {
@@ -48,7 +56,11 @@ const Stars = () => {
           key={`star-${index}`}
           used={index < noOfMovesMade}
           large={Object.values(stars).includes(index + 1)}
-        />
+        >
+          {Object.values(stars).includes(index + 1) && (
+            <Number>{3 - Object.values(stars).indexOf(index + 1)}</Number>
+          )}
+        </Star>
       ))}
     </Wrapper>
   );
