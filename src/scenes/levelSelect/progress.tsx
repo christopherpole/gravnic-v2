@@ -20,15 +20,29 @@ const StarsCountText = styled(Text)`
 `;
 
 const Progress = () => {
+  //  Get the total number of stars available
   const totalStarsCount = useSelector(
     (state: IState) => state.game.levels.length * 3,
   );
-  const userStarsCount = useSelector((state: IState) =>
-    Object.values(state.user.progress).reduce((a, b) => a + b, 0),
-  );
 
-  const progress = useSelector((state: IState) => state.user.progress);
-  console.log(progress);
+  //  Get the number of stars the user has achieved so far
+  const userStarsCount = useSelector(
+    ({ user: { progress }, game: { levels } }: IState) => {
+      let count = 0;
+
+      //  Check the number of stars we've got for each level
+      Object.keys(progress).forEach((key) => {
+        const level = levels.find(({ id }) => id === key);
+
+        if (level) {
+          //  @TODO: revise the structure of "stars" for the levels
+          count += level.stars.filter((star) => progress[key] <= star).length;
+        }
+      });
+
+      return count;
+    },
+  );
 
   return (
     <Wrapper>
