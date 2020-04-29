@@ -245,6 +245,7 @@ export const updateProgress = () => (
 ) => {
   const {
     game: { gameStateHistory, selectedLevelId, levels },
+    user: { progress },
   } = getState();
 
   const selectedLevel = levels.find(
@@ -255,11 +256,13 @@ export const updateProgress = () => (
     throw new Error('Level not found');
   }
 
-  dispatch({
-    type: UPDATE_PROGRESS,
-    payload: {
-      levelId: selectedLevelId,
-      moveCount: gameStateHistory.length - 1,
-    },
-  });
+  if (gameStateHistory.length - 1 < progress[selectedLevelId]) {
+    dispatch({
+      type: UPDATE_PROGRESS,
+      payload: {
+        levelId: selectedLevelId,
+        moveCount: gameStateHistory.length - 1,
+      },
+    });
+  }
 };
