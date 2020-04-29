@@ -1,6 +1,11 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  ImageSourcePropType,
+} from 'react-native';
 
 const Wrapper = styled(TouchableOpacity)`
   margin: 0 ${(props) => props.theme.spacing.medium};
@@ -20,15 +25,21 @@ const StyledImage = styled(Image)`
   width: 100%;
 `;
 
+const StyledText = styled(Text)`
+  border: 1px solid black;
+`;
+
 interface IProps {
   onPress?: () => void;
   disabled?: boolean;
-  image: ImageSourcePropType;
+  image?: ImageSourcePropType;
+  children?: React.ReactNode;
 }
 
-const Button = ({ image, ...rest }: IProps) => (
+const Button = ({ image, children, ...rest }: IProps) => (
   <Wrapper {...rest}>
-    <StyledImage source={image} />
+    {image && <StyledImage source={image} />}
+    {children && <StyledText>{children}</StyledText>}
   </Wrapper>
 );
 

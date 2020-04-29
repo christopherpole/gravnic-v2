@@ -8,7 +8,12 @@ import { FormattedMessage } from 'react-intl';
 import LanguageCodes from '@/types/languageCodes';
 import IState from '@/types/state';
 import messages from '@/data/translations';
-import { setShowingSettings, setFastMode, setLocale } from '@/actions';
+import {
+  setShowingSettings,
+  setFastMode,
+  setLocale,
+  clearProgress,
+} from '@/actions';
 import Button from '@/components/button';
 import closeImg from '@/assets/close.png';
 
@@ -129,6 +134,16 @@ const SettingsScene = () => {
                 value: languageCode,
               }))}
             />
+          </OptionWrapper>
+
+          <OptionWrapper>
+            <Button
+              onPress={() => {
+                dispatch(clearProgress());
+              }}
+            >
+              <FormattedMessage id="clearProgress" />
+            </Button>
           </OptionWrapper>
         </OptionsWrapper>
       </WrapperInner>

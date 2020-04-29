@@ -16,6 +16,7 @@ export const SET_FAST_MODE = 'SET_FAST_MODE';
 export const SET_LOCALE = 'SET_LOCALE';
 export const SET_SHOWING_LEVEL_SELECT = 'SET_SHOWING_LEVEL_SELECT';
 export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
+export const CLEAR_PROGRESS = 'CLEAR_PROGRESS';
 
 export interface IMakeMove {
   type: typeof MAKE_MOVE;
@@ -85,6 +86,10 @@ export interface IUpdateProgress {
   };
 }
 
+export interface IClearProgress {
+  type: typeof CLEAR_PROGRESS;
+}
+
 export type IAction =
   | IMakeMove
   | ISetEntitiesMoving
@@ -96,7 +101,8 @@ export type IAction =
   | ISetFastMode
   | ISetlocale
   | ISetShowingLevelSelect
-  | IUpdateProgress;
+  | IUpdateProgress
+  | IClearProgress;
 
 export const makeMove = (
   swipeDirection:
@@ -256,7 +262,10 @@ export const updateProgress = () => (
     throw new Error('Level not found');
   }
 
-  if (gameStateHistory.length - 1 < progress[selectedLevelId]) {
+  if (
+    !progress[selectedLevelId] ||
+    gameStateHistory.length - 1 < progress[selectedLevelId]
+  ) {
     dispatch({
       type: UPDATE_PROGRESS,
       payload: {
@@ -266,3 +275,7 @@ export const updateProgress = () => (
     });
   }
 };
+
+export const clearProgress = (): IClearProgress => ({
+  type: CLEAR_PROGRESS,
+});

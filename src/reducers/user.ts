@@ -1,6 +1,12 @@
 import IUser from '@/types/state/user';
 import LanguageCode from '@/types/languageCodes';
-import { SET_FAST_MODE, SET_LOCALE, UPDATE_PROGRESS, IAction } from '@/actions';
+import {
+  SET_FAST_MODE,
+  SET_LOCALE,
+  UPDATE_PROGRESS,
+  CLEAR_PROGRESS,
+  IAction,
+} from '@/actions';
 
 const initialState: IUser = {
   fastMode: false,
@@ -31,6 +37,13 @@ const reducer = (state = initialState, action: IAction): IUser => {
           ...state.progress,
           [action.payload.levelId]: action.payload.moveCount,
         },
+      };
+    }
+
+    case CLEAR_PROGRESS: {
+      return {
+        ...state,
+        progress: initialState.progress,
       };
     }
 
