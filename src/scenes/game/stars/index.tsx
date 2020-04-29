@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import levelsData from '@/data/levels';
 import IState from '@/types/state';
 
 const Wrapper = styled(View)`
@@ -43,7 +42,20 @@ const Number = styled(Text)`
 `;
 
 const Stars = () => {
-  const { stars } = levelsData[0];
+  //  Get the stars for the current level
+  const stars = useSelector((state: IState) => {
+    const currentLevel = state.game.levels.find(
+      (level) => level.id === state.game.selectedLevelId,
+    );
+
+    if (!currentLevel) {
+      throw new Error('No level found');
+    }
+
+    return currentLevel.stars;
+  });
+
+  //  Get the number of moves that have currently been made for this level
   const noOfMovesMade = useSelector(
     (state: IState) =>
       state.game.gameStateHistory.length - (state.game.undoing ? 2 : 1),

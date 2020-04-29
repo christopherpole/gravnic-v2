@@ -14,7 +14,7 @@ const levelData: ILevelData = {
         staticEntity: { entityId: 'FLOOR', id: 2 },
         movableEntity: {
           entityId: 'BLOCK',
-          color: '#e6799b',
+          color: '#ff0000',
           id: 1,
         },
       },
@@ -26,7 +26,7 @@ const levelData: ILevelData = {
         staticEntity: { entityId: 'FLOOR', id: 5 },
         movableEntity: {
           entityId: 'BLOCK',
-          color: '#eca943',
+          color: '#FF8C00',
           id: 4,
         },
       },
@@ -36,7 +36,7 @@ const levelData: ILevelData = {
         staticEntity: { entityId: 'FLOOR', id: 7 },
         movableEntity: {
           entityId: 'BLOCK',
-          color: '#645a50',
+          color: '#FFFF00',
           id: 6,
         },
       },
@@ -70,7 +70,7 @@ const levelData: ILevelData = {
         staticEntity: { entityId: 'FLOOR', id: 15 },
         movableEntity: {
           entityId: 'BLOCK',
-          color: '#645a50',
+          color: '#FFFF00',
           id: 14,
         },
       },
@@ -80,7 +80,7 @@ const levelData: ILevelData = {
         staticEntity: { entityId: 'FLOOR', id: 17 },
         movableEntity: {
           entityId: 'BLOCK',
-          color: '#e6799b',
+          color: '#ff0000',
           id: 16,
         },
       },
@@ -92,7 +92,7 @@ const levelData: ILevelData = {
         staticEntity: { entityId: 'FLOOR', id: 20 },
         movableEntity: {
           entityId: 'BLOCK',
-          color: '#eca943',
+          color: '#FF8C00',
           id: 19,
         },
       },
