@@ -63,14 +63,14 @@ const Stars = () => {
 
   return (
     <Wrapper>
-      {[...Array(stars['3'])].map((i, index) => (
+      {[...Array(stars[2])].map((i, index) => (
         <Star
           key={`star-${index}`}
           used={index < noOfMovesMade}
-          large={Object.values(stars).includes(index + 1)}
+          large={stars.includes(index + 1)}
         >
-          {Object.values(stars).includes(index + 1) && (
-            <Number>{3 - Object.values(stars).indexOf(index + 1)}</Number>
+          {stars.includes(index + 1) && (
+            <Number>{3 - stars.indexOf(index + 1)}</Number>
           )}
         </Star>
       ))}

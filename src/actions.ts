@@ -228,7 +228,7 @@ export const setLocale = (locale: LanguageCode): ISetlocale => ({
   },
 });
 
-export const loadInitialLevel = () => loadLevel('6');
+export const loadInitialLevel = () => loadLevel('1');
 
 export const setShowingLevelSelect = (
   showingLevelSelect: boolean,
