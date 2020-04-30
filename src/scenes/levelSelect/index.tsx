@@ -49,28 +49,33 @@ const LevelSelectScene = () => {
 
       <ScrollView bounces={false}>
         <LevelsWrapper>
-          {levels.map((levelData, i) => (
-            <TouchableWithoutFeedback
-              onPress={() => {
-                dispatch(loadLevel(levelData.id));
-                dispatch(setShowingLevelSelect(false));
-              }}
-              key={`level-preview-${i}`}
-            >
-              <LevelPreviewWrapper>
-                <LevelPreview
-                  {...levelData}
-                  progress={
-                    (progress[levelData.id] &&
-                      levelData.stars.filter(
-                        (num) => progress[levelData.id] <= num,
-                      ).length) ||
-                    0
-                  }
-                />
-              </LevelPreviewWrapper>
-            </TouchableWithoutFeedback>
-          ))}
+          {levels.map((levelData, i) => {
+            const locked = i > 0 && !progress[levels[i - 1].id];
+            const stars =
+              (progress[levelData.id] &&
+                levelData.stars.filter((num) => progress[levelData.id] <= num)
+                  .length) ||
+              0;
+
+            return (
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  if (locked) return;
+                  dispatch(loadLevel(levelData.id));
+                  dispatch(setShowingLevelSelect(false));
+                }}
+                key={`level-preview-${i}`}
+              >
+                <LevelPreviewWrapper>
+                  <LevelPreview
+                    {...levelData}
+                    progress={stars}
+                    locked={locked}
+                  />
+                </LevelPreviewWrapper>
+              </TouchableWithoutFeedback>
+            );
+          })}
         </LevelsWrapper>
       </ScrollView>
     </Wrapper>

@@ -8,10 +8,11 @@ import { FormattedMessage } from 'react-intl';
 import LanguageCodes from '@/types/languageCodes';
 import IState from '@/types/state';
 import messages from '@/data/translations';
-import { setShowingSettings } from '@/actions/ui';
+import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
 import { setFastMode, setLocale, clearProgress } from '@/actions/user';
 import Button from '@/components/button';
 import closeImg from '@/assets/close.png';
+import { loadInitialLevel } from '@/actions/game';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -136,6 +137,8 @@ const SettingsScene = () => {
             <Button
               onPress={() => {
                 dispatch(clearProgress());
+                dispatch(loadInitialLevel());
+                dispatch(setShowingLevelSelect(true));
               }}
             >
               <FormattedMessage id="clearProgress" />

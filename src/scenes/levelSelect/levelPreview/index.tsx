@@ -57,12 +57,28 @@ const Star = styled(View)<{ achieved?: boolean }>`
     `}
 `;
 
+const Locked = styled(View)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: black;
+  opacity: 0.8;
+`;
+
 interface ILevelPreview extends ILevelData {
   colorScheme: IColorScheme;
   progress: number;
+  locked: boolean;
 }
 
-const LevelPreview = ({ gameState, colorScheme, progress }: ILevelPreview) => {
+const LevelPreview = ({
+  locked,
+  gameState,
+  colorScheme,
+  progress,
+}: ILevelPreview) => {
   return (
     <Wrapper background={colorScheme.background}>
       <PreviewWrapper>
@@ -89,6 +105,7 @@ const LevelPreview = ({ gameState, colorScheme, progress }: ILevelPreview) => {
         <Star achieved={progress >= 2} />
         <Star achieved={progress >= 3} />
       </ProgressWrapper>
+      {locked && <Locked />}
     </Wrapper>
   );
 };
