@@ -14,7 +14,7 @@ import {
   UNDOING_SPEED_MULTIPLIER,
   FAST_MODE_MULTIPLIER,
 } from '@/config';
-import { setEntitiesMoving, setLevelLoaded } from '@/actions';
+import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
 import entitiesSpritesheet from '@/assets/entities.png';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';

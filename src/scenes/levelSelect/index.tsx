@@ -4,7 +4,8 @@ import { TouchableWithoutFeedback, ScrollView, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IState from '@/types/state';
-import { loadLevel, setShowingLevelSelect } from '@/actions';
+import { loadLevel } from '@/actions/game';
+import { setShowingLevelSelect } from '@/actions/ui';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import Progress from './progress';
 

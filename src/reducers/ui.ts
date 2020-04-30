@@ -2,15 +2,15 @@ import IUi from '@/types/state/ui';
 import {
   SET_SHOWING_SETTINGS,
   SET_SHOWING_LEVEL_SELECT,
-  IAction,
-} from '@/actions';
+  IUiAction,
+} from '@/actions/ui';
 
 const initialState: IUi = {
   showingSettings: false,
   showingLevelSelect: false,
 };
 
-const reducer = (state = initialState, action: IAction): IUi => {
+const reducer = (state = initialState, action: IUiAction): IUi => {
   switch (action.type) {
     case SET_SHOWING_SETTINGS: {
       return {

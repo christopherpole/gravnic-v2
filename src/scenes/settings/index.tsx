@@ -8,12 +8,8 @@ import { FormattedMessage } from 'react-intl';
 import LanguageCodes from '@/types/languageCodes';
 import IState from '@/types/state';
 import messages from '@/data/translations';
-import {
-  setShowingSettings,
-  setFastMode,
-  setLocale,
-  clearProgress,
-} from '@/actions';
+import { setShowingSettings } from '@/actions/ui';
+import { setFastMode, setLocale, clearProgress } from '@/actions/user';
 import Button from '@/components/button';
 import closeImg from '@/assets/close.png';
 

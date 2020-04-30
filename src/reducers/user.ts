@@ -5,8 +5,8 @@ import {
   SET_LOCALE,
   UPDATE_PROGRESS,
   CLEAR_PROGRESS,
-  IAction,
-} from '@/actions';
+  IUserAction,
+} from '@/actions/user';
 
 const initialState: IUser = {
   fastMode: false,
@@ -14,7 +14,7 @@ const initialState: IUser = {
   progress: {},
 };
 
-const reducer = (state = initialState, action: IAction): IUser => {
+const reducer = (state = initialState, action: IUserAction): IUser => {
   switch (action.type) {
     case SET_FAST_MODE: {
       return {

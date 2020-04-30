@@ -8,8 +8,8 @@ import {
   SET_LEVEL_LOADED,
   SET_UNDOING,
   LOAD_LEVEL,
-  IAction,
-} from '@/actions';
+  IGameAction,
+} from '@/actions/game';
 
 const initialState: IGame = {
   levels: levelsData.map((levelData, i) => ({
@@ -23,7 +23,7 @@ const initialState: IGame = {
   undoing: false,
 };
 
-const reducer = (state = initialState, action: IAction): IGame => {
+const reducer = (state = initialState, action: IGameAction): IGame => {
   switch (action.type) {
     case MAKE_MOVE: {
       return {

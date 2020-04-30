@@ -13,11 +13,10 @@ import {
   makeMove,
   resetLevel,
   setUndoing,
-  setShowingSettings,
   loadInitialLevel,
-  setShowingLevelSelect,
-  updateProgress,
-} from '@/actions';
+} from '@/actions/game';
+import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
+import { updateProgress } from '@/actions/user';
 import GameRenderer from '@/scenes/game/renderer';
 import Stars from '@/scenes/game/stars';
 import Button from '@/components/button';
