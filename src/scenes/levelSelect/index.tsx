@@ -35,6 +35,7 @@ const LevelSelectScene = () => {
   const dispatch = useDispatch();
   const levels = useSelector((state: IState) => state.game.levels);
   const showing = useSelector((state: IState) => state.ui.showingLevelSelect);
+  const progress = useSelector((state: IState) => state.user.progress);
 
   //  Don't render the component if we aren't showing the level selector
   if (!showing) {
@@ -56,7 +57,16 @@ const LevelSelectScene = () => {
               key={`level-preview-${i}`}
             >
               <LevelPreviewWrapper>
-                <LevelPreview {...levelData} />
+                <LevelPreview
+                  {...levelData}
+                  progress={
+                    (progress[levelData.id] &&
+                      levelData.stars.filter(
+                        (num) => progress[levelData.id] <= num,
+                      ).length) ||
+                    0
+                  }
+                />
               </LevelPreviewWrapper>
             </TouchableWithoutFeedback>
           ))}
