@@ -65,7 +65,7 @@ const ActionsWrapper = styled(View)`
   padding-bottom: ${(props) => props.theme.spacing.large};
 `;
 
-const LevelWonMessageWrapper = styled(View)`
+const LevelMessageWrapper = styled(View)`
   position: absolute;
   height: 100%;
   width: 100%;
@@ -75,14 +75,15 @@ const LevelWonMessageWrapper = styled(View)`
   justify-content: center;
 `;
 
-const LevelWonMessageWrapperInner = styled(View)`
+const LevelMessageWrapperInner = styled(View)`
   padding: ${(props) => props.theme.spacing.medium};
   border: 2px solid black;
   background: white;
 `;
 
-const LevelWonMessage = styled(Text)`
+const LevelMessage = styled(Text)`
   margin-bottom: ${(props) => props.theme.spacing.medium};
+  padding: 10px;
 `;
 
 const GameScene = () => {
@@ -123,6 +124,11 @@ const GameScene = () => {
     },
   );
 
+  const noOfMovesMade = useSelector(
+    ({ game: { gameStateHistory, undoing, entitiesMoving } }: IState) =>
+      gameStateHistory.length - (entitiesMoving || undoing ? 2 : 1),
+  );
+
   //  If a level has been won then let's update the user's progress
   useEffect(() => {
     if (levelWon) {
@@ -136,11 +142,13 @@ const GameScene = () => {
     return null;
   }
 
+  const levelLost = noOfMovesMade >= currentLevel.stars[2] && !levelWon;
+
   return (
     <Wrapper background={currentLevel.colorScheme.background}>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
-          if (levelWon) return;
+          if (levelWon || levelLost) return;
           dispatch(makeMove(swipeDirection));
         }}
         config={{
@@ -155,10 +163,18 @@ const GameScene = () => {
         <GameAreaWrapper>
           <GameRenderer />
 
+          {levelLost && (
+            <LevelMessageWrapper>
+              <LevelMessageWrapperInner>
+                <LevelMessage>You suck</LevelMessage>
+              </LevelMessageWrapperInner>
+            </LevelMessageWrapper>
+          )}
+
           {levelWon && (
-            <LevelWonMessageWrapper>
-              <LevelWonMessageWrapperInner>
-                <LevelWonMessage>You&apos;ve won!</LevelWonMessage>
+            <LevelMessageWrapper>
+              <LevelMessageWrapperInner>
+                <LevelMessage>You&apos;ve won!</LevelMessage>
                 {hasNextLevel && (
                   <Button
                     onPress={() => {
@@ -168,8 +184,8 @@ const GameScene = () => {
                     Next level
                   </Button>
                 )}
-              </LevelWonMessageWrapperInner>
-            </LevelWonMessageWrapper>
+              </LevelMessageWrapperInner>
+            </LevelMessageWrapper>
           )}
         </GameAreaWrapper>
       </StyledGestureRecognizer>
