@@ -4,7 +4,7 @@ interface IUser {
   fastMode: boolean;
   locale: LanguageCodes;
   progress: {
-    [levelId: string]: number;
+    [levelIndex: number]: number;
   };
 }
 

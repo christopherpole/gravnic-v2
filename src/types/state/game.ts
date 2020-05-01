@@ -11,7 +11,7 @@ interface IGame {
   entitiesMoving: boolean;
   levelLoaded: boolean;
   undoing: boolean;
-  selectedLevelId: string | null;
+  selectedLevelIndex: number | null;
   levels: ILevelDataWithColorScheme[];
 }
 

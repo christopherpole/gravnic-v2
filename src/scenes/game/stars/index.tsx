@@ -48,29 +48,30 @@ const Star = styled(View)<{
 
 const Stars = () => {
   //  Get the stars for the current level
-  const stars = useSelector((state: IState) => {
-    const currentLevel = state.game.levels.find(
-      (level) => level.id === state.game.selectedLevelId,
-    );
+  const stars = useSelector(
+    ({ game: { levels, selectedLevelIndex } }: IState) => {
+      if (selectedLevelIndex === null) {
+        return null;
+      }
 
-    if (!currentLevel) {
-      throw new Error('No level found');
-    }
-
-    return currentLevel.stars;
-  });
+      const currentLevel = levels[selectedLevelIndex];
+      return currentLevel.stars;
+    },
+  );
 
   //  Get the number of moves that have currently been made for this level
   const noOfMovesMade = useSelector(
-    (state: IState) =>
-      state.game.gameStateHistory.length - (state.game.undoing ? 2 : 1),
+    ({ game: { gameStateHistory, undoing } }: IState) =>
+      gameStateHistory.length - (undoing ? 2 : 1),
   );
 
   //  Get the current record for the number of moves
   const currentProgress = useSelector(
-    (state: IState) =>
-      state.user.progress[state.game.selectedLevelId as string],
+    ({ game: { selectedLevelIndex }, user: { progress } }: IState) =>
+      selectedLevelIndex !== null ? progress[selectedLevelIndex] : 0,
   );
+
+  if (!stars) return null;
 
   return (
     <Wrapper>

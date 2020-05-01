@@ -34,9 +34,11 @@ const LevelPreviewWrapper = styled(View)`
 
 const LevelSelectScene = () => {
   const dispatch = useDispatch();
-  const levels = useSelector((state: IState) => state.game.levels);
-  const showing = useSelector((state: IState) => state.ui.showingLevelSelect);
-  const progress = useSelector((state: IState) => state.user.progress);
+  const levels = useSelector(({ game }: IState) => game.levels);
+  const showing = useSelector(
+    ({ ui: { showingLevelSelect } }: IState) => showingLevelSelect,
+  );
+  const progress = useSelector(({ user }: IState) => user.progress);
 
   //  Don't render the component if we aren't showing the level selector
   if (!showing) {
@@ -50,18 +52,17 @@ const LevelSelectScene = () => {
       <ScrollView bounces={false}>
         <LevelsWrapper>
           {levels.map((levelData, i) => {
-            const locked = i > 0 && !progress[levels[i - 1].id];
+            const locked = i > 0 && !progress[i] && !progress[i - 1];
             const stars =
-              (progress[levelData.id] &&
-                levelData.stars.filter((num) => progress[levelData.id] <= num)
-                  .length) ||
+              (progress[i] &&
+                levelData.stars.filter((num) => progress[i] <= num).length) ||
               0;
 
             return (
               <TouchableWithoutFeedback
                 onPress={() => {
                   if (locked) return;
-                  dispatch(loadLevel(levelData.id));
+                  dispatch(loadLevel(i));
                   dispatch(setShowingLevelSelect(false));
                 }}
                 key={`level-preview-${i}`}

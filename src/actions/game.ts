@@ -41,7 +41,7 @@ export interface ISetUndoing {
 export interface ILoadLevel {
   type: typeof LOAD_LEVEL;
   payload: {
-    selectedLevelId: string;
+    selectedLevelIndex: number;
     gameStateHistory: IGameState[][];
   };
 }
@@ -134,7 +134,7 @@ export const setUndoing = (undoing: boolean): ISetUndoing => ({
   },
 });
 
-export const loadLevel = (selectedLevelId: string) => (
+export const loadLevel = (selectedLevelIndex: number) => (
   dispatch: (action: ILoadLevel) => void,
   getState: () => IState,
 ) => {
@@ -142,23 +142,17 @@ export const loadLevel = (selectedLevelId: string) => (
     game: { levels },
   } = getState();
 
-  const selectedLevel = levels.find(
-    ({ id }: { id: string }) => id === selectedLevelId,
+  const initialGameState = getInitialGameState(
+    levels[selectedLevelIndex].gameState,
   );
-
-  if (!selectedLevel) {
-    throw new Error('Level not found');
-  }
-
-  const initialGameState = getInitialGameState(selectedLevel.gameState);
 
   dispatch({
     type: LOAD_LEVEL,
     payload: {
-      selectedLevelId,
+      selectedLevelIndex,
       gameStateHistory: [initialGameState],
     },
   });
 };
 
-export const loadInitialLevel = () => loadLevel('1');
+export const loadInitialLevel = () => loadLevel(0);

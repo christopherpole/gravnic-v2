@@ -56,8 +56,8 @@ const GameRenderer = () => {
   const levelLoaded = useSelector((state: IState) => state.game.levelLoaded);
   const undoing = useSelector((state: IState) => state.game.undoing);
   const currentLevel = useSelector(
-    ({ game: { levels, selectedLevelId } }: IState) =>
-      levels.find(({ id }) => id === selectedLevelId),
+    ({ game: { levels, selectedLevelIndex } }: IState) =>
+      selectedLevelIndex !== null ? levels[selectedLevelIndex] : null,
   );
   const fastMode = useSelector((state: IState) => state.user.fastMode);
 

@@ -22,7 +22,7 @@ export interface ISetlocale {
 export interface IUpdateProgress {
   type: typeof UPDATE_PROGRESS;
   payload: {
-    levelId: string;
+    levelIndex: number;
     moveCount: number;
   };
 }
@@ -56,26 +56,19 @@ export const updateProgress = () => (
   getState: () => IState,
 ) => {
   const {
-    game: { gameStateHistory, selectedLevelId, levels },
+    game: { gameStateHistory, selectedLevelIndex },
     user: { progress },
   } = getState();
-
-  const selectedLevel = levels.find(
-    ({ id }: { id: string }) => id === selectedLevelId,
-  );
-
-  if (!selectedLevel || !selectedLevelId) {
-    throw new Error('Level not found');
-  }
+  if (selectedLevelIndex === null) return;
 
   if (
-    !progress[selectedLevelId] ||
-    gameStateHistory.length - 1 < progress[selectedLevelId]
+    !progress[selectedLevelIndex] ||
+    gameStateHistory.length - 1 < progress[selectedLevelIndex]
   ) {
     dispatch({
       type: UPDATE_PROGRESS,
       payload: {
-        levelId: selectedLevelId,
+        levelIndex: selectedLevelIndex,
         moveCount: gameStateHistory.length - 1,
       },
     });

@@ -85,8 +85,8 @@ const GameScene = () => {
 
   //  Get the current level data based on the current level ID
   const currentLevel = useSelector(
-    ({ game: { levels, selectedLevelId } }: IState) =>
-      levels.find((level) => level.id === selectedLevelId),
+    ({ game: { levels, selectedLevelIndex } }: IState) =>
+      selectedLevelIndex !== null ? levels[selectedLevelIndex] : null,
   );
 
   //  Should we show the restart/undo buttons?
@@ -98,9 +98,10 @@ const GameScene = () => {
   //  Has the level been completed successfully?
   const levelWon = useSelector(
     ({
-      game: { undoing, entitiesMoving, gameStateHistory, selectedLevelId },
+      game: { undoing, entitiesMoving, gameStateHistory, selectedLevelIndex },
     }: IState) => {
-      if (undoing || entitiesMoving || !selectedLevelId) return false;
+      if (undoing || entitiesMoving || selectedLevelIndex === null)
+        return false;
 
       const lastMove = gameStateHistory[gameStateHistory.length - 1];
 

@@ -32,11 +32,13 @@ const Progress = () => {
 
       //  Check the number of stars we've got for each level
       Object.keys(progress).forEach((key) => {
-        const level = levels.find(({ id }) => id === key);
+        const level = levels[parseInt(key, 10)];
 
         if (level) {
           //  @TODO: revise the structure of "stars" for the levels
-          count += level.stars.filter((star) => progress[key] <= star).length;
+          count += level.stars.filter(
+            (star) => progress[parseInt(key, 10)] <= star,
+          ).length;
         }
       });
 

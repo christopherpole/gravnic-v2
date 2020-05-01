@@ -16,7 +16,7 @@ const initialState: IGame = {
     colorScheme: colorSchemes[Math.floor(i % colorSchemes.length)],
     ...levelData,
   })),
-  selectedLevelId: null,
+  selectedLevelIndex: null,
   gameStateHistory: [],
   entitiesMoving: false,
   levelLoaded: false,
@@ -86,7 +86,7 @@ const reducer = (state = initialState, action: IGameAction): IGame => {
     case LOAD_LEVEL: {
       return {
         ...state,
-        selectedLevelId: action.payload.selectedLevelId,
+        selectedLevelIndex: action.payload.selectedLevelIndex,
         levelLoaded: false,
         entitiesMoving: false,
         undoing: false,

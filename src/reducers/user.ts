@@ -35,7 +35,7 @@ const reducer = (state = initialState, action: IUserAction): IUser => {
         ...state,
         progress: {
           ...state.progress,
-          [action.payload.levelId]: action.payload.moveCount,
+          [action.payload.levelIndex]: action.payload.moveCount,
         },
       };
     }
