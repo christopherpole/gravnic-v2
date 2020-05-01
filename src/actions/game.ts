@@ -155,4 +155,37 @@ export const loadLevel = (selectedLevelIndex: number) => (
   });
 };
 
-export const loadInitialLevel = () => loadLevel(0);
+export const loadInitialLevel = () => (
+  dispatch: (action: ILoadLevel) => void,
+  getState: () => IState,
+) => {
+  const {
+    game: { levels },
+    user: { progress },
+  } = getState();
+  //  Get the highest key value of the progress object (or start at 0)
+  let selectedLevelIndex =
+    parseInt(
+      Object.keys(progress).sort(
+        (a, b) => parseInt(b, 10) - parseInt(a, 10),
+      )[0],
+      10,
+    ) + 1 || 0;
+
+  //  Load the first level if the user has completed all levels
+  if (selectedLevelIndex >= levels.length) {
+    selectedLevelIndex = 0;
+  }
+
+  const initialGameState = getInitialGameState(
+    levels[selectedLevelIndex].gameState,
+  );
+
+  dispatch({
+    type: LOAD_LEVEL,
+    payload: {
+      selectedLevelIndex,
+      gameStateHistory: [initialGameState],
+    },
+  });
+};
