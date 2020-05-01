@@ -14,6 +14,7 @@ import {
   resetLevel,
   setUndoing,
   loadInitialLevel,
+  loadLevel,
 } from '@/actions/game';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
 import { updateProgress } from '@/actions/user';
@@ -74,14 +75,27 @@ const LevelWonMessageWrapper = styled(View)`
   justify-content: center;
 `;
 
-const LevelWonMessage = styled(Text)`
+const LevelWonMessageWrapperInner = styled(View)`
   padding: ${(props) => props.theme.spacing.medium};
   border: 2px solid black;
   background: white;
 `;
 
+const LevelWonMessage = styled(Text)`
+  margin-bottom: ${(props) => props.theme.spacing.medium};
+`;
+
 const GameScene = () => {
   const dispatch = useDispatch();
+
+  const currentLevelIndex = useSelector(
+    ({ game: { selectedLevelIndex } }: IState) => selectedLevelIndex,
+  );
+
+  const hasNextLevel = useSelector(
+    ({ game: { selectedLevelIndex, levels } }: IState) =>
+      selectedLevelIndex === null || selectedLevelIndex < levels.length - 1,
+  );
 
   //  Get the current level data based on the current level ID
   const currentLevel = useSelector(
@@ -117,7 +131,7 @@ const GameScene = () => {
   }, [levelWon, dispatch]);
 
   //  Load the first unsolved level available if there is no level
-  if (!currentLevel) {
+  if (!currentLevel || currentLevelIndex === null) {
     dispatch(loadInitialLevel());
     return null;
   }
@@ -141,9 +155,22 @@ const GameScene = () => {
         <GameAreaWrapper>
           <GameRenderer />
 
-          <LevelWonMessageWrapper>
-            {levelWon && <LevelWonMessage>You&apos;ve won!</LevelWonMessage>}
-          </LevelWonMessageWrapper>
+          {levelWon && (
+            <LevelWonMessageWrapper>
+              <LevelWonMessageWrapperInner>
+                <LevelWonMessage>You&apos;ve won!</LevelWonMessage>
+                {hasNextLevel && (
+                  <Button
+                    onPress={() => {
+                      dispatch(loadLevel(currentLevelIndex + 1));
+                    }}
+                  >
+                    Next level
+                  </Button>
+                )}
+              </LevelWonMessageWrapperInner>
+            </LevelWonMessageWrapper>
+          )}
         </GameAreaWrapper>
       </StyledGestureRecognizer>
 
