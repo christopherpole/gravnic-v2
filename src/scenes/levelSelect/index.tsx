@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TouchableWithoutFeedback, ScrollView, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { setShowingLevelSelect } from '@/actions/ui';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import Progress from './progress';
 
-const Wrapper = styled(View)`
+const Wrapper = styled(View)<{ showing: boolean }>`
   display: flex;
   flex: 1;
   position: absolute;
@@ -18,6 +18,13 @@ const Wrapper = styled(View)`
   left: 0;
   right: 0;
   bottom: 0;
+  height: 0;
+
+  ${(props) =>
+    props.showing &&
+    css`
+      height: auto;
+    `};
 `;
 
 const LevelsWrapper = styled(View)`
@@ -40,13 +47,8 @@ const LevelSelectScene = () => {
   );
   const progress = useSelector(({ user }: IState) => user.progress);
 
-  //  Don't render the component if we aren't showing the level selector
-  if (!showing) {
-    return null;
-  }
-
   return (
-    <Wrapper>
+    <Wrapper showing={showing}>
       <Progress />
 
       <ScrollView bounces={false}>
