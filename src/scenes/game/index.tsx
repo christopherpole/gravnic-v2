@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useSelector, useDispatch } from 'react-redux';
 import { levelIsComplete } from 'gravnic-game';
@@ -9,22 +9,14 @@ import {
   SWIPE_VELOCITY_THRESHOLD,
   DIRECTIONAL_OFFSET_THRESHOLD,
 } from '@/config';
-import {
-  makeMove,
-  resetLevel,
-  setUndoing,
-  loadInitialLevel,
-  loadLevel,
-} from '@/actions/game';
-import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
+import { makeMove, loadInitialLevel } from '@/actions/game';
 import { updateProgress } from '@/actions/user';
 import GameRenderer from '@/scenes/game/renderer';
-import Stars from '@/scenes/game/stars';
-import Button from '@/components/button';
 import IState from '@/types/state';
-import undoImg from '@/assets/undo.png';
-import menuImg from '@/assets/menu.png';
-import settingsImg from '@/assets/settings.png';
+import Stars from './stars';
+import LevelLostMessage from './levelLostMessage';
+import LevelWonMessage from './levelWonMessage';
+import Actions from './actions';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -59,33 +51,6 @@ const GameAreaWrapper = styled(View)`
   padding: 0 ${(props) => props.theme.spacing.medium};
 `;
 
-const ActionsWrapper = styled(View)`
-  flex-direction: row;
-  display: flex;
-  padding-bottom: ${(props) => props.theme.spacing.large};
-`;
-
-const LevelMessageWrapper = styled(View)`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  padding: ${(props) => props.theme.spacing.medium};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const LevelMessageWrapperInner = styled(View)`
-  padding: ${(props) => props.theme.spacing.medium};
-  border: 2px solid black;
-  background: white;
-`;
-
-const LevelMessage = styled(Text)`
-  margin-bottom: ${(props) => props.theme.spacing.medium};
-  padding: 10px;
-`;
-
 const GameScene = () => {
   const dispatch = useDispatch();
 
@@ -93,21 +58,10 @@ const GameScene = () => {
     ({ game: { selectedLevelIndex } }: IState) => selectedLevelIndex,
   );
 
-  const hasNextLevel = useSelector(
-    ({ game: { selectedLevelIndex, levels } }: IState) =>
-      selectedLevelIndex === null || selectedLevelIndex < levels.length - 1,
-  );
-
   //  Get the current level data based on the current level ID
   const currentLevel = useSelector(
     ({ game: { levels, selectedLevelIndex } }: IState) =>
       selectedLevelIndex !== null ? levels[selectedLevelIndex] : null,
-  );
-
-  //  Should we show the restart/undo buttons?
-  const showGameButtons = useSelector(
-    ({ game: { gameStateHistory, undoing } }: IState) =>
-      gameStateHistory.length > (undoing ? 2 : 1),
   );
 
   //  Has the level been completed successfully?
@@ -162,62 +116,12 @@ const GameScene = () => {
 
         <GameAreaWrapper>
           <GameRenderer />
-
-          {levelLost && (
-            <LevelMessageWrapper>
-              <LevelMessageWrapperInner>
-                <LevelMessage>You suck</LevelMessage>
-              </LevelMessageWrapperInner>
-            </LevelMessageWrapper>
-          )}
-
-          {levelWon && (
-            <LevelMessageWrapper>
-              <LevelMessageWrapperInner>
-                <LevelMessage>You&apos;ve won!</LevelMessage>
-                {hasNextLevel && (
-                  <Button
-                    onPress={() => {
-                      dispatch(loadLevel(currentLevelIndex + 1));
-                    }}
-                  >
-                    Next level
-                  </Button>
-                )}
-              </LevelMessageWrapperInner>
-            </LevelMessageWrapper>
-          )}
+          {levelLost && <LevelLostMessage />}
+          {levelWon && <LevelWonMessage />}
         </GameAreaWrapper>
       </StyledGestureRecognizer>
 
-      <ActionsWrapper>
-        <Button
-          onPress={() => {
-            dispatch(setShowingLevelSelect(true));
-          }}
-          image={menuImg}
-        />
-        <Button
-          disabled={!showGameButtons}
-          onPress={() => {
-            dispatch(setUndoing(true));
-          }}
-          image={undoImg}
-        />
-        <Button
-          disabled={!showGameButtons}
-          onPress={() => {
-            dispatch(resetLevel());
-          }}
-          image={undoImg}
-        />
-        <Button
-          onPress={() => {
-            dispatch(setShowingSettings(true));
-          }}
-          image={settingsImg}
-        />
-      </ActionsWrapper>
+      <Actions />
     </Wrapper>
   );
 };
