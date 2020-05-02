@@ -19,6 +19,7 @@ const Wrapper = styled(View)<{ showing: boolean }>`
   right: 0;
   bottom: 0;
   height: 0;
+  overflow: hidden;
 
   ${(props) =>
     props.showing &&

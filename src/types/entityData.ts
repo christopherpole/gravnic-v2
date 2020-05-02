@@ -4,6 +4,7 @@ interface IEntityData {
   y: number;
   fading?: boolean;
   color?: string;
+  type: string;
 }
 
 export default IEntityData;

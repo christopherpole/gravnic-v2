@@ -1,4 +1,5 @@
 import React, { useEffect, memo } from 'react';
+import { ENTITIES } from 'gravnic-game';
 import styled from 'styled-components';
 import { PIXI } from 'expo-pixi';
 import { GLView } from 'expo-gl';
@@ -101,14 +102,26 @@ const GameRenderer = () => {
   const onGLContextCreate = async (context: any) => {
     let entitySprites: ISprites;
     let app: typeof PIXI.Application;
-    let entitiesTexture: typeof PIXI.Texture;
+    let blockTexture: typeof PIXI.Texture;
+    let rainbowBlockTexture: typeof PIXI.Texture;
     let entitiesContainer: typeof PIXI.Container;
 
     /**
      * Load assets to be used for the game
      */
     const loadAssets = async () => {
-      entitiesTexture = await PIXI.Texture.fromExpoAsync(entitiesSpritesheet);
+      //  @FIXME - I have no idea why these won't work in an object literal
+      let rect;
+
+      blockTexture = await PIXI.Texture.fromExpoAsync(entitiesSpritesheet);
+      rect = new PIXI.Rectangle(0, 0, 98, 98);
+      blockTexture.frame = rect;
+
+      rainbowBlockTexture = await PIXI.Texture.fromExpoAsync(
+        entitiesSpritesheet,
+      );
+      rect = new PIXI.Rectangle(98, 0, 98, 98);
+      rainbowBlockTexture.frame = rect;
     };
 
     /**
@@ -157,7 +170,12 @@ const GameRenderer = () => {
       //  Draw the initial game state
       currentState.remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
-        const entitySprite = PIXI.Sprite.from(entitiesTexture);
+        let entitySprite;
+        if (entityData.type === ENTITIES.RAINBOW_BLOCK.id) {
+          entitySprite = PIXI.Sprite.from(rainbowBlockTexture);
+        } else {
+          entitySprite = PIXI.Sprite.from(blockTexture);
+        }
 
         //  Resize the sprite
         entitySprite.height = ENTITY_SIZE;

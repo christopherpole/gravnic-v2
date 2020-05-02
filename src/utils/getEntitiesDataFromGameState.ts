@@ -20,6 +20,7 @@ const getEntitiesDataFromGameState = (
     entityRow.forEach((entityData, j) => {
       if (entityData.staticEntity) {
         entitiesData.push({
+          type: entityData.staticEntity.entityId,
           id: entityData.staticEntity.id,
           x: j * ENTITY_SIZE,
           y: i * ENTITY_SIZE,
@@ -33,6 +34,7 @@ const getEntitiesDataFromGameState = (
     entityRow.forEach((entityData, j) => {
       if (entityData.movableEntity) {
         entitiesData.push({
+          type: entityData.movableEntity.entityId,
           id: entityData.movableEntity.id,
           x: j * ENTITY_SIZE,
           y: i * ENTITY_SIZE,

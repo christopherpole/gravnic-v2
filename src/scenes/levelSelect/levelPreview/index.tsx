@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { View } from 'react-native';
+import { ENTITIES } from 'gravnic-game';
 
 import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
@@ -93,6 +94,13 @@ const LevelPreview = ({
 
               if (movableEntity && movableEntity.color) {
                 color = colorScheme.blocks[movableEntity.color];
+              }
+
+              if (
+                movableEntity &&
+                movableEntity.entityId === ENTITIES.RAINBOW_BLOCK.id
+              ) {
+                color = 'pink';
               }
 
               return <Block key={`block-${i}-${j}`} color={color} />;
