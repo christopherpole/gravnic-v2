@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Text } from 'react-native';
+import { FormattedMessage } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 
 import IState from '@/types/state';
@@ -21,14 +22,16 @@ const LevelWonMessage = () => {
 
   return (
     <LevelMessage>
-      <Text>You&apos;ve won!</Text>
+      <Text>
+        <FormattedMessage id="youveWon" />
+      </Text>
       {hasNextLevel && (
         <Button
           onPress={() => {
             dispatch(loadLevel((currentLevelIndex as number) + 1));
           }}
         >
-          Next level
+          <FormattedMessage id="nextLevel" />
         </Button>
       )}
     </LevelMessage>
