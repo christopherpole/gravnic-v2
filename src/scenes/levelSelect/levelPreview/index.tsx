@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { ENTITIES } from 'gravnic-game';
 
 import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
+import rainbowImg from '@/assets/entities/rainbow.png';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -37,6 +38,11 @@ const Block = styled(View)<{ color: string }>`
     css`
       background: ${props.color};
     `}
+`;
+
+const StyledImage = styled(Image)`
+  height: 15px;
+  width: 15px;
 `;
 
 const ProgressWrapper = styled(View)`
@@ -87,6 +93,7 @@ const LevelPreview = ({
           <Row key={`row-${i}`}>
             {gameStateRow.map(({ staticEntity, movableEntity }, j) => {
               let color = 'transparent';
+              let img;
 
               if (staticEntity) {
                 color = 'white';
@@ -100,10 +107,14 @@ const LevelPreview = ({
                 movableEntity &&
                 movableEntity.entityId === ENTITIES.RAINBOW_BLOCK.id
               ) {
-                color = 'pink';
+                img = rainbowImg;
               }
 
-              return <Block key={`block-${i}-${j}`} color={color} />;
+              return (
+                <Block key={`block-${i}-${j}`} color={color}>
+                  {img && <StyledImage source={img} />}
+                </Block>
+              );
             })}
           </Row>
         ))}

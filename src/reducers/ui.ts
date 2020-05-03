@@ -7,7 +7,7 @@ import {
 
 const initialState: IUi = {
   showingSettings: false,
-  showingLevelSelect: false,
+  showingLevelSelect: true,
 };
 
 const reducer = (state = initialState, action: IUiAction): IUi => {

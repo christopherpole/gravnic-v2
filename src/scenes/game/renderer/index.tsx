@@ -16,7 +16,8 @@ import {
   FAST_MODE_MULTIPLIER,
 } from '@/config';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
-import entitiesSpritesheet from '@/assets/entities.png';
+import blockImg from '@/assets/entities/floor.png';
+import rainbowImg from '@/assets/entities/rainbow.png';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
 
@@ -102,26 +103,19 @@ const GameRenderer = () => {
   const onGLContextCreate = async (context: any) => {
     let entitySprites: ISprites;
     let app: typeof PIXI.Application;
-    let blockTexture: typeof PIXI.Texture;
-    let rainbowBlockTexture: typeof PIXI.Texture;
     let entitiesContainer: typeof PIXI.Container;
+    let textures: {
+      [type: string]: typeof PIXI.Container;
+    };
 
     /**
      * Load assets to be used for the game
      */
     const loadAssets = async () => {
-      //  @FIXME - I have no idea why these won't work in an object literal
-      let rect;
-
-      blockTexture = await PIXI.Texture.fromExpoAsync(entitiesSpritesheet);
-      rect = new PIXI.Rectangle(0, 0, 98, 98);
-      blockTexture.frame = rect;
-
-      rainbowBlockTexture = await PIXI.Texture.fromExpoAsync(
-        entitiesSpritesheet,
-      );
-      rect = new PIXI.Rectangle(98, 0, 98, 98);
-      rainbowBlockTexture.frame = rect;
+      textures = {
+        block: await PIXI.Texture.fromExpoAsync(blockImg),
+        rainbowBlock: await PIXI.Texture.fromExpoAsync(rainbowImg),
+      };
     };
 
     /**
@@ -171,10 +165,11 @@ const GameRenderer = () => {
       currentState.remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
         let entitySprite;
+
         if (entityData.type === ENTITIES.RAINBOW_BLOCK.id) {
-          entitySprite = PIXI.Sprite.from(rainbowBlockTexture);
+          entitySprite = PIXI.Sprite.from(textures.rainbowBlock);
         } else {
-          entitySprite = PIXI.Sprite.from(blockTexture);
+          entitySprite = PIXI.Sprite.from(textures.block);
         }
 
         //  Resize the sprite
