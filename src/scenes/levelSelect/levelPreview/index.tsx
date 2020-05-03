@@ -6,6 +6,7 @@ import { ENTITIES } from 'gravnic-game';
 import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
 import rainbowImg from '@/assets/entities/rainbow.png';
+import glassImg from '@/assets/entities/glass.png';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -103,11 +104,13 @@ const LevelPreview = ({
                 color = colorScheme.blocks[movableEntity.color];
               }
 
-              if (
-                movableEntity &&
-                movableEntity.entityId === ENTITIES.RAINBOW_BLOCK.id
-              ) {
-                img = rainbowImg;
+              //  Show the images for any special blocks
+              if (movableEntity) {
+                if (movableEntity.entityId === ENTITIES.RAINBOW_BLOCK.id) {
+                  img = rainbowImg;
+                } else if (movableEntity.entityId === ENTITIES.GLASS.id) {
+                  img = glassImg;
+                }
               }
 
               return (

@@ -16,10 +16,11 @@ import {
   FAST_MODE_MULTIPLIER,
 } from '@/config';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
-import blockImg from '@/assets/entities/floor.png';
-import rainbowImg from '@/assets/entities/rainbow.png';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
+import blockImg from '@/assets/entities/floor.png';
+import rainbowImg from '@/assets/entities/rainbow.png';
+import glassImg from '@/assets/entities/glass.png';
 
 const Wrapper = styled(GLView)`
   aspect-ratio: 1;
@@ -114,7 +115,8 @@ const GameRenderer = () => {
     const loadAssets = async () => {
       textures = {
         block: await PIXI.Texture.fromExpoAsync(blockImg),
-        rainbowBlock: await PIXI.Texture.fromExpoAsync(rainbowImg),
+        rainbow: await PIXI.Texture.fromExpoAsync(rainbowImg),
+        glass: await PIXI.Texture.fromExpoAsync(glassImg),
       };
     };
 
@@ -167,7 +169,9 @@ const GameRenderer = () => {
         let entitySprite;
 
         if (entityData.type === ENTITIES.RAINBOW_BLOCK.id) {
-          entitySprite = PIXI.Sprite.from(textures.rainbowBlock);
+          entitySprite = PIXI.Sprite.from(textures.rainbow);
+        } else if (entityData.type === ENTITIES.GLASS.id) {
+          entitySprite = PIXI.Sprite.from(textures.glass);
         } else {
           entitySprite = PIXI.Sprite.from(textures.block);
         }
