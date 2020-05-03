@@ -21,6 +21,7 @@ import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
 import blockImg from '@/assets/entities/floor.png';
 import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
+import blackHoleImg from '@/assets/entities/black-hole.png';
 
 const Wrapper = styled(GLView)`
   aspect-ratio: 1;
@@ -117,6 +118,7 @@ const GameRenderer = () => {
         block: await PIXI.Texture.fromExpoAsync(blockImg),
         rainbow: await PIXI.Texture.fromExpoAsync(rainbowImg),
         glass: await PIXI.Texture.fromExpoAsync(glassImg),
+        blackHole: await PIXI.Texture.fromExpoAsync(blackHoleImg),
       };
     };
 
@@ -166,32 +168,41 @@ const GameRenderer = () => {
       //  Draw the initial game state
       currentState.remainingEntitiesData[0].forEach((entityData) => {
         //  Create the sprite
-        let entitySprite;
+        let spritesToAdd;
 
         if (entityData.type === ENTITIES.RAINBOW_BLOCK.id) {
-          entitySprite = PIXI.Sprite.from(textures.rainbow);
+          spritesToAdd = [PIXI.Sprite.from(textures.rainbow)];
         } else if (entityData.type === ENTITIES.GLASS.id) {
-          entitySprite = PIXI.Sprite.from(textures.glass);
+          spritesToAdd = [PIXI.Sprite.from(textures.glass)];
+        } else if (entityData.type === ENTITIES.BLACK_HOLE.id) {
+          spritesToAdd = [
+            PIXI.Sprite.from(textures.block),
+            PIXI.Sprite.from(textures.blackHole),
+          ];
         } else {
-          entitySprite = PIXI.Sprite.from(textures.block);
+          spritesToAdd = [PIXI.Sprite.from(textures.block)];
         }
 
-        //  Resize the sprite
-        entitySprite.height = ENTITY_SIZE;
-        entitySprite.width = ENTITY_SIZE;
+        //  Add all of the sprites to the stage
+        spritesToAdd.forEach((spriteToAdd) => {
+          //  Resize the sprite
+          spriteToAdd.height = ENTITY_SIZE;
+          spriteToAdd.width = ENTITY_SIZE;
 
-        //  Position the sprite
-        entitySprite.x = entityData.x;
-        entitySprite.y = entityData.y;
+          //  Position the sprite
+          spriteToAdd.x = entityData.x;
+          spriteToAdd.y = entityData.y;
 
-        //  Colour the sprite if applicable
-        if (entityData.color) {
-          entitySprite.tint = entityData.color;
-        }
+          //  Colour the sprite if applicable
+          if (entityData.color) {
+            spriteToAdd.tint = entityData.color;
+          }
 
-        //  Add the sprite to the stage
-        entitiesContainer.addChild(entitySprite);
-        entitySprites[entityData.id] = entitySprite;
+          //  Add the sprite to the stage
+          entitiesContainer.addChild(spriteToAdd);
+          //  @FIXME - this will overwrite stuff for multiple sprites - beware!
+          entitySprites[entityData.id] = spriteToAdd;
+        });
       });
 
       app.stage.addChild(entitiesContainer);
@@ -249,7 +260,7 @@ const GameRenderer = () => {
         }
 
         //  Opacity
-        if (entityData.fading) {
+        if (entityData.fading || entityData.shrinking) {
           currentEntitySprite.alpha -=
             (fadeSpeed / ENTITY_SIZE) * (currentState.undoing ? -1 : 1);
 

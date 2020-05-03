@@ -24,6 +24,7 @@ const getEntitiesDataFromGameState = (
           id: entityData.staticEntity.id,
           x: j * ENTITY_SIZE,
           y: i * ENTITY_SIZE,
+          shrinking: entityData.staticEntity.shrinking,
         });
       }
     });
@@ -45,6 +46,7 @@ const getEntitiesDataFromGameState = (
                 '0x',
               )
             : undefined,
+          shrinking: entityData.movableEntity.shrinking,
         });
       }
     });

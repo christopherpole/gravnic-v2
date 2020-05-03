@@ -7,6 +7,7 @@ import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
 import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
+import blackHoleImg from '@/assets/entities/black-hole.png';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -110,6 +111,12 @@ const LevelPreview = ({
                   img = rainbowImg;
                 } else if (movableEntity.entityId === ENTITIES.GLASS.id) {
                   img = glassImg;
+                }
+              }
+
+              if (staticEntity) {
+                if (staticEntity.entityId === ENTITIES.BLACK_HOLE.id) {
+                  img = blackHoleImg;
                 }
               }
 

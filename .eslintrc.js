@@ -19,6 +19,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'global-require': 'off',
     'react/no-array-index-key': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     'import/resolver': {

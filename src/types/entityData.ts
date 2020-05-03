@@ -5,6 +5,7 @@ interface IEntityData {
   fading?: boolean;
   color?: string;
   type: string;
+  shrinking?: boolean;
 }
 
 export default IEntityData;
