@@ -1,6 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { TouchableWithoutFeedback, FlatList, View } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  FlatList,
+  View,
+  Dimensions,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IState from '@/types/state';
@@ -49,6 +54,27 @@ const LevelSelectScene = () => {
     ({ ui: { showingLevelSelect } }: IState) => showingLevelSelect,
   );
   const progress = useSelector(({ user }: IState) => user.progress);
+  const latestUnlockedLevelIndex =
+    Object.keys(progress).length > 0
+      ? parseInt(
+          Object.keys(progress).sort(
+            (a, b) => parseInt(a, 10) - parseInt(b, 10),
+          )[Object.keys(progress).length - 1],
+          10,
+        )
+      : 0;
+  let listScrollIndex = Math.floor((latestUnlockedLevelIndex + 1) / 3) - 1;
+  listScrollIndex = listScrollIndex < 0 ? 0 : listScrollIndex;
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    if (listRef.current) {
+      //  @ts-ignore - seems like the if statement isn't satisfying it?
+      listRef.current.scrollToIndex({
+        index: listScrollIndex,
+      });
+    }
+  }, [listScrollIndex]);
 
   return (
     <Wrapper showing={showing}>
@@ -56,7 +82,14 @@ const LevelSelectScene = () => {
 
       <LevelsWrapper>
         <FlatList
+          ref={listRef}
+          initialScrollIndex={listScrollIndex}
           bounces={false}
+          getItemLayout={(data, index) => ({
+            length: Dimensions.get('window').width / 3,
+            offset: (Dimensions.get('window').width / 3) * index,
+            index,
+          })}
           data={[...Array(levels.length / 3)].map((_, i) => [
             levels[i * 3],
             levels[i * 3 + 1],
@@ -68,7 +101,7 @@ const LevelSelectScene = () => {
               {item.map((levelData, j) => {
                 const levelIndex = index * 3 + j;
                 const locked =
-                  index > 0 &&
+                  levelIndex > 0 &&
                   !progress[levelIndex] &&
                   !progress[levelIndex - 1];
                 const stars =
