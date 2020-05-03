@@ -17,6 +17,7 @@ interface IMovableEntity extends IEntity {
     | '#8B4513'
     | '#FFE4E1';
   fading?: boolean;
+  stuck?: boolean;
 }
 
 interface ITileData {

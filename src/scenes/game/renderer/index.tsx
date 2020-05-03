@@ -22,6 +22,7 @@ import blockImg from '@/assets/entities/floor.png';
 import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
 import blackHoleImg from '@/assets/entities/black-hole.png';
+import stickySpotImg from '@/assets/entities/sticky-spot.png';
 
 const Wrapper = styled(GLView)`
   aspect-ratio: 1;
@@ -33,6 +34,7 @@ interface ISprites {
     x: number;
     y: number;
     alpha: number;
+    blendMode: number;
   };
 }
 
@@ -119,6 +121,7 @@ const GameRenderer = () => {
         rainbow: await PIXI.Texture.fromExpoAsync(rainbowImg),
         glass: await PIXI.Texture.fromExpoAsync(glassImg),
         blackHole: await PIXI.Texture.fromExpoAsync(blackHoleImg),
+        stickySpot: await PIXI.Texture.fromExpoAsync(stickySpotImg),
       };
     };
 
@@ -172,6 +175,8 @@ const GameRenderer = () => {
 
         if (entityData.type === ENTITIES.RAINBOW_BLOCK.id) {
           spritesToAdd = [PIXI.Sprite.from(textures.rainbow)];
+        } else if (entityData.type === ENTITIES.STICKY_SPOT.id) {
+          spritesToAdd = [PIXI.Sprite.from(textures.stickySpot)];
         } else if (entityData.type === ENTITIES.GLASS.id) {
           spritesToAdd = [PIXI.Sprite.from(textures.glass)];
         } else if (entityData.type === ENTITIES.BLACK_HOLE.id) {
@@ -257,6 +262,11 @@ const GameRenderer = () => {
         } else if (entityData.y > currentEntitySprite.y) {
           currentEntitySprite.y += moveSpeed;
           entitiesMoving = true;
+        }
+
+        //  Stuck
+        if (entityData.stuck) {
+          currentEntitySprite.blendMode = PIXI.BLEND_MODES.MULTIPLY;
         }
 
         //  Opacity

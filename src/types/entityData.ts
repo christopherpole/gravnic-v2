@@ -6,6 +6,7 @@ interface IEntityData {
   color?: string;
   type: string;
   shrinking?: boolean;
+  stuck?: boolean;
 }
 
 export default IEntityData;

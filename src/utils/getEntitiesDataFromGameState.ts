@@ -47,6 +47,7 @@ const getEntitiesDataFromGameState = (
               )
             : undefined,
           shrinking: entityData.movableEntity.shrinking,
+          stuck: entityData.movableEntity.stuck,
         });
       }
     });
