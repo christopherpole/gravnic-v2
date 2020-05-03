@@ -132,6 +132,7 @@ const LevelPreview = ({
           </Row>
         ))}
       </PreviewWrapper>
+
       <ProgressWrapper>
         <Star achieved={progress >= 1} />
         <Star achieved={progress >= 2} />
