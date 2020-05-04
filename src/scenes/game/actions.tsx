@@ -5,16 +5,25 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { resetLevel, setUndoing } from '@/actions/game';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
-import Button from '@/components/button';
+import IconButton from '@/components/iconButton';
 import IState from '@/types/state';
-import undoImg from '@/assets/undo.png';
-import menuImg from '@/assets/menu.png';
-import settingsImg from '@/assets/settings.png';
+import UndoIcon from '@/components/icons/undo';
+import RestartIcon from '@/components/icons/restart';
+import OptionsIcon from '@/components/icons/options';
+import MenuIcon from '@/components/icons/menu';
 
 const Wrapper = styled(View)`
   flex-direction: row;
   display: flex;
-  padding-bottom: ${(props) => props.theme.spacing.large};
+  padding: ${(props) => props.theme.spacing.large};
+  padding-top: 0;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const IconButtonWrapper = styled(View)`
+  height: 40px;
+  width: 40px;
 `;
 
 const Actions = () => {
@@ -28,32 +37,46 @@ const Actions = () => {
 
   return (
     <Wrapper>
-      <Button
-        onPress={() => {
-          dispatch(setShowingLevelSelect(true));
-        }}
-        image={menuImg}
-      />
-      <Button
-        disabled={!showGameButtons}
-        onPress={() => {
-          dispatch(setUndoing(true));
-        }}
-        image={undoImg}
-      />
-      <Button
-        disabled={!showGameButtons}
-        onPress={() => {
-          dispatch(resetLevel());
-        }}
-        image={undoImg}
-      />
-      <Button
-        onPress={() => {
-          dispatch(setShowingSettings(true));
-        }}
-        image={settingsImg}
-      />
+      <IconButtonWrapper>
+        <IconButton
+          onPress={() => {
+            dispatch(setShowingLevelSelect(true));
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+      </IconButtonWrapper>
+
+      <IconButtonWrapper>
+        <IconButton
+          disabled={!showGameButtons}
+          onPress={() => {
+            dispatch(setUndoing(true));
+          }}
+        >
+          <UndoIcon />
+        </IconButton>
+      </IconButtonWrapper>
+
+      <IconButtonWrapper>
+        <IconButton
+          disabled={!showGameButtons}
+          onPress={() => {
+            dispatch(resetLevel());
+          }}
+        >
+          <RestartIcon />
+        </IconButton>
+      </IconButtonWrapper>
+      <IconButtonWrapper>
+        <IconButton
+          onPress={() => {
+            dispatch(setShowingSettings(true));
+          }}
+        >
+          <OptionsIcon />
+        </IconButton>
+      </IconButtonWrapper>
     </Wrapper>
   );
 };

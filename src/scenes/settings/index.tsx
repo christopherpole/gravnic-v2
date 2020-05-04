@@ -10,8 +10,9 @@ import IState from '@/types/state';
 import messages from '@/data/translations';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
 import { setFastMode, setLocale, clearProgress } from '@/actions/user';
+import IconButton from '@/components/iconButton';
 import Button from '@/components/button';
-import closeImg from '@/assets/close.png';
+import CloseIcon from '@/components/icons/close';
 import { loadInitialLevel } from '@/actions/game';
 
 const Wrapper = styled(View)`
@@ -48,7 +49,7 @@ const CloseButtonWrapper = styled(View)`
   margin-bottom: ${(props) => props.theme.spacing.large};
 `;
 
-const CloseButton = styled(Button)`
+const CloseButton = styled(IconButton)`
   align-self: flex-end;
   margin: 0;
   height: 30px;
@@ -96,11 +97,12 @@ const SettingsScene = () => {
       <WrapperInner>
         <CloseButtonWrapper>
           <CloseButton
-            image={closeImg}
             onPress={() => {
               dispatch(setShowingSettings(false));
             }}
-          />
+          >
+            <CloseIcon />
+          </CloseButton>
         </CloseButtonWrapper>
 
         <OptionsWrapper>
