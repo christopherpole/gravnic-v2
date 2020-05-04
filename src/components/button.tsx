@@ -1,16 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  ImageSourcePropType,
-} from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 const Wrapper = styled(TouchableOpacity)`
-  margin: 0 ${(props) => props.theme.spacing.medium};
-  height: 40px;
-  width: 40px;
+  padding: ${(props) => props.theme.spacing.medium};
+  border: 2px solid black;
 
   ${(props) =>
     props.disabled &&
@@ -19,27 +13,19 @@ const Wrapper = styled(TouchableOpacity)`
     `}
 `;
 
-const StyledImage = styled(Image)`
-  display: flex;
-  height: 100%;
-  width: 100%;
-`;
-
 const StyledText = styled(Text)`
-  border: 1px solid black;
+  font-weight: bold;
 `;
 
 interface IProps {
   onPress?: () => void;
   disabled?: boolean;
-  image?: ImageSourcePropType;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Button = ({ image, children, ...rest }: IProps) => (
+const Button = ({ children, ...rest }: IProps) => (
   <Wrapper {...rest}>
-    {image && <StyledImage source={image} />}
-    {children && <StyledText>{children}</StyledText>}
+    <StyledText>{children}</StyledText>
   </Wrapper>
 );
 
