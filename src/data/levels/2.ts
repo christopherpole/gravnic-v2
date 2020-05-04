@@ -1,7 +1,7 @@
 import ILevelData from '@/types/levelData';
 
 const levelData: ILevelData = {
-  stars: [1, 2, 3],
+  stars: [2, 4, 6],
   gameState: [
     [
       { staticEntity: null, movableEntity: null },

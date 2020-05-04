@@ -7,8 +7,6 @@ interface IColorScheme {
     '#008000': string;
     '#0000FF': string;
     '#800080': string;
-    '#8B4513': string;
-    '#FFE4E1': string;
   };
 }
 

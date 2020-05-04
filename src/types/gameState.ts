@@ -7,15 +7,7 @@ interface IEntity {
 interface IStaticEntity extends IEntity {}
 
 interface IMovableEntity extends IEntity {
-  color?:
-    | '#ff0000'
-    | '#FF8C00'
-    | '#FFFF00'
-    | '#008000'
-    | '#0000FF'
-    | '#800080'
-    | '#8B4513'
-    | '#FFE4E1';
+  color?: '#ff0000' | '#FF8C00' | '#FFFF00' | '#008000' | '#0000FF' | '#800080';
   fading?: boolean;
   stuck?: boolean;
 }

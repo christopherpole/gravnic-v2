@@ -68,8 +68,8 @@ const LevelSelectScene = () => {
   const listRef = useRef(null);
 
   useEffect(() => {
-    if (listRef.current) {
-      //  @ts-ignore - seems like the if statement isn't satisfying it?
+    if (listRef && listRef.current) {
+      //  @ts-ignore - seems bugged
       listRef.current.scrollToIndex({
         index: listScrollIndex,
       });
