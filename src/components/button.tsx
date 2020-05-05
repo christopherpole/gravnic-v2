@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { Text, TouchableOpacity } from 'react-native';
 
@@ -29,4 +29,4 @@ const Button = ({ children, ...rest }: IProps) => (
   </Wrapper>
 );
 
-export default Button;
+export default memo(Button);

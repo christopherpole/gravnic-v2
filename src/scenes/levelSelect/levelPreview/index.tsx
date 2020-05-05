@@ -6,6 +6,7 @@ import { ENTITIES } from 'gravnic-game';
 import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
 import Star from '@/components/star';
+import LockIcon from '@/components/icons/lock';
 import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
 import blackHoleImg from '@/assets/entities/black-hole.png';
@@ -16,8 +17,8 @@ const Wrapper = styled(View)<{ background: string }>`
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  padding: 5%; /* ${5 * 0.8}% */
-  
+  padding: 5%;
+
   ${(props) =>
     props.background &&
     css`
@@ -51,9 +52,15 @@ const Block = styled(View)<{ color: string }>`
     `}
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled(Image)<{ isGray?: boolean }>`
   height: 100%;
   width: 100%;
+
+  ${(props) =>
+    props.isGray &&
+    css`
+      tint-color: #ddd;
+    `}
 `;
 
 const ProgressWrapper = styled(View)`
@@ -73,8 +80,15 @@ const Locked = styled(View)`
   left: 0;
   right: 0;
   bottom: 0;
-  background: black;
-  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LockIconWrapper = styled(View)`
+  width: 30%;
+  aspect-ratio: 1;
 `;
 
 interface ILevelPreview extends ILevelData {
@@ -128,7 +142,7 @@ const LevelPreview = ({
 
                 return (
                   <Block key={`block-${i}-${j}`} color={color}>
-                    {img && <StyledImage source={img} />}
+                    {img && <StyledImage isGray={locked} source={img} />}
                   </Block>
                 );
               })}
@@ -149,7 +163,13 @@ const LevelPreview = ({
         </StarWrapper>
       </ProgressWrapper>
 
-      {locked && <Locked />}
+      {locked && (
+        <Locked>
+          <LockIconWrapper>
+            <LockIcon />
+          </LockIconWrapper>
+        </Locked>
+      )}
     </Wrapper>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 interface IProps {
@@ -11,4 +11,4 @@ const RestartIcon = ({ color }: IProps) => (
   </Svg>
 );
 
-export default RestartIcon;
+export default memo(RestartIcon);

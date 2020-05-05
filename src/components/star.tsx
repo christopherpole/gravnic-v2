@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 
 import StarIcon from '@/components/icons/star';
 
@@ -8,7 +8,7 @@ interface IProps {
   filled?: boolean;
 }
 
-const Wrapper = styled(TouchableOpacity)<IProps>`
+const Wrapper = styled(View)<IProps>`
   height: 100%;
   width: 100%;
 
@@ -21,4 +21,4 @@ const Star = ({ filled }: IProps) => (
   </Wrapper>
 );
 
-export default Star;
+export default memo(Star);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 
@@ -23,4 +23,4 @@ const IconButton = ({ children, ...rest }: IProps) => (
   <Wrapper {...rest}>{children}</Wrapper>
 );
 
-export default IconButton;
+export default memo(IconButton);

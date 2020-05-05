@@ -12,13 +12,13 @@ import IState from '@/types/state';
 import { loadLevel } from '@/actions/game';
 import { setShowingLevelSelect } from '@/actions/ui';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
+import { disabledColorScheme } from '@/data/colorSchemes';
 import Progress from './progress';
 
 const Wrapper = styled(View)<{ showing: boolean }>`
   display: flex;
   flex: 1;
   position: absolute;
-  background: white;
   top: 0;
   left: 0;
   right: 0;
@@ -42,8 +42,9 @@ const LevelsWrapper = styled(View)`
   flex: 1;
 `;
 
+const levelAspectRatio = 0.76;
 const LevelPreviewWrapper = styled(View)`
-  aspect-ratio: 0.76;
+  aspect-ratio: ${levelAspectRatio};
   width: 33.33333333%;
 `;
 
@@ -86,8 +87,9 @@ const LevelSelectScene = () => {
           initialScrollIndex={listScrollIndex}
           bounces={false}
           getItemLayout={(data, index) => ({
-            length: Dimensions.get('window').width / 3,
-            offset: (Dimensions.get('window').width / 3) * index,
+            length: Dimensions.get('window').width / 3 / levelAspectRatio,
+            offset:
+              (Dimensions.get('window').width / 3 / levelAspectRatio) * index,
             index,
           })}
           data={[...Array(levels.length / 3)].map((_, i) => [
@@ -124,6 +126,9 @@ const LevelSelectScene = () => {
                         {...levelData}
                         progress={stars}
                         locked={locked}
+                        colorScheme={
+                          locked ? disabledColorScheme : levelData.colorScheme
+                        }
                       />
                     </LevelPreviewWrapper>
                   </TouchableWithoutFeedback>

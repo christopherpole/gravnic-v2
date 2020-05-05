@@ -4,19 +4,29 @@ import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
+import StarIcon from '@/components/icons/star';
 
 const Wrapper = styled(View)`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom-color: black;
-  border-bottom-width: 2px;
+  flex-direction: row;
+  border-bottom-color: #fff;
+  border-bottom-width: 1px;
+  background: #333;
+`;
+
+const StarIconContainer = styled(View)`
+  width: 5%;
+  aspect-ratio: 1;
+  margin-right: ${(props) => props.theme.spacing.small};
 `;
 
 const StarsCountText = styled(Text)`
-  padding: ${(props) => props.theme.spacing.medium};
   font-size: ${(props) => props.theme.sizing.large};
-  color: red;
+  padding: 5% 0;
+  margin: 0;
+  color: white;
 `;
 
 const Progress = () => {
@@ -48,6 +58,9 @@ const Progress = () => {
 
   return (
     <Wrapper>
+      <StarIconContainer>
+        <StarIcon color="white" />
+      </StarIconContainer>
       <StarsCountText>
         {userStarsCount}/{totalStarsCount}
       </StarsCountText>

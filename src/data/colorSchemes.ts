@@ -102,4 +102,16 @@ const colorSchemes: IColorScheme[] = [
   },
 ];
 
+export const disabledColorScheme = {
+  background: '#333333',
+  blocks: {
+    '#ff0000': '#666666',
+    '#FF8C00': '#999999',
+    '#FFFF00': '#CCCCCC',
+    '#008000': '#EEEEEE',
+    '#0000FF': '#0096D4',
+    '#800080': '#6B00D2',
+  },
+};
+
 export default colorSchemes;
