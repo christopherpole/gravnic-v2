@@ -43,7 +43,7 @@ const LevelsWrapper = styled(View)`
 `;
 
 const LevelPreviewWrapper = styled(View)`
-  aspect-ratio: 1;
+  aspect-ratio: 0.76;
   width: 33.33333333%;
 `;
 

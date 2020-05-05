@@ -2,6 +2,17 @@ import IColorScheme from '@/types/colorScheme';
 
 const colorSchemes: IColorScheme[] = [
   {
+    background: '#ffdede',
+    blocks: {
+      '#ff0000': '#ff3333',
+      '#FF8C00': '#fc9b23',
+      '#FFFF00': '#DDAFA6',
+      '#008000': '#0D3B66',
+      '#0000FF': '#52a0d2',
+      '#800080': '#5666bf',
+    },
+  },
+  {
     background: '#47423E',
     blocks: {
       '#ff0000': '#D7B778',
@@ -15,9 +26,9 @@ const colorSchemes: IColorScheme[] = [
   {
     background: '#2A4D14',
     blocks: {
-      '#ff0000': '#317B22',
+      '#ff0000': '#106313',
       '#FF8C00': '#67E0A3',
-      '#FFFF00': '#AFF9C9',
+      '#FFFF00': '#f5f53d',
       '#008000': '#7CF0BD',
       '#0000FF': '#0096D4',
       '#800080': '#6B00D2',
@@ -68,22 +79,22 @@ const colorSchemes: IColorScheme[] = [
     },
   },
   {
-    background: '#7776BC',
+    background: '#7aa9ff',
     blocks: {
-      '#ff0000': '#FF674D',
-      '#FF8C00': '#FFEC51',
-      '#FFFF00': '#FFFBDB',
+      '#ff0000': '#6beb5e',
+      '#FF8C00': '#ff61cd',
+      '#FFFF00': '#8b47bf',
       '#008000': '#CDC7E5',
       '#0000FF': '#0096D4',
       '#800080': '#6B00D2',
     },
   },
   {
-    background: '#F2D0A4',
+    background: '#b4fca4',
     blocks: {
       '#ff0000': '#C03221',
-      '#FF8C00': '#545E75',
-      '#FFFF00': '#3F826D',
+      '#FF8C00': '#f792f0',
+      '#FFFF00': '#e6c845',
       '#008000': '#CDC7E5',
       '#0000FF': '#0096D4',
       '#800080': '#6B00D2',
