@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
-import { Text } from 'react-native';
 import { FormattedMessage } from 'react-intl';
 
+import Text from '@/components/text';
 import LevelMessage from './levelMessage';
 
 const LevelLostMessage = () => (

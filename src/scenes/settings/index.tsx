@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { TouchableWithoutFeedback, View, Text, Switch } from 'react-native';
+import { TouchableWithoutFeedback, View, Switch } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +11,7 @@ import messages from '@/data/translations';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
 import { setFastMode, setLocale, clearProgress } from '@/actions/user';
 import IconButton from '@/components/iconButton';
+import Text from '@/components/text';
 import Button from '@/components/button';
 import CloseIcon from '@/components/icons/close';
 import { loadInitialLevel } from '@/actions/game';

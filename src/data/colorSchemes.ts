@@ -2,18 +2,6 @@ import IColorScheme from '@/types/colorScheme';
 
 const colorSchemes: IColorScheme[] = [
   {
-    background: '#045658',
-    icons: '#fff',
-    blocks: {
-      '#ff0000': '#ef6101',
-      '#FF8C00': '#fdac07',
-      '#FFFF00': '#47802b',
-      '#008000': '#03161d',
-      '#0000FF': '#52a0d2',
-      '#800080': '#5666bf',
-    },
-  },
-  {
     background: '#47423E',
     icons: '#fff',
     blocks: {
@@ -26,13 +14,13 @@ const colorSchemes: IColorScheme[] = [
     },
   },
   {
-    background: '#5f6c11',
+    background: '#7aa9ff',
     icons: '#fff',
     blocks: {
-      '#ff0000': '#fbc11a',
-      '#FF8C00': '#fade98',
-      '#FFFF00': '#4d9699',
-      '#008000': '#7CF0BD',
+      '#ff0000': '#6beb5e',
+      '#FF8C00': '#ff61cd',
+      '#FFFF00': '#8b47bf',
+      '#008000': '#CDC7E5',
       '#0000FF': '#0096D4',
       '#800080': '#6B00D2',
     },
@@ -62,18 +50,6 @@ const colorSchemes: IColorScheme[] = [
     },
   },
   {
-    background: '#63474D',
-    icons: '#fff',
-    blocks: {
-      '#ff0000': '#AA767C',
-      '#FF8C00': '#D6A184',
-      '#FFFF00': '#FFA686',
-      '#008000': '#FEC196',
-      '#0000FF': '#0096D4',
-      '#800080': '#6B00D2',
-    },
-  },
-  {
     background: '#E0FF4F',
     icons: '#000',
     blocks: {
@@ -86,13 +62,49 @@ const colorSchemes: IColorScheme[] = [
     },
   },
   {
-    background: '#7aa9ff',
+    background: '#63474D',
     icons: '#fff',
     blocks: {
-      '#ff0000': '#6beb5e',
-      '#FF8C00': '#ff61cd',
-      '#FFFF00': '#8b47bf',
-      '#008000': '#CDC7E5',
+      '#ff0000': '#AA767C',
+      '#FF8C00': '#D6A184',
+      '#FFFF00': '#FFA686',
+      '#008000': '#FEC196',
+      '#0000FF': '#0096D4',
+      '#800080': '#6B00D2',
+    },
+  },
+  {
+    background: '#045658',
+    icons: '#fff',
+    blocks: {
+      '#ff0000': '#ef6101',
+      '#FF8C00': '#fdac07',
+      '#FFFF00': '#47802b',
+      '#008000': '#03161d',
+      '#0000FF': '#52a0d2',
+      '#800080': '#5666bf',
+    },
+  },
+  {
+    background: '#fcbf1e',
+    icons: '#fff',
+    blocks: {
+      '#ff0000': '#B20D30',
+      '#FF8C00': '#3F84E5',
+      '#FFFF00': '#3F784C',
+      '#008000': '#fcbf1e',
+      '#0000FF': '#0096D4',
+      '#800080': '#6B00D2',
+    },
+  },
+  {
+    background: '#5f6c11',
+    icons: '#fff',
+    blocks: {
+      '#ff0000': '#fbc11a',
+      '#FF8C00': '#fade98',
+      '#FFFF00': '#4d9699',
+      '#008000': '#7CF0BD',
       '#0000FF': '#0096D4',
       '#800080': '#6B00D2',
     },
@@ -105,18 +117,6 @@ const colorSchemes: IColorScheme[] = [
       '#FF8C00': '#eff67b',
       '#FFFF00': '#6c0102',
       '#008000': '#a6b401',
-      '#0000FF': '#0096D4',
-      '#800080': '#6B00D2',
-    },
-  },
-  {
-    background: '#fcbf1e',
-    icons: '#fff',
-    blocks: {
-      '#ff0000': '#B20D30',
-      '#FF8C00': '#3F84E5',
-      '#FFFF00': '#3F784C',
-      '#008000': '#fcbf1e',
       '#0000FF': '#0096D4',
       '#800080': '#6B00D2',
     },

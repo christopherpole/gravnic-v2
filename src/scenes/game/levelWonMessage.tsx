@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
-import { Text } from 'react-native';
 import { FormattedMessage } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 
 import IState from '@/types/state';
 import { loadLevel } from '@/actions/game';
 import Button from '@/components/button';
+import Text from '@/components/text';
 import LevelMessage from './levelMessage';
 
 const LevelWonMessage = () => {

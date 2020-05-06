@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
+import Text from '@/components/text';
 import StarIcon from '@/components/icons/star';
 
 const Wrapper = styled(View)`
@@ -17,14 +18,15 @@ const Wrapper = styled(View)`
 `;
 
 const StarIconContainer = styled(View)`
-  width: 5%;
+  width: 6%;
   aspect-ratio: 1;
-  margin-right: ${(props) => props.theme.spacing.small};
+  margin-right: 3%;
 `;
 
 const StarsCountText = styled(Text)`
   font-size: ${(props) => props.theme.sizing.large};
-  padding: 5% 0;
+  font-family: ${(props) => props.theme.fonts.bold};
+  padding: 5% 0 4%;
   margin: 0;
   color: white;
 `;

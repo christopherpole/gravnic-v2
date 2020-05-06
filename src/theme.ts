@@ -1,4 +1,8 @@
 const theme = {
+  fonts: {
+    default: 'AvenirNext-DemiBold',
+    bold: 'AvenirNext-Bold',
+  },
   colors: {
     background: 'rgb(252, 241, 233)',
     primary: 'red',
