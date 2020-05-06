@@ -12,7 +12,7 @@ const Wrapper = styled(View)`
   align-items: center;
   flex-direction: row;
   border-bottom-color: #fff;
-  border-bottom-width: 1px;
+  border-bottom-width: 2px;
   background: #333;
 `;
 

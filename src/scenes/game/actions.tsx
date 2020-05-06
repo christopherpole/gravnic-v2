@@ -22,8 +22,8 @@ const Wrapper = styled(View)`
 `;
 
 const IconButtonWrapper = styled(View)`
-  height: 40px;
-  width: 40px;
+  aspect-ratio: 1;
+  width: 15%;
 `;
 
 const Actions = () => {
@@ -35,6 +35,13 @@ const Actions = () => {
       gameStateHistory.length > (undoing ? 2 : 1),
   );
 
+  const iconColor = useSelector(
+    ({ game: { selectedLevelIndex, levels } }: IState) =>
+      selectedLevelIndex !== null
+        ? levels[selectedLevelIndex].colorScheme.icons
+        : undefined,
+  );
+
   return (
     <Wrapper>
       <IconButtonWrapper>
@@ -43,7 +50,7 @@ const Actions = () => {
             dispatch(setShowingLevelSelect(true));
           }}
         >
-          <MenuIcon />
+          <MenuIcon color={iconColor} />
         </IconButton>
       </IconButtonWrapper>
 
@@ -54,7 +61,7 @@ const Actions = () => {
             dispatch(setUndoing(true));
           }}
         >
-          <UndoIcon />
+          <UndoIcon color={iconColor} />
         </IconButton>
       </IconButtonWrapper>
 
@@ -65,7 +72,7 @@ const Actions = () => {
             dispatch(resetLevel());
           }}
         >
-          <RestartIcon />
+          <RestartIcon color={iconColor} />
         </IconButton>
       </IconButtonWrapper>
       <IconButtonWrapper>
@@ -74,7 +81,7 @@ const Actions = () => {
             dispatch(setShowingSettings(true));
           }}
         >
-          <OptionsIcon />
+          <OptionsIcon color={iconColor} />
         </IconButton>
       </IconButtonWrapper>
     </Wrapper>

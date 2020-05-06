@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native';
 const Wrapper = styled(TouchableOpacity)`
   width: 100%;
   height: 100%;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 
   ${(props) =>
     props.disabled &&
