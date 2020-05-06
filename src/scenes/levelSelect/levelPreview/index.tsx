@@ -34,7 +34,9 @@ const PreviewWrapper = styled(View)`
   justify-content: center;
 `;
 
-const PreviewWrapperInner = styled(View)``;
+const PreviewWrapperInner = styled(View)`
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+`;
 
 const Row = styled(View)`
   display: flex;

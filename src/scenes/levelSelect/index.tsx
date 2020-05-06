@@ -86,6 +86,7 @@ const LevelSelectScene = () => {
           ref={listRef}
           initialScrollIndex={listScrollIndex}
           bounces={false}
+          removeClippedSubviews
           getItemLayout={(data, index) => ({
             length: Dimensions.get('window').width / 3 / levelAspectRatio,
             offset:

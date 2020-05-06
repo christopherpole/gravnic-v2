@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -16,8 +17,10 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <IntlProvider>
+            <StatusBar hidden />
             <GameScene />
             <LevelSelectScene />
+
             <Settings />
           </IntlProvider>
         </ThemeProvider>

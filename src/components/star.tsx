@@ -11,6 +11,7 @@ interface IProps {
 const Wrapper = styled(View)<IProps>`
   height: 100%;
   width: 100%;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 
   ${(props) => props.filled && css``}
 `;
