@@ -9,26 +9,25 @@ import StarIcon from '@/components/icons/star';
 
 const Wrapper = styled(View)`
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
-  border-bottom-color: #fff;
-  border-bottom-width: 2px;
-  background: #333;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StarIconContainer = styled(View)`
-  width: 6%;
+  width: 20px;
   aspect-ratio: 1;
-  margin-right: 3%;
+  margin-right: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 `;
 
 const StarsCountText = styled(Text)`
   font-size: ${(props) => props.theme.sizing.large};
   font-family: ${(props) => props.theme.fonts.bold};
-  padding: 5% 0 4%;
   margin: 0;
   color: white;
+  padding-top: 3px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 `;
 
 const Progress = () => {

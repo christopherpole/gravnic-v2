@@ -116,7 +116,7 @@ const LevelPreview = ({
                 let img;
 
                 if (staticEntity) {
-                  color = 'white';
+                  color = '#fff';
                 }
 
                 if (movableEntity && movableEntity.color) {

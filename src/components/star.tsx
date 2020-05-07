@@ -18,7 +18,7 @@ const Wrapper = styled(View)<IProps>`
 
 const Star = ({ filled }: IProps) => (
   <Wrapper>
-    <StarIcon color={filled ? 'yellow' : 'white'} />
+    <StarIcon color={filled ? 'yellow' : '#eee'} />
   </Wrapper>
 );
 

@@ -6,7 +6,7 @@ const messages = {
     clearProgress: 'Clear progress',
     nextLevel: 'Next level',
     youveWon: "You've won!",
-    youveLost: "You've lost!",
+    outOfMoves: 'Out of moves!',
   },
   zh: {
     fullLanguageName: 'Chinese',
@@ -15,7 +15,7 @@ const messages = {
     clearProgress: 'Clear progress (Chinese)',
     nextLevel: 'Next level (Chinese)',
     youveWon: "You've won! (Chinese)",
-    youveLost: "You've lost! (Chinese)",
+    outOfMoves: 'Out of moves! (Chinese)',
   },
 };
 

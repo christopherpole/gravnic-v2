@@ -13,7 +13,7 @@ import { loadLevel } from '@/actions/game';
 import { setShowingLevelSelect } from '@/actions/ui';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import { disabledColorScheme } from '@/data/colorSchemes';
-import Progress from './progress';
+import Header from './header';
 
 const Wrapper = styled(View)<{ showing: boolean }>`
   display: flex;
@@ -79,7 +79,7 @@ const LevelSelectScene = () => {
 
   return (
     <Wrapper showing={showing}>
-      <Progress />
+      <Header />
 
       <LevelsWrapper>
         <FlatList

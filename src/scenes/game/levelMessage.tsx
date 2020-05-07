@@ -6,16 +6,19 @@ const LevelMessageWrapper = styled(View)`
   position: absolute;
   height: 100%;
   width: 100%;
-  padding: ${(props) => props.theme.spacing.medium};
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const LevelMessageWrapperInner = styled(View)`
-  padding: ${(props) => props.theme.spacing.medium};
   border: 2px solid black;
-  background: white;
+  background: #e9ca04;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 interface IProps {

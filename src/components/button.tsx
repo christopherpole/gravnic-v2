@@ -3,8 +3,11 @@ import styled, { css } from 'styled-components';
 import { Text, TouchableOpacity } from 'react-native';
 
 const Wrapper = styled(TouchableOpacity)`
-  padding: ${(props) => props.theme.spacing.medium};
   border: 2px solid black;
+  display: flex;
+  background: white;
+  justify-content: center;
+  align-items: center;
 
   ${(props) =>
     props.disabled &&
@@ -15,6 +18,8 @@ const Wrapper = styled(TouchableOpacity)`
 
 const StyledText = styled(Text)`
   font-weight: bold;
+  padding: 15px 30px;
+  font-size: ${(props) => props.theme.sizing.medium};
 `;
 
 interface IProps {
