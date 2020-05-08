@@ -17,13 +17,14 @@ const Wrapper = styled(View)`
   border-bottom-color: #fff;
   border-bottom-width: 2px;
   background: #333;
-  padding: 15px;
+  /* padding: 15px; */
   box-shadow: ${(props) => props.theme.shadows.default};
 `;
 
 const StyledIconButton = styled(IconButton)`
-  height: 20px;
-  width: 20px;
+  height: 60px;
+  width: 60px;
+  padding: 20px;
 `;
 
 const Header = () => {
