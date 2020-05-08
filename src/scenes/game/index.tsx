@@ -32,8 +32,9 @@ const Wrapper = styled(View)<{ background: string }>`
 `;
 
 const StarsWrapper = styled(View)`
-  padding-top: ${(props) => props.theme.spacing.large};
+  margin-top: ${(props) => props.theme.spacing.large};
   width: 100%;
+  display: flex;
 `;
 
 const StyledGestureRecognizer = styled(GestureRecognizer)`

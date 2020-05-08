@@ -5,20 +5,20 @@ import { View } from 'react-native';
 import StarIcon from '@/components/icons/star';
 
 interface IProps {
-  filled?: boolean;
+  color?: string;
 }
 
 const Wrapper = styled(View)<IProps>`
   height: 100%;
   width: 100%;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: ${(props) => props.theme.shadows.default};
 
-  ${(props) => props.filled && css``}
+  ${(props) => props.color && css``}
 `;
 
-const Star = ({ filled }: IProps) => (
+const Star = ({ color }: IProps) => (
   <Wrapper>
-    <StarIcon color={filled ? 'yellow' : '#eee'} />
+    <StarIcon color={color} />
   </Wrapper>
 );
 

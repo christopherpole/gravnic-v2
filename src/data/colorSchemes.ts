@@ -3,6 +3,10 @@ import IColorScheme from '@/types/colorScheme';
 const colorSchemes: IColorScheme[] = [
   {
     background: '#47423E',
+    moveCounter: {
+      new: '#D7B778',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#D7B778',
@@ -15,6 +19,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#7aa9ff',
+    moveCounter: {
+      new: '#6beb5e',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#6beb5e',
@@ -27,6 +35,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#DD1C1A',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#06AED5',
@@ -39,6 +51,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#553973',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#aa6288',
@@ -51,6 +67,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#E0FF4F',
+    moveCounter: {
+      new: '#FF6663',
+      used: '#000',
+    },
     icons: '#000',
     blocks: {
       '#ff0000': '#FF6663',
@@ -63,6 +83,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#63474D',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#AA767C',
@@ -75,6 +99,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#045658',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#ef6101',
@@ -87,6 +115,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#fcbf1e',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#B20D30',
@@ -99,6 +131,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#5f6c11',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#fbc11a',
@@ -111,6 +147,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#b3e7dc',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#000',
     blocks: {
       '#ff0000': '#d50102',
@@ -123,6 +163,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#FE938C',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#4281A4',
@@ -135,6 +179,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#26205b',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#3257af',
@@ -147,6 +195,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#435058',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#DCF763',
@@ -159,6 +211,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#700548',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#362023',
@@ -171,6 +227,10 @@ const colorSchemes: IColorScheme[] = [
   },
   {
     background: '#B3679B',
+    moveCounter: {
+      new: 'yellow',
+      used: '#fff',
+    },
     icons: '#fff',
     blocks: {
       '#ff0000': '#6C4B5E',
@@ -185,6 +245,10 @@ const colorSchemes: IColorScheme[] = [
 
 export const disabledColorScheme: IColorScheme = {
   background: '#333333',
+  moveCounter: {
+    new: 'yellow',
+    used: '#fff',
+  },
   icons: '#fff',
   blocks: {
     '#ff0000': '#666666',

@@ -35,7 +35,7 @@ const PreviewWrapper = styled(View)`
 `;
 
 const PreviewWrapperInner = styled(View)`
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: ${(props) => props.theme.shadows.default};
 `;
 
 const Row = styled(View)`
@@ -155,13 +155,13 @@ const LevelPreview = ({
 
       <ProgressWrapper>
         <StarWrapper>
-          <Star filled={progress >= 1} />
+          <Star color={progress >= 1 ? 'yellow' : 'white'} />
         </StarWrapper>
         <StarWrapper>
-          <Star filled={progress >= 2} />
+          <Star color={progress >= 2 ? 'yellow' : 'white'} />
         </StarWrapper>
         <StarWrapper>
-          <Star filled={progress >= 3} />
+          <Star color={progress >= 3 ? 'yellow' : 'white'} />
         </StarWrapper>
       </ProgressWrapper>
 

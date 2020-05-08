@@ -4,13 +4,33 @@ import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
-import Star from './star';
+import { disabledColorScheme } from '@/data/colorSchemes';
+import Star from '@/components/star';
+import MoveCounter from './moveCounter';
 
 const Wrapper = styled(View)`
-  display: flex;
   flex-direction: row;
   width: 100%;
+  flex: 1;
+`;
+
+const MoveWrapper = styled(View)`
+  display: flex;
   align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  margin: 0 10px;
+`;
+
+const MoveCounterWrapper = styled(View)`
+  height: 15px;
+  width: 15px;
+`;
+
+const StarWrapper = styled(View)`
+  height: 30px;
+  width: 30px;
 `;
 
 const Stars = () => {
@@ -38,17 +58,45 @@ const Stars = () => {
       selectedLevelIndex !== null ? progress[selectedLevelIndex] : 0,
   );
 
+  //  Get the current level's colour scheme
+  const colorScheme = useSelector(
+    ({ game: { selectedLevelIndex, levels } }: IState) =>
+      selectedLevelIndex !== null
+        ? levels[selectedLevelIndex].colorScheme
+        : disabledColorScheme,
+  );
+
   if (!stars) return null;
 
   return (
     <Wrapper>
       {[...Array(stars[2])].map((i, index) => (
-        <Star
-          achieved={index >= currentProgress - 1}
-          key={`star-${index}`}
-          used={index < noOfMovesMade}
-          large={stars.includes(index + 1)}
-        />
+        <MoveWrapper>
+          {(!stars.includes(index + 1) || currentProgress <= index + 1) && (
+            <MoveCounterWrapper key={`move-counter-${index}`}>
+              <MoveCounter
+                color={
+                  index < noOfMovesMade
+                    ? colorScheme.moveCounter.used
+                    : colorScheme.moveCounter.new
+                }
+              />
+            </MoveCounterWrapper>
+          )}
+          {/* && currentProgress < index + 1  */}
+          {stars.includes(index + 1) &&
+            (!currentProgress || currentProgress > index + 1) && (
+              <StarWrapper>
+                <Star
+                  color={
+                    index >= noOfMovesMade
+                      ? colorScheme.moveCounter.new
+                      : colorScheme.moveCounter.used
+                  }
+                />
+              </StarWrapper>
+            )}
+        </MoveWrapper>
       ))}
     </Wrapper>
   );

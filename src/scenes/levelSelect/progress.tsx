@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
 import Text from '@/components/text';
-import StarIcon from '@/components/icons/star';
+import Star from '@/components/star';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -16,9 +16,8 @@ const Wrapper = styled(View)`
 
 const StarIconContainer = styled(View)`
   width: 20px;
-  aspect-ratio: 1;
+  height: 20px;
   margin-right: 10px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 `;
 
 const StarsCountText = styled(Text)`
@@ -27,7 +26,7 @@ const StarsCountText = styled(Text)`
   margin: 0;
   color: white;
   padding-top: 3px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: ${(props) => props.theme.shadows.default};
 `;
 
 const Progress = () => {
@@ -60,8 +59,9 @@ const Progress = () => {
   return (
     <Wrapper>
       <StarIconContainer>
-        <StarIcon color="white" />
+        <Star color="white" />
       </StarIconContainer>
+
       <StarsCountText>
         {userStarsCount}/{totalStarsCount}
       </StarsCountText>

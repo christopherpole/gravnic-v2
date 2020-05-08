@@ -14,7 +14,7 @@ const LevelMessageWrapper = styled(View)`
 const LevelMessageWrapperInner = styled(View)`
   border: 2px solid black;
   background: #e9ca04;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: ${(props) => props.theme.shadows.default};
   padding: 25px;
   display: flex;
   align-items: center;

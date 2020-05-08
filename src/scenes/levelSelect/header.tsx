@@ -18,7 +18,7 @@ const Wrapper = styled(View)`
   border-bottom-width: 2px;
   background: #333;
   padding: 15px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: ${(props) => props.theme.shadows.default};
 `;
 
 const StyledIconButton = styled(IconButton)`

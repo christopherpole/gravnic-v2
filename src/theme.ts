@@ -24,6 +24,9 @@ const theme = {
     large: '10%',
     extraLarge: '15%',
   },
+  shadows: {
+    default: '2px 2px 2px rgba(0, 0, 0, .3);',
+  },
 };
 
 export type ITheme = typeof theme;
