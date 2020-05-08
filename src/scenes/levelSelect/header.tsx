@@ -17,7 +17,6 @@ const Wrapper = styled(View)`
   border-bottom-color: #fff;
   border-bottom-width: 2px;
   background: #333;
-  /* padding: 15px; */
   box-shadow: ${(props) => props.theme.shadows.default};
 `;
 

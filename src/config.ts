@@ -1,3 +1,9 @@
+//  Features
+export const FEATURES = {
+  COLORED_STARS: 'COLORED_STARS',
+};
+export const ENABLED_FEATURES: string[] = [];
+
 //  Swiping
 export const SWIPE_VELOCITY_THRESHOLD = 0.3;
 export const DIRECTIONAL_OFFSET_THRESHOLD = 80;

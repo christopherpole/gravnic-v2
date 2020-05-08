@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { FEATURES, ENABLED_FEATURES } from '@/config';
 import IState from '@/types/state';
 import { disabledColorScheme } from '@/data/colorSchemes';
 import Star from '@/components/star';
@@ -68,6 +69,13 @@ const Stars = () => {
 
   if (!stars) return null;
 
+  const newMoveCounterColor = ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)
+    ? colorScheme.moveCounter.new
+    : 'yellow';
+  const usedMoveCounterColor = ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)
+    ? colorScheme.moveCounter.used
+    : 'white';
+
   return (
     <Wrapper>
       {[...Array(stars[2])].map((i, index) => (
@@ -77,8 +85,8 @@ const Stars = () => {
               <MoveCounter
                 color={
                   index < noOfMovesMade
-                    ? colorScheme.moveCounter.used
-                    : colorScheme.moveCounter.new
+                    ? usedMoveCounterColor
+                    : newMoveCounterColor
                 }
               />
             </MoveCounterWrapper>
@@ -90,8 +98,8 @@ const Stars = () => {
                 <Star
                   color={
                     index >= noOfMovesMade
-                      ? colorScheme.moveCounter.new
-                      : colorScheme.moveCounter.used
+                      ? newMoveCounterColor
+                      : usedMoveCounterColor
                   }
                 />
               </StarWrapper>
