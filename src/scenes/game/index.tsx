@@ -17,6 +17,7 @@ import Stars from './stars';
 import LevelLostMessage from './levelLostMessage';
 import LevelWonMessage from './levelWonMessage';
 import Actions from './actions';
+import TutorialArea from './tutorialArea';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -122,6 +123,7 @@ const GameScene = () => {
         </GameAreaWrapper>
       </StyledGestureRecognizer>
 
+      <TutorialArea tutorial={currentLevel.tutorial} />
       <Actions />
     </Wrapper>
   );

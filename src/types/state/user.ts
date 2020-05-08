@@ -6,6 +6,9 @@ interface IUser {
   progress: {
     [levelIndex: number]: number;
   };
+  tutorialsSeen: {
+    [name: string]: boolean;
+  };
 }
 
 export default IUser;
