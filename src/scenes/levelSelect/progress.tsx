@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import IState from '@/types/state';
 import Text from '@/components/text';
-import Star from '@/components/star';
+import StarIcon from '@/components/icons/star';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -59,7 +59,7 @@ const Progress = () => {
   return (
     <Wrapper>
       <StarIconContainer>
-        <Star color="white" />
+        <StarIcon color="white" />
       </StarIconContainer>
 
       <StarsCountText>

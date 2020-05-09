@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { FEATURES, ENABLED_FEATURES } from '@/config';
 import IState from '@/types/state';
-import { disabledColorScheme } from '@/data/colorSchemes';
 import Star from '@/components/star';
 import MoveCounter from './moveCounter';
 
@@ -59,22 +57,7 @@ const Stars = () => {
       selectedLevelIndex !== null ? progress[selectedLevelIndex] : 0,
   );
 
-  //  Get the current level's colour scheme
-  const colorScheme = useSelector(
-    ({ game: { selectedLevelIndex, levels } }: IState) =>
-      selectedLevelIndex !== null
-        ? levels[selectedLevelIndex].colorScheme
-        : disabledColorScheme,
-  );
-
   if (!stars) return null;
-
-  const newMoveCounterColor = ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)
-    ? colorScheme.moveCounter.new
-    : 'yellow';
-  const usedMoveCounterColor = ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)
-    ? colorScheme.moveCounter.used
-    : 'white';
 
   return (
     <Wrapper>
@@ -82,26 +65,14 @@ const Stars = () => {
         <MoveWrapper>
           {(!stars.includes(index + 1) || currentProgress <= index + 1) && (
             <MoveCounterWrapper key={`move-counter-${index}`}>
-              <MoveCounter
-                color={
-                  index < noOfMovesMade
-                    ? usedMoveCounterColor
-                    : newMoveCounterColor
-                }
-              />
+              <MoveCounter filled={index < noOfMovesMade} />
             </MoveCounterWrapper>
           )}
           {/* && currentProgress < index + 1  */}
           {stars.includes(index + 1) &&
             (!currentProgress || currentProgress > index + 1) && (
               <StarWrapper>
-                <Star
-                  color={
-                    index >= noOfMovesMade
-                      ? newMoveCounterColor
-                      : usedMoveCounterColor
-                  }
-                />
+                <Star filled={index >= noOfMovesMade} />
               </StarWrapper>
             )}
         </MoveWrapper>

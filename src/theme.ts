@@ -11,6 +11,10 @@ const theme = {
       primary: 'black',
       secondary: 'white',
     },
+    stars: {
+      new: 'yellow',
+      used: 'white',
+    },
   },
   sizing: {
     small: '14px',

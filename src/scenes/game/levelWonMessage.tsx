@@ -60,21 +60,9 @@ const LevelWonMessage = () => {
       </StyledText>
 
       <StarsWrapper>
-        <StyledStar
-          color={
-            currentLevelProgress <= currentLevelStars[2] ? 'yellow' : 'white'
-          }
-        />
-        <StyledStar
-          color={
-            currentLevelProgress <= currentLevelStars[1] ? 'yellow' : 'white'
-          }
-        />
-        <StyledStar
-          color={
-            currentLevelProgress <= currentLevelStars[0] ? 'yellow' : 'white'
-          }
-        />
+        <StyledStar filled={currentLevelProgress <= currentLevelStars[2]} />
+        <StyledStar filled={currentLevelProgress <= currentLevelStars[1]} />
+        <StyledStar filled={currentLevelProgress <= currentLevelStars[0]} />
       </StarsWrapper>
 
       {hasNextLevel && (
