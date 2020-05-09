@@ -1,16 +1,16 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-
-import messages from '@/data/translations';
 import { useSelector } from 'react-redux';
-import IState from '@/types/state';
+
+import { selectLocale } from '@/selectors';
+import messages from '@/data/translations';
 
 interface IProps {
   children: React.ReactNode;
 }
 
 const IntlProviderComponent = ({ children }: IProps) => {
-  const locale = useSelector((state: IState) => state.user.locale);
+  const locale = useSelector(selectLocale);
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>

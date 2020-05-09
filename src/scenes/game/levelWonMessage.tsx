@@ -9,6 +9,7 @@ import { loadLevel } from '@/actions/game';
 import Button from '@/components/button';
 import Text from '@/components/text';
 import Star from '@/components/star';
+import { selectCurrentLevelIndex } from '@/selectors';
 import LevelMessage from './levelMessage';
 
 const StyledText = styled(Text)`
@@ -34,9 +35,7 @@ const StyledStar = styled(Star)`
 const LevelWonMessage = () => {
   const dispatch = useDispatch();
 
-  const currentLevelIndex = useSelector(
-    ({ game: { selectedLevelIndex } }: IState) => selectedLevelIndex,
-  );
+  const currentLevelIndex = useSelector(selectCurrentLevelIndex);
 
   const currentLevelStars = useSelector(
     ({ game: { selectedLevelIndex, levels } }: IState) =>

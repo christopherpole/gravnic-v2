@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux';
 import { FEATURES, ENABLED_FEATURES } from '@/config';
 import StarIcon from '@/components/icons/star';
 import useTheme from '@/hooks/useTheme';
-import { disabledColorScheme } from '@/data/colorSchemes';
-import IState from '@/types/state';
+import { selectCurrentColorScheme } from '@/selectors';
 
 interface IProps {
   filled?: boolean;
@@ -22,13 +21,7 @@ const Wrapper = styled(View)<IProps>`
 `;
 
 const Star = ({ filled, newColor, usedColor, ...rest }: IProps) => {
-  //  Get the current level's colour scheme
-  const colorScheme = useSelector(
-    ({ game: { selectedLevelIndex, levels } }: IState) =>
-      selectedLevelIndex !== null
-        ? levels[selectedLevelIndex].colorScheme
-        : disabledColorScheme,
-  );
+  const colorScheme = useSelector(selectCurrentColorScheme);
 
   const newFillColor = newColor || colorScheme.moveCounter.new;
   const usedFillColor = usedColor || colorScheme.moveCounter.used;

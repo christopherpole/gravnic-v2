@@ -11,6 +11,7 @@ import {
 } from '@/config';
 import { makeMove, loadInitialLevel } from '@/actions/game';
 import { updateProgress } from '@/actions/user';
+import { selectCurrentLevelIndex, selectCurrentLevel } from '@/selectors';
 import GameRenderer from '@/scenes/game/renderer';
 import IState from '@/types/state';
 import Stars from './stars';
@@ -56,15 +57,8 @@ const GameAreaWrapper = styled(View)`
 const GameScene = () => {
   const dispatch = useDispatch();
 
-  const currentLevelIndex = useSelector(
-    ({ game: { selectedLevelIndex } }: IState) => selectedLevelIndex,
-  );
-
-  //  Get the current level data based on the current level ID
-  const currentLevel = useSelector(
-    ({ game: { levels, selectedLevelIndex } }: IState) =>
-      selectedLevelIndex !== null ? levels[selectedLevelIndex] : null,
-  );
+  const currentLevelIndex = useSelector(selectCurrentLevelIndex);
+  const currentLevel = useSelector(selectCurrentLevel);
 
   //  Has the level been completed successfully?
   const levelWon = useSelector(

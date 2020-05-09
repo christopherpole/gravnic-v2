@@ -15,6 +15,7 @@ import {
   UNDOING_SPEED_MULTIPLIER,
   FAST_MODE_MULTIPLIER,
 } from '@/config';
+import { selectCurrentLevel, selectIsFastMode } from '@/selectors';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
@@ -61,11 +62,8 @@ const GameRenderer = () => {
   );
   const levelLoaded = useSelector((state: IState) => state.game.levelLoaded);
   const undoing = useSelector((state: IState) => state.game.undoing);
-  const currentLevel = useSelector(
-    ({ game: { levels, selectedLevelIndex } }: IState) =>
-      selectedLevelIndex !== null ? levels[selectedLevelIndex] : null,
-  );
-  const fastMode = useSelector((state: IState) => state.user.fastMode);
+  const currentLevel = useSelector(selectCurrentLevel);
+  const fastMode = useSelector(selectIsFastMode);
 
   const dispatch = useDispatch();
 

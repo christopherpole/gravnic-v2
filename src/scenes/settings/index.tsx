@@ -15,6 +15,7 @@ import Text from '@/components/text';
 import Button from '@/components/button';
 import CloseIcon from '@/components/icons/close';
 import { loadInitialLevel } from '@/actions/game';
+import { selectLocale, selectIsFastMode } from '@/selectors';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -77,8 +78,8 @@ const SettingsScene = () => {
   const showing = useSelector(
     ({ ui: { showingSettings } }: IState) => showingSettings,
   );
-  const isFastMode = useSelector(({ user: { fastMode } }: IState) => fastMode);
-  const locale = useSelector((state: IState) => state.user.locale);
+  const isFastMode = useSelector(selectIsFastMode);
+  const locale = useSelector(selectLocale);
   const dispatch = useDispatch();
 
   //  Don't render if not showing the settings menu
