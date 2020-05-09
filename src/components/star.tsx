@@ -16,8 +16,8 @@ const Wrapper = styled(View)<IProps>`
   ${(props) => props.color && css``}
 `;
 
-const Star = ({ color }: IProps) => (
-  <Wrapper>
+const Star = ({ color, ...rest }: IProps) => (
+  <Wrapper {...rest}>
     <StarIcon color={color} />
   </Wrapper>
 );

@@ -13,7 +13,7 @@ const LevelMessageWrapper = styled(View)`
 
 const LevelMessageWrapperInner = styled(View)`
   border: 2px solid black;
-  background: #e9ca04;
+  background: #ccc;
   box-shadow: ${(props) => props.theme.shadows.default};
   padding: 25px;
   display: flex;

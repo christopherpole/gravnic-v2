@@ -12,7 +12,6 @@ const initialState: IUser = {
   fastMode: false,
   locale: 'en' as LanguageCode,
   progress: {},
-  tutorialsSeen: {},
 };
 
 const reducer = (state = initialState, action: IUserAction): IUser => {
@@ -45,7 +44,6 @@ const reducer = (state = initialState, action: IUserAction): IUser => {
       return {
         ...state,
         progress: initialState.progress,
-        tutorialsSeen: initialState.tutorialsSeen,
       };
     }
 
