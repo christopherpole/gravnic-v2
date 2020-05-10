@@ -14,7 +14,7 @@ import {
   selectCurrentLevelStars,
   selectHasNextLevel,
   selectCurrentLevelProgress,
-  selectCurrentColorScheme,
+  selectColorScheme,
 } from '@/selectors';
 import LevelMessage from './levelMessage';
 
@@ -44,7 +44,8 @@ const LevelWonMessage = () => {
   const currentLevelStars = useSelector(selectCurrentLevelStars);
   const hasNextLevel = useSelector(selectHasNextLevel);
   const currentLevelProgress = useSelector(selectCurrentLevelProgress);
-  const colorScheme = useSelector(selectCurrentColorScheme);
+  //  @ts-ignore - no idea why this is playing up
+  const colorScheme = useSelector(selectColorScheme);
   let newStarOverrideColor: string | undefined;
   let usedStarOverrideColor: string | undefined;
 

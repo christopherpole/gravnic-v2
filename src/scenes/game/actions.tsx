@@ -9,7 +9,7 @@ import IconButton from '@/components/iconButton';
 import UndoIcon from '@/components/icons/undo';
 import RestartIcon from '@/components/icons/restart';
 import OptionsIcon from '@/components/icons/options';
-import { selectMoveMade, selectCurrentColorScheme } from '@/selectors';
+import { selectMoveMade, selectColorScheme } from '@/selectors';
 import MenuIcon from '@/components/icons/menu';
 
 const Wrapper = styled(View)`
@@ -29,7 +29,8 @@ const IconButtonWrapper = styled(View)`
 const Actions = () => {
   const dispatch = useDispatch();
   const showGameButtons = useSelector(selectMoveMade);
-  const colorScheme = useSelector(selectCurrentColorScheme);
+  //  @ts-ignore - no idea why this is playing up
+  const colorScheme = useSelector(selectColorScheme);
 
   return (
     <Wrapper>

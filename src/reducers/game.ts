@@ -1,6 +1,5 @@
 import IGame from '@/types/state/game';
 import levelsData from '@/data/levels';
-import colorSchemes from '@/data/colorSchemes';
 import {
   MAKE_MOVE,
   SET_ENTITIES_MOVING,
@@ -12,10 +11,7 @@ import {
 } from '@/actions/game';
 
 const initialState: IGame = {
-  levels: levelsData.map((levelData, i) => ({
-    colorScheme: colorSchemes[Math.floor(i % colorSchemes.length)],
-    ...levelData,
-  })),
+  levels: levelsData,
   selectedLevelIndex: null,
   gameStateHistory: [],
   entitiesMoving: false,

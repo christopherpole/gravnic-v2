@@ -17,7 +17,6 @@ import {
 import { loadLevel } from '@/actions/game';
 import { setShowingLevelSelect } from '@/actions/ui';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
-import { disabledColorScheme } from '@/data/colorSchemes';
 import Header from './header';
 
 const Wrapper = styled(View)<{ showing: boolean }>`
@@ -120,9 +119,7 @@ const LevelSelectScene = () => {
                         {...levelData}
                         progress={stars}
                         locked={locked}
-                        colorScheme={
-                          locked ? disabledColorScheme : levelData.colorScheme
-                        }
+                        levelIndex={levelIndex}
                       />
                     </LevelPreviewWrapper>
                   </TouchableWithoutFeedback>

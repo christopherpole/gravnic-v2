@@ -1,17 +1,19 @@
 import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { View, Image } from 'react-native';
 import { ENTITIES } from 'gravnic-game';
 
 import { ENABLED_FEATURES, FEATURES } from '@/config';
-import IColorScheme from '@/types/colorScheme';
-import ILevelData from '@/types/levelData';
 import Star from '@/components/star';
+import ILevelData from '@/types/levelData';
+import { selectColorScheme } from '@/selectors';
 import LockIcon from '@/components/icons/lock';
 import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
 import blackHoleImg from '@/assets/entities/black-hole.png';
 import stickySpoyImg from '@/assets/entities/sticky-spot.png';
+import IState from '@/types/state';
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -95,19 +97,23 @@ const LockIconWrapper = styled(View)`
 `;
 
 interface ILevelPreview extends ILevelData {
-  colorScheme: IColorScheme;
   progress: number;
   locked: boolean;
+  levelIndex: number;
 }
 
 const LevelPreview = ({
   locked,
   gameState,
-  colorScheme,
   progress,
+  levelIndex,
 }: ILevelPreview) => {
   let newStarOverrideColor;
   let usedStarOverrideColor;
+
+  const colorScheme = useSelector((state: IState) =>
+    selectColorScheme(state, levelIndex),
+  );
 
   if (ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)) {
     newStarOverrideColor = colorScheme.moveCounter.new;

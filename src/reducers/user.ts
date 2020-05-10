@@ -6,12 +6,14 @@ import {
   UPDATE_PROGRESS,
   CLEAR_PROGRESS,
   IUserAction,
+  SET_DARK_MODE,
 } from '@/actions/user';
 
 const initialState: IUser = {
   fastMode: false,
   locale: 'en' as LanguageCode,
   progress: {},
+  darkMode: false,
 };
 
 const reducer = (state = initialState, action: IUserAction): IUser => {
@@ -20,6 +22,13 @@ const reducer = (state = initialState, action: IUserAction): IUser => {
       return {
         ...state,
         fastMode: action.payload.fastMode,
+      };
+    }
+
+    case SET_DARK_MODE: {
+      return {
+        ...state,
+        darkMode: action.payload.darkMode,
       };
     }
 

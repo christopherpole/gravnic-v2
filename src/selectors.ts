@@ -1,10 +1,8 @@
 import { createSelector } from 'reselect';
 import { levelIsComplete } from 'gravnic-game';
 
-// import { FEATURES, ENABLED_FEATURES } from '@/config';
-// import useTheme from '@/hooks/useTheme';
 import IState from '@/types/state';
-import { disabledColorScheme } from '@/data/colorSchemes';
+import colorSchemes, { disabledColorScheme } from '@/data/colorSchemes';
 
 //  User's current language
 export const selectLocale = createSelector(
@@ -16,6 +14,12 @@ export const selectLocale = createSelector(
 export const selectIsFastMode = createSelector(
   (state: IState) => state.user,
   (user) => user.fastMode,
+);
+
+//  If the user has dark mode enabled
+export const selectIsDarkMode = createSelector(
+  (state: IState) => state.user,
+  (user) => user.darkMode,
 );
 
 //  Currently selected level index
@@ -30,13 +34,6 @@ export const selectCurrentLevel = createSelector(
   selectCurrentLevelIndex,
   ({ levels }, currentLevelIndex) =>
     currentLevelIndex !== null ? levels[currentLevelIndex] : null,
-);
-
-//  Get the color scheme for the currently selected level
-export const selectCurrentColorScheme = createSelector(
-  selectCurrentLevel,
-  (currentLevel) =>
-    currentLevel !== null ? currentLevel.colorScheme : disabledColorScheme,
 );
 
 //  Return true if there is a move for the user to undo
@@ -180,5 +177,20 @@ export const selectAchievedStarsCount = createSelector(
     });
 
     return count;
+  },
+);
+
+//  Get the color scheme for level with the given index (or current level if none is given)
+export const selectColorScheme = createSelector(
+  selectCurrentLevelIndex,
+  selectIsDarkMode,
+  selectLevels,
+  (state: IState, levelIndex: number | undefined) => levelIndex,
+  (currentLevelIndex, isDarkMode, levels, levelIndex) => {
+    const index =
+      typeof levelIndex !== 'undefined' ? levelIndex : currentLevelIndex;
+    return isDarkMode || index === null
+      ? disabledColorScheme
+      : colorSchemes[index % colorSchemes.length];
   },
 );

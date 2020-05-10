@@ -1,10 +1,8 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
-// import { useSelector } from 'react-redux';
 
 import useTheme from '@/hooks/useTheme';
-// import { selectCurrentColorScheme } from '@/selectors';
 
 const Wrapper = styled(View)<{ color?: string }>`
   height: 15px;

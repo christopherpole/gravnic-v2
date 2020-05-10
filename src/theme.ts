@@ -35,4 +35,16 @@ const theme = {
 
 export type ITheme = typeof theme;
 
+export const darkTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    stars: {
+      ...theme.colors.stars,
+      new: 'white',
+      used: 'grey',
+    },
+  },
+};
+
 export default theme;

@@ -1,10 +1,5 @@
 import ILevelData from '@/types/levelData';
-import IColorScheme from '@/types/colorScheme';
 import IGameState from '@/types/gameState';
-
-interface ILevelDataWithColorScheme extends ILevelData {
-  colorScheme: IColorScheme;
-}
 
 interface IGame {
   gameStateHistory: IGameState[][];
@@ -12,7 +7,7 @@ interface IGame {
   levelLoaded: boolean;
   undoing: boolean;
   selectedLevelIndex: number | null;
-  levels: ILevelDataWithColorScheme[];
+  levels: ILevelData[];
 }
 
 export default IGame;

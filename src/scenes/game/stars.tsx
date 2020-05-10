@@ -7,7 +7,7 @@ import {
   selectNoOfMovesMade,
   selectCurrentLevelStars,
   selectCurrentLevelProgress,
-  selectCurrentColorScheme,
+  selectColorScheme,
 } from '@/selectors';
 import { FEATURES, ENABLED_FEATURES } from '@/config';
 import Star from '@/components/star';
@@ -42,7 +42,8 @@ const Stars = () => {
   const stars = useSelector(selectCurrentLevelStars);
   const noOfMovesMade = useSelector(selectNoOfMovesMade);
   const currentProgress = useSelector(selectCurrentLevelProgress);
-  const colorScheme = useSelector(selectCurrentColorScheme);
+  //  @ts-ignore - no idea why this is playing up
+  const colorScheme = useSelector(selectColorScheme);
   let newStarOverrideColor: string | undefined;
   let usedStarOverrideColor: string | undefined;
 

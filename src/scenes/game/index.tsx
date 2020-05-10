@@ -14,6 +14,7 @@ import {
   selectCurrentLevel,
   selectCurrentLevelIsWon,
   selectNoOfMovesMade,
+  selectColorScheme,
 } from '@/selectors';
 import GameRenderer from '@/scenes/game/renderer';
 import Stars from './stars';
@@ -61,6 +62,8 @@ const GameScene = () => {
   const currentLevel = useSelector(selectCurrentLevel);
   const levelWon = useSelector(selectCurrentLevelIsWon);
   const noOfMovesMade = useSelector(selectNoOfMovesMade);
+  //  @ts-ignore - no idea why this is playing up
+  const colorScheme = useSelector(selectColorScheme);
 
   //  If a level has been won then let's update the user's progress
   useEffect(() => {
@@ -78,7 +81,7 @@ const GameScene = () => {
   const levelLost = noOfMovesMade >= currentLevel.stars[2] && !levelWon;
 
   return (
-    <Wrapper background={currentLevel.colorScheme.background}>
+    <Wrapper background={colorScheme.background}>
       <StyledGestureRecognizer
         onSwipe={(swipeDirection) => {
           if (levelWon || levelLost) return;

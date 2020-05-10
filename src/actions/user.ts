@@ -5,6 +5,7 @@ export const SET_FAST_MODE = 'SET_FAST_MODE';
 export const SET_LOCALE = 'SET_LOCALE';
 export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 export const CLEAR_PROGRESS = 'CLEAR_PROGRESS';
+export const SET_DARK_MODE = 'SET_DARK_MODE';
 
 export interface ISetFastMode {
   type: typeof SET_FAST_MODE;
@@ -26,6 +27,12 @@ export interface IUpdateProgress {
     moveCount: number;
   };
 }
+export interface ISetDarkMode {
+  type: typeof SET_DARK_MODE;
+  payload: {
+    darkMode: boolean;
+  };
+}
 
 export interface IClearProgress {
   type: typeof CLEAR_PROGRESS;
@@ -35,6 +42,7 @@ export type IUserAction =
   | ISetFastMode
   | ISetlocale
   | IUpdateProgress
+  | ISetDarkMode
   | IClearProgress;
 
 export const setFastMode = (fastMode: boolean): ISetFastMode => ({
@@ -48,6 +56,13 @@ export const setLocale = (locale: LanguageCode): ISetlocale => ({
   type: SET_LOCALE,
   payload: {
     locale,
+  },
+});
+
+export const setDarkMode = (darkMode: boolean): ISetDarkMode => ({
+  type: SET_DARK_MODE,
+  payload: {
+    darkMode,
   },
 });
 

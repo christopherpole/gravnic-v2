@@ -9,13 +9,18 @@ import LanguageCodes from '@/types/languageCodes';
 import IState from '@/types/state';
 import messages from '@/data/translations';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
-import { setFastMode, setLocale, clearProgress } from '@/actions/user';
+import {
+  setFastMode,
+  setLocale,
+  clearProgress,
+  setDarkMode,
+} from '@/actions/user';
 import IconButton from '@/components/iconButton';
 import Text from '@/components/text';
 import Button from '@/components/button';
 import CloseIcon from '@/components/icons/close';
 import { loadInitialLevel } from '@/actions/game';
-import { selectLocale, selectIsFastMode } from '@/selectors';
+import { selectLocale, selectIsFastMode, selectIsDarkMode } from '@/selectors';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -79,6 +84,7 @@ const SettingsScene = () => {
     ({ ui: { showingSettings } }: IState) => showingSettings,
   );
   const isFastMode = useSelector(selectIsFastMode);
+  const isDarkMode = useSelector(selectIsDarkMode);
   const locale = useSelector(selectLocale);
   const dispatch = useDispatch();
 
@@ -116,6 +122,18 @@ const SettingsScene = () => {
               value={isFastMode}
               onValueChange={(val: boolean) => {
                 dispatch(setFastMode(val));
+              }}
+            />
+          </OptionWrapper>
+
+          <OptionWrapper>
+            <OptionLabel>
+              <FormattedMessage id="darkMode" />
+            </OptionLabel>
+            <Switch
+              value={isDarkMode}
+              onValueChange={(val: boolean) => {
+                dispatch(setDarkMode(val));
               }}
             />
           </OptionWrapper>

@@ -20,6 +20,7 @@ import {
   selectLevelLoaded,
   selectLevelUndoing,
   selectGameStateHistory,
+  selectColorScheme,
 } from '@/selectors';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
 import IEntityData from '@/types/entityData';
@@ -67,6 +68,8 @@ const GameRenderer = () => {
   const undoing = useSelector(selectLevelUndoing);
   const currentLevel = useSelector(selectCurrentLevel);
   const fastMode = useSelector(selectIsFastMode);
+  //  @ts-ignore - no idea why this is playing up
+  const colorScheme = useSelector(selectColorScheme);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -96,9 +99,9 @@ const GameRenderer = () => {
 
     //  Convert the game states to entities data
     currentState.remainingEntitiesData = gameStatesToAnimate.map((gameState) =>
-      getEntitiesDataFromGameState(gameState, currentLevel.colorScheme),
+      getEntitiesDataFromGameState(gameState, colorScheme),
     );
-  }, [levelLoaded, gameStateHistory, undoing, currentLevel]);
+  }, [levelLoaded, gameStateHistory, undoing, currentLevel, colorScheme]);
 
   useEffect(() => {
     currentState.fastMode = fastMode;
