@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import { FEATURES, ENABLED_FEATURES } from '@/config';
 import { loadLevel } from '@/actions/game';
 import Button from '@/components/button';
 import Text from '@/components/text';
@@ -13,6 +14,7 @@ import {
   selectCurrentLevelStars,
   selectHasNextLevel,
   selectCurrentLevelProgress,
+  selectCurrentColorScheme,
 } from '@/selectors';
 import LevelMessage from './levelMessage';
 
@@ -38,13 +40,20 @@ const StyledStar = styled(Star)`
 
 const LevelWonMessage = () => {
   const dispatch = useDispatch();
-
   const currentLevelIndex = useSelector(selectCurrentLevelIndex);
   const currentLevelStars = useSelector(selectCurrentLevelStars);
   const hasNextLevel = useSelector(selectHasNextLevel);
   const currentLevelProgress = useSelector(selectCurrentLevelProgress);
+  const colorScheme = useSelector(selectCurrentColorScheme);
+  let newStarOverrideColor: string | undefined;
+  let usedStarOverrideColor: string | undefined;
 
   if (!currentLevelStars) return null;
+
+  if (ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)) {
+    newStarOverrideColor = colorScheme.moveCounter.new;
+    usedStarOverrideColor = colorScheme.moveCounter.used;
+  }
 
   return (
     <LevelMessage>
@@ -53,9 +62,30 @@ const LevelWonMessage = () => {
       </StyledText>
 
       <StarsWrapper>
-        <StyledStar filled={currentLevelProgress <= currentLevelStars[2]} />
-        <StyledStar filled={currentLevelProgress <= currentLevelStars[1]} />
-        <StyledStar filled={currentLevelProgress <= currentLevelStars[0]} />
+        <StyledStar
+          filled={currentLevelProgress <= currentLevelStars[2]}
+          color={
+            currentLevelProgress <= currentLevelStars[2]
+              ? newStarOverrideColor
+              : usedStarOverrideColor
+          }
+        />
+        <StyledStar
+          filled={currentLevelProgress <= currentLevelStars[1]}
+          color={
+            currentLevelProgress <= currentLevelStars[1]
+              ? newStarOverrideColor
+              : usedStarOverrideColor
+          }
+        />
+        <StyledStar
+          filled={currentLevelProgress <= currentLevelStars[0]}
+          color={
+            currentLevelProgress <= currentLevelStars[0]
+              ? newStarOverrideColor
+              : usedStarOverrideColor
+          }
+        />
       </StarsWrapper>
 
       {hasNextLevel && (

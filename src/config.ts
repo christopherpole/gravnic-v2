@@ -2,6 +2,7 @@
 export const FEATURES = {
   COLORED_STARS: 'COLORED_STARS',
 };
+// export const ENABLED_FEATURES: string[] = [FEATURES.COLORED_STARS];
 export const ENABLED_FEATURES: string[] = [];
 
 //  Swiping

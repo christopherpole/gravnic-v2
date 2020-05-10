@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-import { selectCurrentColorScheme } from '@/selectors';
+import useTheme from '@/hooks/useTheme';
+// import { selectCurrentColorScheme } from '@/selectors';
 
-const Wrapper = styled(View)<{ color: string }>`
+const Wrapper = styled(View)<{ color?: string }>`
   height: 15px;
   width: 15px;
   border-radius: 999px;
@@ -15,19 +16,18 @@ const Wrapper = styled(View)<{ color: string }>`
 
 interface IProps {
   filled?: boolean;
+  color?: string;
 }
 
-const MoveCounter = ({ filled, ...rest }: IProps) => {
-  const colorScheme = useSelector(selectCurrentColorScheme);
+const MoveCounter = ({ filled, color, ...rest }: IProps) => {
+  const theme = useTheme();
+  let fillColor = color;
 
-  return (
-    <Wrapper
-      {...rest}
-      color={
-        filled ? colorScheme.moveCounter.used : colorScheme.moveCounter.new
-      }
-    />
-  );
+  if (!fillColor) {
+    fillColor = filled ? theme.colors.stars.used : theme.colors.stars.new;
+  }
+
+  return <Wrapper {...rest} color={fillColor} />;
 };
 
 export default memo(MoveCounter);

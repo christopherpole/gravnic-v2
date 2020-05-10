@@ -7,7 +7,9 @@ import {
   selectNoOfMovesMade,
   selectCurrentLevelStars,
   selectCurrentLevelProgress,
+  selectCurrentColorScheme,
 } from '@/selectors';
+import { FEATURES, ENABLED_FEATURES } from '@/config';
 import Star from '@/components/star';
 import MoveCounter from './moveCounter';
 
@@ -40,8 +42,16 @@ const Stars = () => {
   const stars = useSelector(selectCurrentLevelStars);
   const noOfMovesMade = useSelector(selectNoOfMovesMade);
   const currentProgress = useSelector(selectCurrentLevelProgress);
+  const colorScheme = useSelector(selectCurrentColorScheme);
+  let newStarOverrideColor: string | undefined;
+  let usedStarOverrideColor: string | undefined;
 
   if (!stars) return null;
+
+  if (ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)) {
+    newStarOverrideColor = colorScheme.moveCounter.new;
+    usedStarOverrideColor = colorScheme.moveCounter.used;
+  }
 
   return (
     <Wrapper>
@@ -49,14 +59,28 @@ const Stars = () => {
         <MoveWrapper key={`move-counter-wrapper-${index}`}>
           {(!stars.includes(index + 1) || currentProgress <= index + 1) && (
             <MoveCounterWrapper>
-              <MoveCounter filled={index < noOfMovesMade} />
+              <MoveCounter
+                filled={index < noOfMovesMade}
+                color={
+                  index < noOfMovesMade
+                    ? usedStarOverrideColor
+                    : newStarOverrideColor
+                }
+              />
             </MoveCounterWrapper>
           )}
 
           {stars.includes(index + 1) &&
             (!currentProgress || currentProgress > index + 1) && (
               <StarWrapper>
-                <Star filled={index >= noOfMovesMade} />
+                <Star
+                  filled={index >= noOfMovesMade}
+                  color={
+                    index >= noOfMovesMade
+                      ? newStarOverrideColor
+                      : usedStarOverrideColor
+                  }
+                />
               </StarWrapper>
             )}
         </MoveWrapper>

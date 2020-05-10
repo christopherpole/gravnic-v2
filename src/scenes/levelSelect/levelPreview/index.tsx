@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { View, Image } from 'react-native';
 import { ENTITIES } from 'gravnic-game';
 
+import { ENABLED_FEATURES, FEATURES } from '@/config';
 import IColorScheme from '@/types/colorScheme';
 import ILevelData from '@/types/levelData';
 import Star from '@/components/star';
@@ -105,6 +106,14 @@ const LevelPreview = ({
   colorScheme,
   progress,
 }: ILevelPreview) => {
+  let newStarOverrideColor;
+  let usedStarOverrideColor;
+
+  if (ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)) {
+    newStarOverrideColor = colorScheme.moveCounter.new;
+    usedStarOverrideColor = colorScheme.moveCounter.used;
+  }
+
   return (
     <Wrapper background={colorScheme.background}>
       <PreviewWrapper>
@@ -157,22 +166,19 @@ const LevelPreview = ({
         <StarWrapper>
           <Star
             filled={progress >= 1}
-            newColor={colorScheme.moveCounter.new}
-            usedColor={colorScheme.moveCounter.used}
+            color={progress >= 1 ? newStarOverrideColor : usedStarOverrideColor}
           />
         </StarWrapper>
         <StarWrapper>
           <Star
             filled={progress >= 2}
-            newColor={colorScheme.moveCounter.new}
-            usedColor={colorScheme.moveCounter.used}
+            color={progress >= 2 ? newStarOverrideColor : usedStarOverrideColor}
           />
         </StarWrapper>
         <StarWrapper>
           <Star
             filled={progress >= 3}
-            newColor={colorScheme.moveCounter.new}
-            usedColor={colorScheme.moveCounter.used}
+            color={progress >= 3 ? newStarOverrideColor : usedStarOverrideColor}
           />
         </StarWrapper>
       </ProgressWrapper>

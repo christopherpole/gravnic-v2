@@ -1,17 +1,13 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
 
-import { FEATURES, ENABLED_FEATURES } from '@/config';
 import StarIcon from '@/components/icons/star';
 import useTheme from '@/hooks/useTheme';
-import { selectCurrentColorScheme } from '@/selectors';
 
 interface IProps {
   filled?: boolean;
-  newColor?: string;
-  usedColor?: string;
+  color?: string;
 }
 
 const Wrapper = styled(View)<IProps>`
@@ -20,23 +16,17 @@ const Wrapper = styled(View)<IProps>`
   box-shadow: ${(props) => props.theme.shadows.default};
 `;
 
-const Star = ({ filled, newColor, usedColor, ...rest }: IProps) => {
-  const colorScheme = useSelector(selectCurrentColorScheme);
-
-  const newFillColor = newColor || colorScheme.moveCounter.new;
-  const usedFillColor = usedColor || colorScheme.moveCounter.used;
+const Star = ({ filled, color, ...rest }: IProps) => {
   const theme = useTheme();
+  let fillColor = color;
 
-  const newMoveCounterColor = ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)
-    ? newFillColor
-    : theme.colors.stars.new;
-  const usedMoveCounterColor = ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)
-    ? usedFillColor
-    : theme.colors.stars.used;
+  if (!fillColor) {
+    fillColor = filled ? theme.colors.stars.new : theme.colors.stars.used;
+  }
 
   return (
     <Wrapper {...rest}>
-      <StarIcon color={filled ? newMoveCounterColor : usedMoveCounterColor} />
+      <StarIcon color={fillColor} />
     </Wrapper>
   );
 };
