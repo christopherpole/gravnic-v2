@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import IState from '@/types/state';
+import { selectTotalStars, selectAchievedStarsCount } from '@/selectors';
 import Text from '@/components/text';
 import StarIcon from '@/components/icons/star';
 
@@ -30,31 +30,8 @@ const StarsCountText = styled(Text)`
 `;
 
 const Progress = () => {
-  //  Get the total number of stars available
-  const totalStarsCount = useSelector(
-    (state: IState) => state.game.levels.length * 3,
-  );
-
-  //  Get the number of stars the user has achieved so far
-  const userStarsCount = useSelector(
-    ({ user: { progress }, game: { levels } }: IState) => {
-      let count = 0;
-
-      //  Check the number of stars we've got for each level
-      Object.keys(progress).forEach((key) => {
-        const level = levels[parseInt(key, 10)];
-
-        if (level) {
-          //  @TODO: revise the structure of "stars" for the levels
-          count += level.stars.filter(
-            (star) => progress[parseInt(key, 10)] <= star,
-          ).length;
-        }
-      });
-
-      return count;
-    },
-  );
+  const totalStarsCount = useSelector(selectTotalStars);
+  const userStarsCount = useSelector(selectAchievedStarsCount);
 
   return (
     <Wrapper>

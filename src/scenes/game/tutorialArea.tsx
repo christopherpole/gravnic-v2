@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 
-import IState from '@/types/state';
+import { selectCurrentLevelCompleted } from '@/selectors';
 import Text from '@/components/text';
 import ITutorial from '@/types/tutorials';
 
@@ -22,12 +22,8 @@ interface IProps {
 }
 
 const TutorialArea = ({ tutorial }: IProps) => {
+  const levelCompleted = useSelector(selectCurrentLevelCompleted);
   let message;
-
-  const levelCompleted = useSelector(
-    ({ game: { selectedLevelIndex }, user: { progress } }: IState) =>
-      selectedLevelIndex !== null && progress[selectedLevelIndex] > 0,
-  );
 
   if (!tutorial || levelCompleted) return null;
 

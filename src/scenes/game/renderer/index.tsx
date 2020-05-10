@@ -6,7 +6,6 @@ import { GLView } from 'expo-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
-import IState from '@/types/state';
 import {
   ENTITY_SIZE,
   ENTITY_MOVE_SPEED,
@@ -15,7 +14,13 @@ import {
   UNDOING_SPEED_MULTIPLIER,
   FAST_MODE_MULTIPLIER,
 } from '@/config';
-import { selectCurrentLevel, selectIsFastMode } from '@/selectors';
+import {
+  selectCurrentLevel,
+  selectIsFastMode,
+  selectLevelLoaded,
+  selectLevelUndoing,
+  selectGameStateHistory,
+} from '@/selectors';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
@@ -57,14 +62,11 @@ const currentState: ICurrentState = {
 };
 
 const GameRenderer = () => {
-  const gameStateHistory = useSelector(
-    (state: IState) => state.game.gameStateHistory,
-  );
-  const levelLoaded = useSelector((state: IState) => state.game.levelLoaded);
-  const undoing = useSelector((state: IState) => state.game.undoing);
+  const gameStateHistory = useSelector(selectGameStateHistory);
+  const levelLoaded = useSelector(selectLevelLoaded);
+  const undoing = useSelector(selectLevelUndoing);
   const currentLevel = useSelector(selectCurrentLevel);
   const fastMode = useSelector(selectIsFastMode);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

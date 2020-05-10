@@ -8,7 +8,12 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import IState from '@/types/state';
+import {
+  selectLevels,
+  selectShowingLevelSelect,
+  selectListScrollIndex,
+  selectProgress,
+} from '@/selectors';
 import { loadLevel } from '@/actions/game';
 import { setShowingLevelSelect } from '@/actions/ui';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
@@ -50,22 +55,10 @@ const LevelPreviewWrapper = styled(View)`
 
 const LevelSelectScene = () => {
   const dispatch = useDispatch();
-  const levels = useSelector(({ game }: IState) => game.levels);
-  const showing = useSelector(
-    ({ ui: { showingLevelSelect } }: IState) => showingLevelSelect,
-  );
-  const progress = useSelector(({ user }: IState) => user.progress);
-  const latestUnlockedLevelIndex =
-    Object.keys(progress).length > 0
-      ? parseInt(
-          Object.keys(progress).sort(
-            (a, b) => parseInt(a, 10) - parseInt(b, 10),
-          )[Object.keys(progress).length - 1],
-          10,
-        )
-      : 0;
-  let listScrollIndex = Math.floor((latestUnlockedLevelIndex + 1) / 3) - 1;
-  listScrollIndex = listScrollIndex < 0 ? 0 : listScrollIndex;
+  const showing = useSelector(selectShowingLevelSelect);
+  const levels = useSelector(selectLevels);
+  const progress = useSelector(selectProgress);
+  const listScrollIndex = useSelector(selectListScrollIndex);
   const listRef = useRef(null);
 
   useEffect(() => {

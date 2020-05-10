@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { resetLevel, setUndoing } from '@/actions/game';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
 import IconButton from '@/components/iconButton';
-import IState from '@/types/state';
 import UndoIcon from '@/components/icons/undo';
 import RestartIcon from '@/components/icons/restart';
 import OptionsIcon from '@/components/icons/options';
+import { selectMoveMade, selectCurrentColorScheme } from '@/selectors';
 import MenuIcon from '@/components/icons/menu';
 
 const Wrapper = styled(View)`
@@ -28,19 +28,8 @@ const IconButtonWrapper = styled(View)`
 
 const Actions = () => {
   const dispatch = useDispatch();
-
-  //  Should we show the restart/undo buttons?
-  const showGameButtons = useSelector(
-    ({ game: { gameStateHistory, undoing } }: IState) =>
-      gameStateHistory.length > (undoing ? 2 : 1),
-  );
-
-  const iconColor = useSelector(
-    ({ game: { selectedLevelIndex, levels } }: IState) =>
-      selectedLevelIndex !== null
-        ? levels[selectedLevelIndex].colorScheme.icons
-        : undefined,
-  );
+  const showGameButtons = useSelector(selectMoveMade);
+  const colorScheme = useSelector(selectCurrentColorScheme);
 
   return (
     <Wrapper>
@@ -50,7 +39,7 @@ const Actions = () => {
             dispatch(setShowingLevelSelect(true));
           }}
         >
-          <MenuIcon color={iconColor} />
+          <MenuIcon color={colorScheme.icons} />
         </IconButton>
       </IconButtonWrapper>
 
@@ -61,7 +50,7 @@ const Actions = () => {
             dispatch(setUndoing(true));
           }}
         >
-          <UndoIcon color={iconColor} />
+          <UndoIcon color={colorScheme.icons} />
         </IconButton>
       </IconButtonWrapper>
 
@@ -72,7 +61,7 @@ const Actions = () => {
             dispatch(resetLevel());
           }}
         >
-          <RestartIcon color={iconColor} />
+          <RestartIcon color={colorScheme.icons} />
         </IconButton>
       </IconButtonWrapper>
       <IconButtonWrapper>
@@ -81,7 +70,7 @@ const Actions = () => {
             dispatch(setShowingSettings(true));
           }}
         >
-          <OptionsIcon color={iconColor} />
+          <OptionsIcon color={colorScheme.icons} />
         </IconButton>
       </IconButtonWrapper>
     </Wrapper>

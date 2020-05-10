@@ -4,12 +4,16 @@ import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import IState from '@/types/state';
 import { loadLevel } from '@/actions/game';
 import Button from '@/components/button';
 import Text from '@/components/text';
 import Star from '@/components/star';
-import { selectCurrentLevelIndex } from '@/selectors';
+import {
+  selectCurrentLevelIndex,
+  selectCurrentLevelStars,
+  selectHasNextLevel,
+  selectCurrentLevelProgress,
+} from '@/selectors';
 import LevelMessage from './levelMessage';
 
 const StyledText = styled(Text)`
@@ -36,21 +40,11 @@ const LevelWonMessage = () => {
   const dispatch = useDispatch();
 
   const currentLevelIndex = useSelector(selectCurrentLevelIndex);
+  const currentLevelStars = useSelector(selectCurrentLevelStars);
+  const hasNextLevel = useSelector(selectHasNextLevel);
+  const currentLevelProgress = useSelector(selectCurrentLevelProgress);
 
-  const currentLevelStars = useSelector(
-    ({ game: { selectedLevelIndex, levels } }: IState) =>
-      levels[selectedLevelIndex as number].stars,
-  );
-
-  const hasNextLevel = useSelector(
-    ({ game: { selectedLevelIndex, levels } }: IState) =>
-      selectedLevelIndex === null || selectedLevelIndex < levels.length - 1,
-  );
-
-  const currentLevelProgress = useSelector(
-    ({ game: { selectedLevelIndex }, user: { progress } }: IState) =>
-      selectedLevelIndex !== null ? progress[selectedLevelIndex] : 0,
-  );
+  if (!currentLevelStars) return null;
 
   return (
     <LevelMessage>

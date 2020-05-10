@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import IState from '@/types/state';
+import {
+  selectNoOfMovesMade,
+  selectCurrentLevelStars,
+  selectCurrentLevelProgress,
+} from '@/selectors';
 import Star from '@/components/star';
 import MoveCounter from './moveCounter';
 
@@ -33,42 +37,22 @@ const StarWrapper = styled(View)`
 `;
 
 const Stars = () => {
-  //  Get the stars for the current level
-  const stars = useSelector(
-    ({ game: { levels, selectedLevelIndex } }: IState) => {
-      if (selectedLevelIndex === null) {
-        return null;
-      }
-
-      const currentLevel = levels[selectedLevelIndex];
-      return currentLevel.stars;
-    },
-  );
-
-  //  Get the number of moves that have currently been made for this level
-  const noOfMovesMade = useSelector(
-    ({ game: { gameStateHistory, undoing } }: IState) =>
-      gameStateHistory.length - (undoing ? 2 : 1),
-  );
-
-  //  Get the current record for the number of moves
-  const currentProgress = useSelector(
-    ({ game: { selectedLevelIndex }, user: { progress } }: IState) =>
-      selectedLevelIndex !== null ? progress[selectedLevelIndex] : 0,
-  );
+  const stars = useSelector(selectCurrentLevelStars);
+  const noOfMovesMade = useSelector(selectNoOfMovesMade);
+  const currentProgress = useSelector(selectCurrentLevelProgress);
 
   if (!stars) return null;
 
   return (
     <Wrapper>
       {[...Array(stars[2])].map((i, index) => (
-        <MoveWrapper>
+        <MoveWrapper key={`move-counter-wrapper-${index}`}>
           {(!stars.includes(index + 1) || currentProgress <= index + 1) && (
-            <MoveCounterWrapper key={`move-counter-${index}`}>
+            <MoveCounterWrapper>
               <MoveCounter filled={index < noOfMovesMade} />
             </MoveCounterWrapper>
           )}
-          {/* && currentProgress < index + 1  */}
+
           {stars.includes(index + 1) &&
             (!currentProgress || currentProgress > index + 1) && (
               <StarWrapper>

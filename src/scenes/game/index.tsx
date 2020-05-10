@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import { View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useSelector, useDispatch } from 'react-redux';
-import { levelIsComplete } from 'gravnic-game';
 
 import {
   SWIPE_VELOCITY_THRESHOLD,
@@ -11,9 +10,12 @@ import {
 } from '@/config';
 import { makeMove, loadInitialLevel } from '@/actions/game';
 import { updateProgress } from '@/actions/user';
-import { selectCurrentLevelIndex, selectCurrentLevel } from '@/selectors';
+import {
+  selectCurrentLevel,
+  selectCurrentLevelIsWon,
+  selectNoOfMovesMade,
+} from '@/selectors';
 import GameRenderer from '@/scenes/game/renderer';
-import IState from '@/types/state';
 import Stars from './stars';
 import LevelLostMessage from './levelLostMessage';
 import LevelWonMessage from './levelWonMessage';
@@ -56,28 +58,9 @@ const GameAreaWrapper = styled(View)`
 
 const GameScene = () => {
   const dispatch = useDispatch();
-
-  const currentLevelIndex = useSelector(selectCurrentLevelIndex);
   const currentLevel = useSelector(selectCurrentLevel);
-
-  //  Has the level been completed successfully?
-  const levelWon = useSelector(
-    ({
-      game: { undoing, entitiesMoving, gameStateHistory, selectedLevelIndex },
-    }: IState) => {
-      if (undoing || entitiesMoving || selectedLevelIndex === null)
-        return false;
-
-      const lastMove = gameStateHistory[gameStateHistory.length - 1];
-
-      return levelIsComplete(lastMove[lastMove.length - 1]);
-    },
-  );
-
-  const noOfMovesMade = useSelector(
-    ({ game: { gameStateHistory, undoing, entitiesMoving } }: IState) =>
-      gameStateHistory.length - (entitiesMoving || undoing ? 2 : 1),
-  );
+  const levelWon = useSelector(selectCurrentLevelIsWon);
+  const noOfMovesMade = useSelector(selectNoOfMovesMade);
 
   //  If a level has been won then let's update the user's progress
   useEffect(() => {
@@ -87,7 +70,7 @@ const GameScene = () => {
   }, [levelWon, dispatch]);
 
   //  Load the first unsolved level available if there is no level
-  if (!currentLevel || currentLevelIndex === null) {
+  if (!currentLevel) {
     dispatch(loadInitialLevel());
     return null;
   }
