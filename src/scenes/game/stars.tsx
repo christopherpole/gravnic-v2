@@ -7,9 +7,7 @@ import {
   selectNoOfMovesMade,
   selectCurrentLevelStars,
   selectCurrentLevelProgress,
-  selectColorScheme,
 } from '@/selectors';
-import { FEATURES, ENABLED_FEATURES } from '@/config';
 import Star from '@/components/star';
 import MoveCounter from './moveCounter';
 
@@ -42,17 +40,8 @@ const Stars = () => {
   const stars = useSelector(selectCurrentLevelStars);
   const noOfMovesMade = useSelector(selectNoOfMovesMade);
   const currentProgress = useSelector(selectCurrentLevelProgress);
-  //  @ts-ignore - no idea why this is playing up
-  const colorScheme = useSelector(selectColorScheme);
-  let newStarOverrideColor: string | undefined;
-  let usedStarOverrideColor: string | undefined;
 
   if (!stars) return null;
-
-  if (ENABLED_FEATURES.includes(FEATURES.COLORED_STARS)) {
-    newStarOverrideColor = colorScheme.moveCounter.new;
-    usedStarOverrideColor = colorScheme.moveCounter.used;
-  }
 
   return (
     <Wrapper>
@@ -60,28 +49,14 @@ const Stars = () => {
         <MoveWrapper key={`move-counter-wrapper-${index}`}>
           {(!stars.includes(index + 1) || currentProgress <= index + 1) && (
             <MoveCounterWrapper>
-              <MoveCounter
-                filled={index >= noOfMovesMade}
-                color={
-                  index >= noOfMovesMade
-                    ? usedStarOverrideColor
-                    : newStarOverrideColor
-                }
-              />
+              <MoveCounter filled={index >= noOfMovesMade} />
             </MoveCounterWrapper>
           )}
 
           {stars.includes(index + 1) &&
             (!currentProgress || currentProgress > index + 1) && (
               <StarWrapper>
-                <Star
-                  filled={index >= noOfMovesMade}
-                  color={
-                    index >= noOfMovesMade
-                      ? newStarOverrideColor
-                      : usedStarOverrideColor
-                  }
-                />
+                <Star filled={index >= noOfMovesMade} />
               </StarWrapper>
             )}
         </MoveWrapper>

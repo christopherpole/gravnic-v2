@@ -16,15 +16,11 @@ const Wrapper = styled(View)<{ fillColor: string }>`
   background: ${(props) => props.fillColor};
 `;
 
-const Star = ({ filled, color, ...rest }: IProps) => {
+const Star = ({ filled, ...rest }: IProps) => {
   const theme = useTheme();
-  let fillColor = color;
+  const fillColor = filled ? theme.colors.stars.new : theme.colors.stars.used;
 
-  if (!fillColor) {
-    fillColor = filled ? theme.colors.stars.new : theme.colors.stars.used;
-  }
-
-  return <Wrapper {...rest} fillColor={fillColor as string} />;
+  return <Wrapper {...rest} fillColor={fillColor} />;
 };
 
 export default memo(Star);

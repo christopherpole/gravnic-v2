@@ -13,10 +13,9 @@ const Wrapper = styled(Animated.View)`
 
 interface IProps {
   filled?: boolean;
-  color?: string;
 }
 
-const MoveCounter = ({ filled, color, ...rest }: IProps) => {
+const MoveCounter = ({ filled, ...rest }: IProps) => {
   const theme = useTheme();
   const fillAnim = useRef(new Animated.Value(1)).current;
 
