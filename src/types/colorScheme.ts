@@ -1,10 +1,6 @@
 interface IColorScheme {
   background: string;
   icons: '#fff' | '#000';
-  moveCounter: {
-    new: string;
-    used: '#fff' | '#000';
-  };
   blocks: {
     '#ff0000': string;
     '#FF8C00': string;
