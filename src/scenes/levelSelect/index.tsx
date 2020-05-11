@@ -37,11 +37,6 @@ const Wrapper = styled(View)<{ showing: boolean }>`
     `};
 `;
 
-const Row = styled(View)`
-  display: flex;
-  flex-direction: row;
-`;
-
 const LevelsWrapper = styled(View)`
   flex: 1;
 `;
@@ -78,6 +73,9 @@ const LevelSelectScene = () => {
           ref={listRef}
           initialScrollIndex={listScrollIndex}
           bounces={false}
+          numColumns={3}
+          initialNumToRender={15}
+          // maxToRenderPerBatch={6}
           removeClippedSubviews
           getItemLayout={(data, index) => ({
             length: Dimensions.get('window').width / 3 / levelAspectRatio,
@@ -85,48 +83,36 @@ const LevelSelectScene = () => {
               (Dimensions.get('window').width / 3 / levelAspectRatio) * index,
             index,
           })}
-          data={[...Array(levels.length / 3)].map((_, i) => [
-            levels[i * 3],
-            levels[i * 3 + 1],
-            levels[i * 3 + 2],
-          ])}
+          data={levels}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <Row key={`level-preview-row-${index}`}>
-              {item.map((levelData, j) => {
-                const levelIndex = index * 3 + j;
-                const locked =
-                  levelIndex > 0 &&
-                  !progress[levelIndex] &&
-                  !progress[levelIndex - 1];
-                const stars =
-                  (progress[levelIndex] &&
-                    levelData.stars.filter((num) => progress[levelIndex] <= num)
-                      .length) ||
-                  0;
+          renderItem={({ item, index }) => {
+            const locked =
+              index > 0 && !progress[index] && !progress[index - 1];
+            const stars =
+              (progress[index] &&
+                item.stars.filter((num) => progress[index] <= num).length) ||
+              0;
 
-                return (
-                  <TouchableWithoutFeedback
-                    key={`level-preview-${levelIndex}`}
-                    onPress={() => {
-                      if (locked) return;
-                      dispatch(loadLevel(levelIndex));
-                      dispatch(setShowingLevelSelect(false));
-                    }}
-                  >
-                    <LevelPreviewWrapper>
-                      <LevelPreview
-                        {...levelData}
-                        progress={stars}
-                        locked={locked}
-                        levelIndex={levelIndex}
-                      />
-                    </LevelPreviewWrapper>
-                  </TouchableWithoutFeedback>
-                );
-              })}
-            </Row>
-          )}
+            return (
+              <TouchableWithoutFeedback
+                key={`level-preview-${index}`}
+                onPress={() => {
+                  if (locked) return;
+                  dispatch(loadLevel(index));
+                  dispatch(setShowingLevelSelect(false));
+                }}
+              >
+                <LevelPreviewWrapper>
+                  <LevelPreview
+                    {...item}
+                    progress={stars}
+                    locked={locked}
+                    levelIndex={index}
+                  />
+                </LevelPreviewWrapper>
+              </TouchableWithoutFeedback>
+            );
+          }}
         />
       </LevelsWrapper>
     </Wrapper>

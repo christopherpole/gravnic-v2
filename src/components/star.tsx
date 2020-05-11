@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import { View } from 'react-native';
 
-import StarIcon from '@/components/icons/star';
 import useTheme from '@/hooks/useTheme';
 
 interface IProps {
@@ -10,10 +9,11 @@ interface IProps {
   color?: string;
 }
 
-const Wrapper = styled(View)<IProps>`
+const Wrapper = styled(View)<{ fillColor: string }>`
   height: 100%;
   width: 100%;
   box-shadow: ${(props) => props.theme.shadows.default};
+  background: ${(props) => props.fillColor};
 `;
 
 const Star = ({ filled, color, ...rest }: IProps) => {
@@ -24,11 +24,7 @@ const Star = ({ filled, color, ...rest }: IProps) => {
     fillColor = filled ? theme.colors.stars.new : theme.colors.stars.used;
   }
 
-  return (
-    <Wrapper {...rest}>
-      <StarIcon color={fillColor} />
-    </Wrapper>
-  );
+  return <Wrapper {...rest} fillColor={fillColor as string} />;
 };
 
 export default memo(Star);

@@ -184,12 +184,17 @@ export const selectAchievedStarsCount = createSelector(
 export const selectColorScheme = createSelector(
   selectCurrentLevelIndex,
   selectIsDarkMode,
-  selectLevels,
+  selectLatestUnlockedLevelIndex,
   (state: IState, levelIndex: number | undefined) => levelIndex,
-  (currentLevelIndex, isDarkMode, levels, levelIndex) => {
+  (currentLevelIndex, isDarkMode, latestUnlockedLevelIndex, levelIndex) => {
+    const isLocked =
+      typeof levelIndex !== 'undefined' && levelIndex !== null
+        ? levelIndex > latestUnlockedLevelIndex + 1
+        : false;
     const index =
       typeof levelIndex !== 'undefined' ? levelIndex : currentLevelIndex;
-    return isDarkMode || index === null
+
+    return isLocked || isDarkMode || index === null
       ? disabledColorScheme
       : colorSchemes[index % colorSchemes.length];
   },
