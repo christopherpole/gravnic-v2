@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { TouchableWithoutFeedback, View, Switch } from 'react-native';
+import { View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,6 +19,7 @@ import IconButton from '@/components/iconButton';
 import Text from '@/components/text';
 import Button from '@/components/button';
 import CloseIcon from '@/components/icons/close';
+import Switch from '@/components/switch';
 import { loadInitialLevel } from '@/actions/game';
 import { selectLocale, selectIsFastMode, selectIsDarkMode } from '@/selectors';
 
@@ -30,30 +31,28 @@ const Wrapper = styled(View)`
   bottom: 0;
   left: 0;
   right: 0;
-  padding: ${(props) => props.theme.spacing.large};
+  background: ${(props) => props.theme.colors.secondary};
+`;
+
+const Header = styled(View)`
+  display: flex;
+  flex-direction: row;
+  background: ${(props) => props.theme.colors.primary};
   align-items: center;
   justify-content: center;
+  border-bottom-color: white;
+  border-bottom-width: 2px;
 `;
 
-const Backdrop = styled(View)`
-  display: flex;
-  position: absolute;
-  flex: 1;
-  background: rgba(0, 0, 0, 0.8);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`;
-
-const WrapperInner = styled(View)`
-  background: white;
+const HeaderText = styled(Text)`
   padding: ${(props) => props.theme.spacing.medium};
-  width: 100%;
+  font-size: ${(props) => props.theme.sizing.large};
+  color: ${(props) => props.theme.colors.fonts.secondary};
 `;
 
 const CloseButtonWrapper = styled(View)`
-  margin-bottom: ${(props) => props.theme.spacing.large};
+  position: absolute;
+  right: ${(props) => props.theme.spacing.medium};
 `;
 
 const CloseButton = styled(IconButton)`
@@ -64,11 +63,13 @@ const CloseButton = styled(IconButton)`
 `;
 
 const OptionsWrapper = styled(View)`
-  margin-bottom: -${(props) => props.theme.spacing.medium};
+  padding: ${(props) => props.theme.spacing.medium};
 `;
 
 const OptionLabel = styled(Text)`
   font-size: ${(props) => props.theme.sizing.medium};
+  color: ${(props) => props.theme.colors.fonts.secondary};
+  padding: ${(props) => props.theme.spacing.medium};
 `;
 
 const OptionWrapper = styled(View)`
@@ -77,6 +78,7 @@ const OptionWrapper = styled(View)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: ${(props) => props.theme.spacing.medium};
+  background: ${(props) => props.theme.colors.primary};
 `;
 
 const SettingsScene = () => {
@@ -95,79 +97,72 @@ const SettingsScene = () => {
 
   return (
     <Wrapper>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          dispatch(setShowingSettings(false));
-        }}
-      >
-        <Backdrop />
-      </TouchableWithoutFeedback>
-      <WrapperInner>
+      <Header>
+        <HeaderText>Settings</HeaderText>
+
         <CloseButtonWrapper>
           <CloseButton
             onPress={() => {
               dispatch(setShowingSettings(false));
             }}
           >
-            <CloseIcon />
+            <CloseIcon color="white" />
           </CloseButton>
         </CloseButtonWrapper>
+      </Header>
 
-        <OptionsWrapper>
-          <OptionWrapper>
-            <OptionLabel>
-              <FormattedMessage id="fastMode" />
-            </OptionLabel>
-            <Switch
-              value={isFastMode}
-              onValueChange={(val: boolean) => {
-                dispatch(setFastMode(val));
-              }}
-            />
-          </OptionWrapper>
+      <OptionsWrapper>
+        <OptionWrapper>
+          <OptionLabel>
+            <FormattedMessage id="fastMode" />
+          </OptionLabel>
+          <Switch
+            value={isFastMode}
+            onValueChange={(val: boolean) => {
+              dispatch(setFastMode(val));
+            }}
+          />
+        </OptionWrapper>
 
-          <OptionWrapper>
-            <OptionLabel>
-              <FormattedMessage id="darkMode" />
-            </OptionLabel>
-            <Switch
-              value={isDarkMode}
-              onValueChange={(val: boolean) => {
-                dispatch(setDarkMode(val));
-              }}
-            />
-          </OptionWrapper>
+        <OptionWrapper>
+          <OptionLabel>
+            <FormattedMessage id="darkMode" />
+          </OptionLabel>
+          <Switch
+            value={isDarkMode}
+            onValueChange={(val: boolean) => {
+              dispatch(setDarkMode(val));
+            }}
+          />
+        </OptionWrapper>
 
-          <OptionWrapper>
-            <OptionLabel>
-              <FormattedMessage id="language" />
-            </OptionLabel>
-            <RNPickerSelect
-              onValueChange={(val: LanguageCodes) => {
-                dispatch(setLocale(val));
-              }}
-              placeholder={{}}
-              value={locale}
-              items={Object.keys(messages).map((languageCode) => ({
-                label: messages[languageCode as LanguageCodes].fullLanguageName,
-                value: languageCode,
-              }))}
-            />
-          </OptionWrapper>
+        <OptionWrapper>
+          <OptionLabel>
+            <FormattedMessage id="language" />
+          </OptionLabel>
+          <RNPickerSelect
+            onValueChange={(val: LanguageCodes) => {
+              dispatch(setLocale(val));
+            }}
+            placeholder={{}}
+            value={locale}
+            items={Object.keys(messages).map((languageCode) => ({
+              label: messages[languageCode as LanguageCodes].fullLanguageName,
+              value: languageCode,
+            }))}
+          />
+        </OptionWrapper>
 
-          <OptionWrapper>
-            <Button
-              onPress={() => {
-                dispatch(clearProgress());
-                dispatch(loadInitialLevel());
-                dispatch(setShowingLevelSelect(true));
-              }}
-            >
-              <FormattedMessage id="clearProgress" />
-            </Button>
-          </OptionWrapper>
-        </OptionsWrapper>
-      </WrapperInner>
+        <Button
+          onPress={() => {
+            dispatch(clearProgress());
+            dispatch(loadInitialLevel());
+            dispatch(setShowingLevelSelect(true));
+          }}
+        >
+          <FormattedMessage id="clearProgress" />
+        </Button>
+      </OptionsWrapper>
     </Wrapper>
   );
 };

@@ -4,8 +4,8 @@ const theme = {
     bold: 'AvenirNext-Bold',
   },
   colors: {
-    background: 'rgb(252, 241, 233)',
-    primary: 'red',
+    primary: '#333',
+    secondary: '#666',
     disabled: '#999',
     fonts: {
       primary: 'black',

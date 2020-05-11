@@ -16,7 +16,7 @@ const Wrapper = styled(View)`
   flex-direction: row;
   border-bottom-color: #fff;
   border-bottom-width: 2px;
-  background: #333;
+  background: ${(props) => props.theme.colors.primary};
   box-shadow: ${(props) => props.theme.shadows.default};
 `;
 
