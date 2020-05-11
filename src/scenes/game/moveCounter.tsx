@@ -1,15 +1,14 @@
-import React, { memo } from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { View } from 'react-native';
+import { Animated } from 'react-native';
 
 import useTheme from '@/hooks/useTheme';
 
-const Wrapper = styled(View)<{ color?: string }>`
+const Wrapper = styled(Animated.View)`
   height: 15px;
   width: 15px;
   border-radius: 999px;
   box-shadow: ${(props) => props.theme.shadows.default};
-  background: ${(props) => props.color};
 `;
 
 interface IProps {
@@ -19,13 +18,26 @@ interface IProps {
 
 const MoveCounter = ({ filled, color, ...rest }: IProps) => {
   const theme = useTheme();
-  let fillColor = color;
+  const fillAnim = useRef(new Animated.Value(1)).current;
 
-  if (!fillColor) {
-    fillColor = filled ? theme.colors.stars.used : theme.colors.stars.new;
-  }
+  useEffect(() => {
+    Animated.timing(fillAnim, {
+      toValue: filled ? 1 : 0,
+      duration: 500,
+    }).start();
+  }, [filled, fillAnim]);
 
-  return <Wrapper {...rest} color={fillColor} />;
+  return (
+    <Wrapper
+      {...rest}
+      style={{
+        backgroundColor: fillAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [theme.colors.stars.used, theme.colors.stars.new],
+        }),
+      }}
+    />
+  );
 };
 
 export default memo(MoveCounter);

@@ -61,9 +61,9 @@ const Stars = () => {
           {(!stars.includes(index + 1) || currentProgress <= index + 1) && (
             <MoveCounterWrapper>
               <MoveCounter
-                filled={index < noOfMovesMade}
+                filled={index >= noOfMovesMade}
                 color={
-                  index < noOfMovesMade
+                  index >= noOfMovesMade
                     ? usedStarOverrideColor
                     : newStarOverrideColor
                 }

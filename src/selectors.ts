@@ -58,8 +58,8 @@ export const selectCurrentLevelIsWon = createSelector(
 //  Returns the number of moves completed for the current level
 export const selectNoOfMovesMade = createSelector(
   (state: IState) => state.game,
-  ({ gameStateHistory, undoing, entitiesMoving }) =>
-    gameStateHistory.length - (entitiesMoving || undoing ? 2 : 1),
+  ({ gameStateHistory, undoing }) =>
+    gameStateHistory.length - (undoing ? 2 : 1),
 );
 
 //  Returns the number of stars available for the current level
@@ -105,7 +105,7 @@ export const selectLatestUnlockedLevelIndex = createSelector(
           )[Object.keys(progress).length - 1],
           10,
         )
-      : 0,
+      : -1,
 );
 
 //  Returns the index of the position on the level select list that the want to be at the top of the screen
