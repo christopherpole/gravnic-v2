@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,10 +17,8 @@ import {
   setPlayMusic,
   setPlaySfx,
 } from '@/actions/user';
-import IconButton from '@/components/iconButton';
 import Text from '@/components/text';
 import Checkbox from '@/components/checkbox';
-import CloseIcon from '@/components/icons/close';
 import { loadInitialLevel } from '@/actions/game';
 import {
   selectLocale,
@@ -31,44 +28,8 @@ import {
   selectPlayMusic,
   selectPlaySfx,
 } from '@/selectors';
-import Header from '@/components/header';
+import Options from '@/components/options';
 import OptionButton from './optionButton';
-
-const Wrapper = styled(View)`
-  display: flex;
-  position: absolute;
-  flex: 1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: ${(props) => props.theme.colors.secondary};
-`;
-
-const HeaderText = styled(Text)`
-  padding: ${(props) => props.theme.spacing.medium};
-  font-size: ${(props) => props.theme.sizing.large};
-  color: ${(props) => props.theme.colors.fonts.secondary};
-  width: 100%;
-  text-align: center;
-`;
-
-const CloseButtonWrapper = styled(View)`
-  position: absolute;
-  z-index: 2;
-  right: ${(props) => props.theme.spacing.medium};
-`;
-
-const CloseButton = styled(IconButton)`
-  align-self: flex-end;
-  margin: 0;
-  height: 20px;
-  width: 20px;
-`;
-
-const OptionsWrapper = styled(View)`
-  padding: ${(props) => props.theme.spacing.medium};
-`;
 
 const OptionLabel = styled(Text)`
   font-size: ${(props) => props.theme.sizing.medium};
@@ -98,113 +59,102 @@ const SettingsScene = () => {
   }
 
   return (
-    <Wrapper>
-      <Header>
-        <HeaderText>Settings</HeaderText>
+    <Options
+      onClose={() => {
+        dispatch(setShowingSettings(false));
+      }}
+      headerText={<FormattedMessage id="settings" />}
+    >
+      <OptionButton
+        onPress={() => {
+          dispatch(setPlayMusic(!playMusic));
+        }}
+      >
+        <OptionLabel>
+          <FormattedMessage id="playMusic" />
+        </OptionLabel>
 
-        <CloseButtonWrapper>
-          <CloseButton
-            onPress={() => {
-              dispatch(setShowingSettings(false));
-            }}
-          >
-            <CloseIcon color="white" />
-          </CloseButton>
-        </CloseButtonWrapper>
-      </Header>
+        <Checkbox checked={playMusic} />
+      </OptionButton>
 
-      <OptionsWrapper>
-        <OptionButton
-          onPress={() => {
-            dispatch(setPlayMusic(!playMusic));
+      <OptionButton
+        onPress={() => {
+          dispatch(setPlaySfx(!playSfx));
+        }}
+      >
+        <OptionLabel>
+          <FormattedMessage id="playSfx" />
+        </OptionLabel>
+
+        <Checkbox checked={playSfx} />
+      </OptionButton>
+
+      <OptionButton
+        onPress={() => {
+          dispatch(setFastMode(!isFastMode));
+        }}
+      >
+        <OptionLabel>
+          <FormattedMessage id="fastMode" />
+        </OptionLabel>
+
+        <Checkbox checked={isFastMode} />
+      </OptionButton>
+
+      <OptionButton
+        onPress={() => {
+          dispatch(setDarkMode(!isDarkMode));
+        }}
+      >
+        <OptionLabel>
+          <FormattedMessage id="darkMode" />
+        </OptionLabel>
+
+        <Checkbox checked={isDarkMode} />
+      </OptionButton>
+
+      <OptionButton
+        onPress={() => {
+          dispatch(setShowTutorials(!showTutorials));
+        }}
+      >
+        <OptionLabel>
+          <FormattedMessage id="showTutorials" />
+        </OptionLabel>
+
+        <Checkbox checked={showTutorials} />
+      </OptionButton>
+
+      <OptionButton onPress={() => {}}>
+        <OptionLabel>
+          <FormattedMessage id="language" />
+        </OptionLabel>
+
+        <RNPickerSelect
+          onValueChange={(val: LanguageCodes) => {
+            dispatch(setLocale(val));
           }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="playMusic" />
-          </OptionLabel>
+          placeholder={{}}
+          value={locale}
+          items={Object.keys(messages).map((languageCode) => ({
+            label: messages[languageCode as LanguageCodes].fullLanguageName,
+            value: languageCode,
+          }))}
+        />
+      </OptionButton>
 
-          <Checkbox checked={playMusic} />
-        </OptionButton>
-
-        <OptionButton
-          onPress={() => {
-            dispatch(setPlaySfx(!playSfx));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="playSfx" />
-          </OptionLabel>
-
-          <Checkbox checked={playSfx} />
-        </OptionButton>
-
-        <OptionButton
-          onPress={() => {
-            dispatch(setFastMode(!isFastMode));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="fastMode" />
-          </OptionLabel>
-
-          <Checkbox checked={isFastMode} />
-        </OptionButton>
-
-        <OptionButton
-          onPress={() => {
-            dispatch(setDarkMode(!isDarkMode));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="darkMode" />
-          </OptionLabel>
-
-          <Checkbox checked={isDarkMode} />
-        </OptionButton>
-
-        <OptionButton
-          onPress={() => {
-            dispatch(setShowTutorials(!showTutorials));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="showTutorials" />
-          </OptionLabel>
-
-          <Checkbox checked={showTutorials} />
-        </OptionButton>
-
-        <OptionButton onPress={() => {}}>
-          <OptionLabel>
-            <FormattedMessage id="language" />
-          </OptionLabel>
-
-          <RNPickerSelect
-            onValueChange={(val: LanguageCodes) => {
-              dispatch(setLocale(val));
-            }}
-            placeholder={{}}
-            value={locale}
-            items={Object.keys(messages).map((languageCode) => ({
-              label: messages[languageCode as LanguageCodes].fullLanguageName,
-              value: languageCode,
-            }))}
-          />
-        </OptionButton>
-
-        <OptionButton
-          onPress={() => {
-            dispatch(clearProgress());
-            dispatch(loadInitialLevel());
-            dispatch(setShowingLevelSelect(true));
-          }}
-        >
-          <CenteredOptionLabel>
-            <FormattedMessage id="clearProgress" />
-          </CenteredOptionLabel>
-        </OptionButton>
-      </OptionsWrapper>
-    </Wrapper>
+      <OptionButton
+        onPress={() => {
+          dispatch(clearProgress());
+          dispatch(loadInitialLevel());
+          dispatch(setShowingLevelSelect(true));
+        }}
+      >
+        <CenteredOptionLabel>
+          <FormattedMessage id="clearProgress" />
+        </CenteredOptionLabel>
+      </OptionButton>
+    </Options>
   );
 };
 

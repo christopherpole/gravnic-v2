@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 
-const Wrapper = styled(TouchableOpacity)<{ checked: boolean }>`
+const Wrapper = styled(View)<{ checked: boolean }>`
   height: 30px;
   width: 30px;
   background: ${(props) =>
