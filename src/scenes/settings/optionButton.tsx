@@ -1,10 +1,14 @@
 import React, { memo } from 'react';
+import { View } from 'react-native';
 import styled from 'styled-components';
 
 import Button from '@/components/button';
 
-const Wrapper = styled(Button)`
+const Wrapper = styled(View)`
   margin-bottom: ${(props) => props.theme.spacing.medium};
+`;
+
+const WrapperInner = styled(Button)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,8 +20,12 @@ interface IProps {
   onPress: () => void;
 }
 
-const OptionButton = ({ children, ...rest }: IProps) => {
-  return <Wrapper {...rest}>{children}</Wrapper>;
+const OptionButton = ({ children, onPress, ...rest }: IProps) => {
+  return (
+    <Wrapper {...rest}>
+      <WrapperInner onPress={onPress}>{children}</WrapperInner>
+    </Wrapper>
+  );
 };
 
 export default memo(OptionButton);

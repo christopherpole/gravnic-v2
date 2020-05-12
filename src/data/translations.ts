@@ -9,6 +9,8 @@ const messages = {
     outOfMoves: 'Out of moves!',
     darkMode: 'Dark mode',
     showTutorials: 'Show tutorials',
+    playMusic: 'Play music',
+    playSfx: 'Play sound effects',
     tutorials_intro: 'Swipe the screen to move ALL blocks',
   },
   zh: {
@@ -21,6 +23,8 @@ const messages = {
     outOfMoves: 'Out of moves! (Chinese)',
     darkMode: 'Dark mode (Chinese)',
     showTutorials: 'Show tutorials (Chinese)',
+    playMusic: 'Play music (Chinese)',
+    playSfx: 'Play sound effects (Chinese)',
     tutorials_intro: 'Swipe the screen to move ALL blocks (Chinese)',
   },
 };

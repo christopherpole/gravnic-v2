@@ -7,6 +7,8 @@ export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 export const CLEAR_PROGRESS = 'CLEAR_PROGRESS';
 export const SET_DARK_MODE = 'SET_DARK_MODE';
 export const SET_SHOW_TUTORIALS = 'SET_SHOW_TUTORIALS';
+export const SET_PLAY_MUSIC = 'SET_PLAY_MUSIC';
+export const SET_PLAY_SFX = 'SET_PLAY_SFX';
 
 export interface ISetFastMode {
   type: typeof SET_FAST_MODE;
@@ -34,6 +36,18 @@ export interface ISetDarkMode {
     darkMode: boolean;
   };
 }
+export interface ISetPlayMusic {
+  type: typeof SET_PLAY_MUSIC;
+  payload: {
+    playMusic: boolean;
+  };
+}
+export interface ISetPlaySfx {
+  type: typeof SET_PLAY_SFX;
+  payload: {
+    playSfx: boolean;
+  };
+}
 export interface ISetShowTutorials {
   type: typeof SET_SHOW_TUTORIALS;
   payload: {
@@ -51,6 +65,8 @@ export type IUserAction =
   | IUpdateProgress
   | ISetDarkMode
   | ISetShowTutorials
+  | ISetPlayMusic
+  | ISetPlaySfx
   | IClearProgress;
 
 export const setFastMode = (fastMode: boolean): ISetFastMode => ({
@@ -71,6 +87,20 @@ export const setDarkMode = (darkMode: boolean): ISetDarkMode => ({
   type: SET_DARK_MODE,
   payload: {
     darkMode,
+  },
+});
+
+export const setPlayMusic = (playMusic: boolean): ISetPlayMusic => ({
+  type: SET_PLAY_MUSIC,
+  payload: {
+    playMusic,
+  },
+});
+
+export const setPlaySfx = (playSfx: boolean): ISetPlaySfx => ({
+  type: SET_PLAY_SFX,
+  payload: {
+    playSfx,
   },
 });
 

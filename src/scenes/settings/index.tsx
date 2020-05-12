@@ -15,6 +15,8 @@ import {
   clearProgress,
   setDarkMode,
   setShowTutorials,
+  setPlayMusic,
+  setPlaySfx,
 } from '@/actions/user';
 import IconButton from '@/components/iconButton';
 import Text from '@/components/text';
@@ -26,6 +28,8 @@ import {
   selectIsFastMode,
   selectIsDarkMode,
   selectShowTutorials,
+  selectPlayMusic,
+  selectPlaySfx,
 } from '@/selectors';
 import Header from '@/components/header';
 import OptionButton from './optionButton';
@@ -82,6 +86,8 @@ const SettingsScene = () => {
   );
   const isFastMode = useSelector(selectIsFastMode);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const playMusic = useSelector(selectPlayMusic);
+  const playSfx = useSelector(selectPlaySfx);
   const showTutorials = useSelector(selectShowTutorials);
   const locale = useSelector(selectLocale);
   const dispatch = useDispatch();
@@ -108,6 +114,30 @@ const SettingsScene = () => {
       </Header>
 
       <OptionsWrapper>
+        <OptionButton
+          onPress={() => {
+            dispatch(setPlayMusic(!playMusic));
+          }}
+        >
+          <OptionLabel>
+            <FormattedMessage id="playMusic" />
+          </OptionLabel>
+
+          <Checkbox checked={playMusic} />
+        </OptionButton>
+
+        <OptionButton
+          onPress={() => {
+            dispatch(setPlaySfx(!playSfx));
+          }}
+        >
+          <OptionLabel>
+            <FormattedMessage id="playSfx" />
+          </OptionLabel>
+
+          <Checkbox checked={playSfx} />
+        </OptionButton>
+
         <OptionButton
           onPress={() => {
             dispatch(setFastMode(!isFastMode));

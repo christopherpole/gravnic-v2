@@ -5,6 +5,8 @@ interface IUser {
   locale: LanguageCodes;
   darkMode: boolean;
   showTutorials: boolean;
+  playMusic: boolean;
+  playSfx: boolean;
   progress: {
     [levelIndex: number]: number;
   };

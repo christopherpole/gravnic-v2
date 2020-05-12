@@ -22,6 +22,18 @@ export const selectIsDarkMode = createSelector(
   (user) => user.darkMode,
 );
 
+//  If the user has music enabled
+export const selectPlayMusic = createSelector(
+  (state: IState) => state.user,
+  (user) => user.playMusic,
+);
+
+//  If the user has sound effects enabled
+export const selectPlaySfx = createSelector(
+  (state: IState) => state.user,
+  (user) => user.playSfx,
+);
+
 //  If the user has enabled tutorials
 export const selectShowTutorials = createSelector(
   (state: IState) => state.user,

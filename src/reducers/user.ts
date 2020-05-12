@@ -8,6 +8,8 @@ import {
   IUserAction,
   SET_DARK_MODE,
   SET_SHOW_TUTORIALS,
+  SET_PLAY_MUSIC,
+  SET_PLAY_SFX,
 } from '@/actions/user';
 
 const initialState: IUser = {
@@ -16,6 +18,8 @@ const initialState: IUser = {
   progress: {},
   darkMode: false,
   showTutorials: true,
+  playMusic: true,
+  playSfx: true,
 };
 
 const reducer = (state = initialState, action: IUserAction): IUser => {
@@ -31,6 +35,20 @@ const reducer = (state = initialState, action: IUserAction): IUser => {
       return {
         ...state,
         darkMode: action.payload.darkMode,
+      };
+    }
+
+    case SET_PLAY_MUSIC: {
+      return {
+        ...state,
+        playMusic: action.payload.playMusic,
+      };
+    }
+
+    case SET_PLAY_SFX: {
+      return {
+        ...state,
+        playSfx: action.payload.playSfx,
       };
     }
 
