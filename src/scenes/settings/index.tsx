@@ -14,13 +14,19 @@ import {
   setLocale,
   clearProgress,
   setDarkMode,
+  setShowTutorials,
 } from '@/actions/user';
 import IconButton from '@/components/iconButton';
 import Text from '@/components/text';
 import Checkbox from '@/components/checkbox';
 import CloseIcon from '@/components/icons/close';
 import { loadInitialLevel } from '@/actions/game';
-import { selectLocale, selectIsFastMode, selectIsDarkMode } from '@/selectors';
+import {
+  selectLocale,
+  selectIsFastMode,
+  selectIsDarkMode,
+  selectShowTutorials,
+} from '@/selectors';
 import OptionButton from './optionButton';
 
 const Wrapper = styled(View)`
@@ -78,6 +84,7 @@ const SettingsScene = () => {
   );
   const isFastMode = useSelector(selectIsFastMode);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const showTutorials = useSelector(selectShowTutorials);
   const locale = useSelector(selectLocale);
   const dispatch = useDispatch();
 
@@ -125,6 +132,18 @@ const SettingsScene = () => {
           </OptionLabel>
 
           <Checkbox checked={isDarkMode} />
+        </OptionButton>
+
+        <OptionButton
+          onPress={() => {
+            dispatch(setShowTutorials(!showTutorials));
+          }}
+        >
+          <OptionLabel>
+            <FormattedMessage id="showTutorials" />
+          </OptionLabel>
+
+          <Checkbox checked={showTutorials} />
         </OptionButton>
 
         <OptionButton onPress={() => {}}>

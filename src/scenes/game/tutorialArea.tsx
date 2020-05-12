@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 
-import { selectCurrentLevelCompleted } from '@/selectors';
+import { selectCurrentLevelCompleted, selectShowTutorials } from '@/selectors';
 import Text from '@/components/text';
 import ITutorial from '@/types/tutorials';
 
@@ -23,9 +23,10 @@ interface IProps {
 
 const TutorialArea = ({ tutorial }: IProps) => {
   const levelCompleted = useSelector(selectCurrentLevelCompleted);
+  const showTutorials = useSelector(selectShowTutorials);
   let message;
 
-  if (!tutorial || levelCompleted) return null;
+  if (!showTutorials || !tutorial || levelCompleted) return null;
 
   switch (tutorial) {
     case 'INTRO':

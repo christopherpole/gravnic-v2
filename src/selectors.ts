@@ -22,6 +22,12 @@ export const selectIsDarkMode = createSelector(
   (user) => user.darkMode,
 );
 
+//  If the user has enabled tutorials
+export const selectShowTutorials = createSelector(
+  (state: IState) => state.user,
+  (user) => user.showTutorials,
+);
+
 //  Currently selected level index
 export const selectCurrentLevelIndex = createSelector(
   (state: IState) => state.game,

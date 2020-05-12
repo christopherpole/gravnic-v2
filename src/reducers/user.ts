@@ -7,6 +7,7 @@ import {
   CLEAR_PROGRESS,
   IUserAction,
   SET_DARK_MODE,
+  SET_SHOW_TUTORIALS,
 } from '@/actions/user';
 
 const initialState: IUser = {
@@ -14,6 +15,7 @@ const initialState: IUser = {
   locale: 'en' as LanguageCode,
   progress: {},
   darkMode: false,
+  showTutorials: true,
 };
 
 const reducer = (state = initialState, action: IUserAction): IUser => {
@@ -29,6 +31,13 @@ const reducer = (state = initialState, action: IUserAction): IUser => {
       return {
         ...state,
         darkMode: action.payload.darkMode,
+      };
+    }
+
+    case SET_SHOW_TUTORIALS: {
+      return {
+        ...state,
+        showTutorials: action.payload.showTutorials,
       };
     }
 

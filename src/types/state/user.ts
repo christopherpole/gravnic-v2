@@ -4,6 +4,7 @@ interface IUser {
   fastMode: boolean;
   locale: LanguageCodes;
   darkMode: boolean;
+  showTutorials: boolean;
   progress: {
     [levelIndex: number]: number;
   };

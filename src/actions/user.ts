@@ -6,6 +6,7 @@ export const SET_LOCALE = 'SET_LOCALE';
 export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 export const CLEAR_PROGRESS = 'CLEAR_PROGRESS';
 export const SET_DARK_MODE = 'SET_DARK_MODE';
+export const SET_SHOW_TUTORIALS = 'SET_SHOW_TUTORIALS';
 
 export interface ISetFastMode {
   type: typeof SET_FAST_MODE;
@@ -33,6 +34,12 @@ export interface ISetDarkMode {
     darkMode: boolean;
   };
 }
+export interface ISetShowTutorials {
+  type: typeof SET_SHOW_TUTORIALS;
+  payload: {
+    showTutorials: boolean;
+  };
+}
 
 export interface IClearProgress {
   type: typeof CLEAR_PROGRESS;
@@ -43,6 +50,7 @@ export type IUserAction =
   | ISetlocale
   | IUpdateProgress
   | ISetDarkMode
+  | ISetShowTutorials
   | IClearProgress;
 
 export const setFastMode = (fastMode: boolean): ISetFastMode => ({
@@ -63,6 +71,15 @@ export const setDarkMode = (darkMode: boolean): ISetDarkMode => ({
   type: SET_DARK_MODE,
   payload: {
     darkMode,
+  },
+});
+
+export const setShowTutorials = (
+  showTutorials: boolean,
+): ISetShowTutorials => ({
+  type: SET_SHOW_TUTORIALS,
+  payload: {
+    showTutorials,
   },
 });
 
