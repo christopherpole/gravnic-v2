@@ -1,27 +1,20 @@
 import React, { memo } from 'react';
-import RNPickerSelect from 'react-native-picker-select';
-import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
-import LanguageCodes from '@/types/languageCodes';
 import IState from '@/types/state';
-import messages from '@/data/translations';
 import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
 import {
   setFastMode,
-  setLocale,
   clearProgress,
   setDarkMode,
   setShowTutorials,
   setPlayMusic,
   setPlaySfx,
 } from '@/actions/user';
-import Text from '@/components/text';
 import Checkbox from '@/components/checkbox';
 import { loadInitialLevel } from '@/actions/game';
 import {
-  selectLocale,
   selectIsFastMode,
   selectIsDarkMode,
   selectShowTutorials,
@@ -30,16 +23,8 @@ import {
 } from '@/selectors';
 import Options from '@/components/options';
 import OptionButton from './optionButton';
-
-const OptionLabel = styled(Text)`
-  font-size: ${(props) => props.theme.sizing.medium};
-  color: ${(props) => props.theme.colors.fonts.secondary};
-`;
-
-const CenteredOptionLabel = styled(OptionLabel)`
-  flex: 1;
-  text-align: center;
-`;
+import LanguageButton from './languageButton';
+import OptionLabel from './optionLabel';
 
 const SettingsScene = () => {
   const showing = useSelector(
@@ -50,7 +35,6 @@ const SettingsScene = () => {
   const playMusic = useSelector(selectPlayMusic);
   const playSfx = useSelector(selectPlaySfx);
   const showTutorials = useSelector(selectShowTutorials);
-  const locale = useSelector(selectLocale);
   const dispatch = useDispatch();
 
   //  Don't render if not showing the settings menu
@@ -125,23 +109,7 @@ const SettingsScene = () => {
         <Checkbox checked={showTutorials} />
       </OptionButton>
 
-      <OptionButton onPress={() => {}}>
-        <OptionLabel>
-          <FormattedMessage id="language" />
-        </OptionLabel>
-
-        <RNPickerSelect
-          onValueChange={(val: LanguageCodes) => {
-            dispatch(setLocale(val));
-          }}
-          placeholder={{}}
-          value={locale}
-          items={Object.keys(messages).map((languageCode) => ({
-            label: messages[languageCode as LanguageCodes].fullLanguageName,
-            value: languageCode,
-          }))}
-        />
-      </OptionButton>
+      <LanguageButton />
 
       <OptionButton
         onPress={() => {
@@ -150,9 +118,9 @@ const SettingsScene = () => {
           dispatch(setShowingLevelSelect(true));
         }}
       >
-        <CenteredOptionLabel>
+        <OptionLabel centered>
           <FormattedMessage id="clearProgress" />
-        </CenteredOptionLabel>
+        </OptionLabel>
       </OptionButton>
     </Options>
   );
