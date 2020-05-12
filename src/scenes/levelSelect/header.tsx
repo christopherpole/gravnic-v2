@@ -1,24 +1,13 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
-import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { setShowingSettings } from '@/actions/ui';
 import CrownIcon from '@/components/icons/crown';
 import OptionsIcon from '@/components/icons/options';
 import IconButton from '@/components/iconButton';
+import HeaderComponent from '@/components/header';
 import Progress from './progress';
-
-const Wrapper = styled(View)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  border-bottom-color: #fff;
-  border-bottom-width: 2px;
-  background: ${(props) => props.theme.colors.primary};
-  box-shadow: ${(props) => props.theme.shadows.default};
-`;
 
 const StyledIconButton = styled(IconButton)`
   height: 60px;
@@ -30,7 +19,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <Wrapper>
+    <HeaderComponent>
       <StyledIconButton>
         <CrownIcon color="white" />
       </StyledIconButton>
@@ -44,7 +33,7 @@ const Header = () => {
       >
         <OptionsIcon color="white" />
       </StyledIconButton>
-    </Wrapper>
+    </HeaderComponent>
   );
 };
 

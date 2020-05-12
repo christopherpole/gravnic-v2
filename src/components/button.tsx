@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 const Wrapper = styled(TouchableOpacity)`
   display: flex;
   background: ${(props) => props.theme.colors.primary};
-  padding: 10px;
+  padding: 15px;
   justify-content: center;
   align-items: center;
 

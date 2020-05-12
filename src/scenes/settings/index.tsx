@@ -27,6 +27,7 @@ import {
   selectIsDarkMode,
   selectShowTutorials,
 } from '@/selectors';
+import Header from '@/components/header';
 import OptionButton from './optionButton';
 
 const Wrapper = styled(View)`
@@ -40,32 +41,25 @@ const Wrapper = styled(View)`
   background: ${(props) => props.theme.colors.secondary};
 `;
 
-const Header = styled(View)`
-  display: flex;
-  flex-direction: row;
-  background: ${(props) => props.theme.colors.primary};
-  align-items: center;
-  justify-content: center;
-  border-bottom-color: white;
-  border-bottom-width: 2px;
-`;
-
 const HeaderText = styled(Text)`
   padding: ${(props) => props.theme.spacing.medium};
   font-size: ${(props) => props.theme.sizing.large};
   color: ${(props) => props.theme.colors.fonts.secondary};
+  width: 100%;
+  text-align: center;
 `;
 
 const CloseButtonWrapper = styled(View)`
   position: absolute;
+  z-index: 2;
   right: ${(props) => props.theme.spacing.medium};
 `;
 
 const CloseButton = styled(IconButton)`
   align-self: flex-end;
   margin: 0;
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
 `;
 
 const OptionsWrapper = styled(View)`
@@ -75,7 +69,11 @@ const OptionsWrapper = styled(View)`
 const OptionLabel = styled(Text)`
   font-size: ${(props) => props.theme.sizing.medium};
   color: ${(props) => props.theme.colors.fonts.secondary};
-  border: 1px solid yellow;
+`;
+
+const CenteredOptionLabel = styled(OptionLabel)`
+  flex: 1;
+  text-align: center;
 `;
 
 const SettingsScene = () => {
@@ -171,9 +169,9 @@ const SettingsScene = () => {
             dispatch(setShowingLevelSelect(true));
           }}
         >
-          <Text>
+          <CenteredOptionLabel>
             <FormattedMessage id="clearProgress" />
-          </Text>
+          </CenteredOptionLabel>
         </OptionButton>
       </OptionsWrapper>
     </Wrapper>

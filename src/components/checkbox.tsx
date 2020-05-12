@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 
 const Wrapper = styled(TouchableOpacity)<{ checked: boolean }>`
-  height: 20px;
-  width: 20px;
-  background: ${(props) => (props.checked ? 'green' : 'white')};
+  height: 30px;
+  width: 30px;
+  background: ${(props) =>
+    props.checked
+      ? props.theme.colors.checkbox.checked
+      : props.theme.colors.checkbox.unchecked};
 `;
 
 interface IProps {

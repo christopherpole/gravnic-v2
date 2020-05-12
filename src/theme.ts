@@ -6,10 +6,15 @@ const theme = {
   colors: {
     primary: '#333',
     secondary: '#666',
+    tertiary: '#aaa',
     disabled: '#999',
     fonts: {
       primary: 'black',
       secondary: 'white',
+    },
+    checkbox: {
+      unchecked: 'white',
+      checked: 'red',
     },
     stars: {
       new: 'yellow',
