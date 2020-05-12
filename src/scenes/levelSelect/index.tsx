@@ -76,7 +76,7 @@ const LevelSelectScene = () => {
           numColumns={3}
           initialNumToRender={15}
           // maxToRenderPerBatch={6}
-          removeClippedSubviews
+          // removeClippedSubviews
           getItemLayout={(data, index) => ({
             length: Dimensions.get('window').width / 3 / levelAspectRatio,
             offset:

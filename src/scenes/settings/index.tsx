@@ -17,11 +17,11 @@ import {
 } from '@/actions/user';
 import IconButton from '@/components/iconButton';
 import Text from '@/components/text';
-import Button from '@/components/button';
+import Checkbox from '@/components/checkbox';
 import CloseIcon from '@/components/icons/close';
-import Switch from '@/components/switch';
 import { loadInitialLevel } from '@/actions/game';
 import { selectLocale, selectIsFastMode, selectIsDarkMode } from '@/selectors';
+import OptionButton from './optionButton';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -69,16 +69,7 @@ const OptionsWrapper = styled(View)`
 const OptionLabel = styled(Text)`
   font-size: ${(props) => props.theme.sizing.medium};
   color: ${(props) => props.theme.colors.fonts.secondary};
-  padding: ${(props) => props.theme.spacing.medium};
-`;
-
-const OptionWrapper = styled(View)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.spacing.medium};
-  background: ${(props) => props.theme.colors.primary};
+  border: 1px solid yellow;
 `;
 
 const SettingsScene = () => {
@@ -112,34 +103,35 @@ const SettingsScene = () => {
       </Header>
 
       <OptionsWrapper>
-        <OptionWrapper>
+        <OptionButton
+          onPress={() => {
+            dispatch(setFastMode(!isFastMode));
+          }}
+        >
           <OptionLabel>
             <FormattedMessage id="fastMode" />
           </OptionLabel>
-          <Switch
-            value={isFastMode}
-            onValueChange={(val: boolean) => {
-              dispatch(setFastMode(val));
-            }}
-          />
-        </OptionWrapper>
 
-        <OptionWrapper>
+          <Checkbox checked={isFastMode} />
+        </OptionButton>
+
+        <OptionButton
+          onPress={() => {
+            dispatch(setDarkMode(!isDarkMode));
+          }}
+        >
           <OptionLabel>
             <FormattedMessage id="darkMode" />
           </OptionLabel>
-          <Switch
-            value={isDarkMode}
-            onValueChange={(val: boolean) => {
-              dispatch(setDarkMode(val));
-            }}
-          />
-        </OptionWrapper>
 
-        <OptionWrapper>
+          <Checkbox checked={isDarkMode} />
+        </OptionButton>
+
+        <OptionButton onPress={() => {}}>
           <OptionLabel>
             <FormattedMessage id="language" />
           </OptionLabel>
+
           <RNPickerSelect
             onValueChange={(val: LanguageCodes) => {
               dispatch(setLocale(val));
@@ -151,17 +143,19 @@ const SettingsScene = () => {
               value: languageCode,
             }))}
           />
-        </OptionWrapper>
+        </OptionButton>
 
-        <Button
+        <OptionButton
           onPress={() => {
             dispatch(clearProgress());
             dispatch(loadInitialLevel());
             dispatch(setShowingLevelSelect(true));
           }}
         >
-          <FormattedMessage id="clearProgress" />
-        </Button>
+          <Text>
+            <FormattedMessage id="clearProgress" />
+          </Text>
+        </OptionButton>
       </OptionsWrapper>
     </Wrapper>
   );
