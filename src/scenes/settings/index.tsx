@@ -24,6 +24,7 @@ import {
 import Options from '@/components/options';
 import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
+import LanguageSelect from './languageSelect';
 
 const SettingsScene = () => {
   const showing = useSelector(
@@ -141,26 +142,11 @@ const SettingsScene = () => {
       </Options>
 
       {showingLanguageSelect && (
-        <Options
+        <LanguageSelect
           onClose={() => {
             setShowingLanguageSelect(false);
           }}
-          headerText={<FormattedMessage id="selectLanguage" />}
-        >
-          {/* <Text>afsafa</Text> */}
-          {/* 
-          <RNPickerSelect
-            onValueChange={(val: LanguageCodes) => {
-              dispatch(setLocale(val));
-            }}
-            placeholder={{}}
-            value={locale}
-            items={Object.keys(messages).map((languageCode) => ({
-              label: messages[languageCode as LanguageCodes].fullLanguageName,
-              value: languageCode,
-            }))}
-          /> */}
-        </Options>
+        />
       )}
     </>
   );
