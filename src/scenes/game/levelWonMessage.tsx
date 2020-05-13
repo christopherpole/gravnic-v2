@@ -63,7 +63,9 @@ const LevelWonMessage = () => {
             dispatch(loadLevel((currentLevelIndex as number) + 1));
           }}
         >
-          <FormattedMessage id="nextLevel" />
+          <Text>
+            <FormattedMessage id="nextLevel" />
+          </Text>
         </Button>
       )}
     </LevelMessage>

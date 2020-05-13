@@ -22,7 +22,7 @@ const MoveCounter = ({ filled, ...rest }: IProps) => {
   useEffect(() => {
     Animated.timing(fillAnim, {
       toValue: filled ? 1 : 0,
-      duration: 500,
+      duration: 0,
     }).start();
   }, [filled, fillAnim]);
 

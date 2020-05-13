@@ -3,20 +3,24 @@ import styled from 'styled-components';
 
 import Text from '@/components/text';
 
-const Wrapper = styled(Text)<{ centered?: boolean }>`
+type IAlignment = 'left' | 'center' | 'right';
+
+const Wrapper = styled(Text)<{ alignment: IAlignment }>`
   font-size: ${(props) => props.theme.sizing.medium};
   color: ${(props) => props.theme.colors.fonts.secondary};
-  text-align: ${(props) => (props.centered ? 'center' : 'left')};
+  text-align: ${(props) => props.alignment};
   flex: 1;
 `;
 
 interface IProps {
-  centered?: boolean;
+  alignment?: IAlignment;
   children: React.ReactNode;
 }
 
-const OptionLabel = ({ children, ...rest }: IProps) => (
-  <Wrapper {...rest}>{children}</Wrapper>
+const OptionLabel = ({ children, alignment = 'left', ...rest }: IProps) => (
+  <Wrapper alignment={alignment} {...rest}>
+    {children}
+  </Wrapper>
 );
 
 export default memo(OptionLabel);

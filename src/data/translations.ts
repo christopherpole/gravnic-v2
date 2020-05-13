@@ -12,6 +12,7 @@ const messages = {
     playMusic: 'Play music',
     playSfx: 'Play sound effects',
     settings: 'Settings',
+    selectLanguage: 'Select Language',
     tutorials_intro: 'Swipe the screen to move ALL blocks',
   },
   zh: {
@@ -27,6 +28,7 @@ const messages = {
     playMusic: 'Play music (Chinese)',
     playSfx: 'Play sound effects (Chinese)',
     settings: 'Settings (Chinese)',
+    selectLanguage: 'Select Language (Chinese)',
     tutorials_intro: 'Swipe the screen to move ALL blocks (Chinese)',
   },
 };
