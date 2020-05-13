@@ -1,4 +1,5 @@
 import React, { useState, memo } from 'react';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -10,6 +11,8 @@ import Text from '@/components/text';
 
 import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
+
+const WrapperInner = styled(View)``;
 
 const ConfirmationText = styled(Text)`
   font-size: ${(props) => props.theme.sizing.large};
@@ -33,51 +36,53 @@ const ConfirmClear = ({ onClose }: IProps) => {
       onClose={onClose}
       headerText={<FormattedMessage id="confirmClearProgress" />}
     >
-      {!showingConfirmation && (
-        <>
-          <ConfirmationText>
-            <FormattedMessage id="areYouSure" />
-          </ConfirmationText>
-          <OptionButton
-            onPress={() => {
-              dispatch(clearProgress());
-              dispatch(loadInitialLevel());
-              setShowingConfirmation(true);
-            }}
-          >
-            <OptionLabel alignment="center">
-              <FormattedMessage id="yes" />
-            </OptionLabel>
-          </OptionButton>
-          <OptionButton
-            onPress={() => {
-              onClose();
-            }}
-          >
-            <OptionLabel alignment="center">
-              <FormattedMessage id="no" />
-            </OptionLabel>
-          </OptionButton>
-        </>
-      )}
+      <WrapperInner>
+        {!showingConfirmation && (
+          <>
+            <ConfirmationText>
+              <FormattedMessage id="areYouSure" />
+            </ConfirmationText>
+            <OptionButton
+              onPress={() => {
+                dispatch(clearProgress());
+                dispatch(loadInitialLevel());
+                setShowingConfirmation(true);
+              }}
+            >
+              <OptionLabel alignment="center">
+                <FormattedMessage id="yes" />
+              </OptionLabel>
+            </OptionButton>
+            <OptionButton
+              onPress={() => {
+                onClose();
+              }}
+            >
+              <OptionLabel alignment="center">
+                <FormattedMessage id="no" />
+              </OptionLabel>
+            </OptionButton>
+          </>
+        )}
 
-      {showingConfirmation && (
-        <>
-          <ConfirmationText>
-            <FormattedMessage id="progressCleared" />
-          </ConfirmationText>
+        {showingConfirmation && (
+          <>
+            <ConfirmationText>
+              <FormattedMessage id="progressCleared" />
+            </ConfirmationText>
 
-          <OptionButton
-            onPress={() => {
-              onClose();
-            }}
-          >
-            <OptionLabel alignment="center">
-              <FormattedMessage id="okay" />
-            </OptionLabel>
-          </OptionButton>
-        </>
-      )}
+            <OptionButton
+              onPress={() => {
+                onClose();
+              }}
+            >
+              <OptionLabel alignment="center">
+                <FormattedMessage id="okay" />
+              </OptionLabel>
+            </OptionButton>
+          </>
+        )}
+      </WrapperInner>
     </Options>
   );
 };

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import styled from 'styled-components';
 
 import IconButton from '@/components/iconButton';
@@ -35,12 +35,14 @@ const CloseButtonWrapper = styled(View)`
 const CloseButton = styled(IconButton)`
   align-self: flex-end;
   margin: 0;
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
+  padding: 5px;
 `;
 
-const OptionsWrapper = styled(View)`
+const OptionsWrapper = styled(ScrollView)`
   padding: ${(props) => props.theme.spacing.medium};
+  flex: 1;
 `;
 
 interface IProps {
@@ -62,7 +64,7 @@ const Options = ({ headerText, onClose, children, ...rest }: IProps) => {
         </CloseButtonWrapper>
       </Header>
 
-      <OptionsWrapper>{children}</OptionsWrapper>
+      <OptionsWrapper bounces={false}>{children}</OptionsWrapper>
     </Wrapper>
   );
 };

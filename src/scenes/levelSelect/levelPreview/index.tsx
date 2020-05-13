@@ -7,12 +7,17 @@ import { ENTITIES } from 'gravnic-game';
 import Star from '@/components/star';
 import ILevelData from '@/types/levelData';
 import { selectColorScheme } from '@/selectors';
-import LockIcon from '@/components/icons/lock';
 import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
 import blackHoleImg from '@/assets/entities/black-hole.png';
 import stickySpoyImg from '@/assets/entities/sticky-spot.png';
 import IState from '@/types/state';
+
+const LockIcon = styled(View)`
+  background: white;
+  height: 20px;
+  width: 20px;
+`;
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
@@ -91,7 +96,9 @@ const Locked = styled(View)`
 `;
 
 const LockIconWrapper = styled(View)`
-  width: 30%;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
   aspect-ratio: 1;
 `;
 

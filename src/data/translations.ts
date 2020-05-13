@@ -19,6 +19,7 @@ const messages = {
     confirmClearProgress: 'Confirm Clear',
     areYouSure: 'Are you sure?',
     progressCleared: 'Progress cleared!',
+    credits: 'Credits',
     tutorials_intro: 'Swipe the screen to move ALL blocks',
   },
   zh: {
@@ -41,6 +42,7 @@ const messages = {
     confirmClearProgress: 'Confirm Clear (Chinese)',
     areYouSure: 'Are you sure? (Chinese)',
     progressCleared: 'Progress cleared! (Chinese)',
+    credits: 'Credits (Chinese)',
     tutorials_intro: 'Swipe the screen to move ALL blocks (Chinese)',
   },
 };

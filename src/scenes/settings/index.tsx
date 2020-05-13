@@ -24,6 +24,7 @@ import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
 import LanguageSelect from './languageSelect';
 import ClearConfirmation from './clearConfirmation';
+import Credits from './credits';
 
 const SettingsScene = () => {
   const showing = useSelector(
@@ -41,7 +42,8 @@ const SettingsScene = () => {
   );
   const [showingClearConfirmation, setShowingClearConfirmation] = useState<
     boolean
-  >(true);
+  >(false);
+  const [showingCredits, setShowingCredits] = useState<boolean>(false);
 
   //  Don't render if not showing the settings menu
   if (!showing) {
@@ -139,6 +141,16 @@ const SettingsScene = () => {
             <FormattedMessage id="clearProgress" />
           </OptionLabel>
         </OptionButton>
+
+        <OptionButton
+          onPress={() => {
+            setShowingCredits(true);
+          }}
+        >
+          <OptionLabel alignment="center">
+            <FormattedMessage id="credits" />
+          </OptionLabel>
+        </OptionButton>
       </Options>
 
       {showingLanguageSelect && (
@@ -153,6 +165,14 @@ const SettingsScene = () => {
         <ClearConfirmation
           onClose={() => {
             setShowingClearConfirmation(false);
+          }}
+        />
+      )}
+
+      {showingCredits && (
+        <Credits
+          onClose={() => {
+            setShowingCredits(false);
           }}
         />
       )}

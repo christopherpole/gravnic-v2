@@ -10,7 +10,7 @@ const Wrapper = styled(TouchableOpacity)`
   ${(props) =>
     props.disabled &&
     css`
-      opacity: 0;
+      display: none;
     `}
 `;
 
