@@ -49,9 +49,9 @@ interface IProps {
   onClose: () => void;
 }
 
-const Options = ({ headerText, onClose, children }: IProps) => {
+const Options = ({ headerText, onClose, children, ...rest }: IProps) => {
   return (
-    <Wrapper>
+    <Wrapper {...rest}>
       <Header>
         <HeaderText>{headerText}</HeaderText>
 

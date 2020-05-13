@@ -3,17 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import IState from '@/types/state';
-import { setShowingSettings, setShowingLevelSelect } from '@/actions/ui';
+import { setShowingSettings } from '@/actions/ui';
 import {
   setFastMode,
-  clearProgress,
   setDarkMode,
   setShowTutorials,
   setPlayMusic,
   setPlaySfx,
 } from '@/actions/user';
 import Checkbox from '@/components/checkbox';
-import { loadInitialLevel } from '@/actions/game';
 import {
   selectIsFastMode,
   selectIsDarkMode,
@@ -25,6 +23,7 @@ import Options from '@/components/options';
 import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
 import LanguageSelect from './languageSelect';
+import ClearConfirmation from './clearConfirmation';
 
 const SettingsScene = () => {
   const showing = useSelector(
@@ -40,6 +39,9 @@ const SettingsScene = () => {
   const [showingLanguageSelect, setShowingLanguageSelect] = useState<boolean>(
     false,
   );
+  const [showingClearConfirmation, setShowingClearConfirmation] = useState<
+    boolean
+  >(true);
 
   //  Don't render if not showing the settings menu
   if (!showing) {
@@ -130,9 +132,7 @@ const SettingsScene = () => {
 
         <OptionButton
           onPress={() => {
-            dispatch(clearProgress());
-            dispatch(loadInitialLevel());
-            dispatch(setShowingLevelSelect(true));
+            setShowingClearConfirmation(true);
           }}
         >
           <OptionLabel alignment="center">
@@ -145,6 +145,14 @@ const SettingsScene = () => {
         <LanguageSelect
           onClose={() => {
             setShowingLanguageSelect(false);
+          }}
+        />
+      )}
+
+      {showingClearConfirmation && (
+        <ClearConfirmation
+          onClose={() => {
+            setShowingClearConfirmation(false);
           }}
         />
       )}

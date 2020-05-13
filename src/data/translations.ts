@@ -1,6 +1,9 @@
 const messages = {
   en: {
     fullLanguageName: 'English',
+    yes: 'Yes',
+    no: 'No',
+    okay: 'Okay',
     fastMode: 'Fast mode',
     language: 'Language',
     clearProgress: 'Clear progress',
@@ -13,10 +16,16 @@ const messages = {
     playSfx: 'Play sound effects',
     settings: 'Settings',
     selectLanguage: 'Select Language',
+    confirmClearProgress: 'Confirm Clear',
+    areYouSure: 'Are you sure?',
+    progressCleared: 'Progress cleared!',
     tutorials_intro: 'Swipe the screen to move ALL blocks',
   },
   zh: {
     fullLanguageName: 'Chinese',
+    yes: 'Yes (Chinese)',
+    no: 'No (Chinese)',
+    okay: 'Okay (Chinese)',
     fastMode: 'Fast mode (Chinese)',
     language: 'Language (Chinese)',
     clearProgress: 'Clear progress (Chinese)',
@@ -29,6 +38,9 @@ const messages = {
     playSfx: 'Play sound effects (Chinese)',
     settings: 'Settings (Chinese)',
     selectLanguage: 'Select Language (Chinese)',
+    confirmClearProgress: 'Confirm Clear (Chinese)',
+    areYouSure: 'Are you sure? (Chinese)',
+    progressCleared: 'Progress cleared! (Chinese)',
     tutorials_intro: 'Swipe the screen to move ALL blocks (Chinese)',
   },
 };
