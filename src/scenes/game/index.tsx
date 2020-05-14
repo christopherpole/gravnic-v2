@@ -103,7 +103,7 @@ const GameScene = () => {
         </GameAreaWrapper>
       </StyledGestureRecognizer>
 
-      <TutorialArea tutorial={currentLevel.tutorial} />
+      {currentLevel.tutorial && <TutorialArea {...currentLevel.tutorial} />}
       <Actions />
     </Wrapper>
   );

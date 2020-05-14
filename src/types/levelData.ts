@@ -1,5 +1,5 @@
 import IGameState from '@/types/gameState';
-import ITutorial from '@/types/tutorials';
+import ITutorial from '@/types/tutorial';
 
 interface ILevelData {
   tutorial?: ITutorial;

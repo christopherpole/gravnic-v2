@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import { selectCurrentLevelCompleted, selectShowTutorials } from '@/selectors';
 import Text from '@/components/text';
-import ITutorial from '@/types/tutorials';
+import ITutorial from '@/types/tutorial';
 
 const Wrapper = styled(View)``;
 
@@ -17,27 +17,17 @@ const TutorialText = styled(Text)`
   text-align: center;
 `;
 
-interface IProps {
-  tutorial?: ITutorial;
-}
-
-const TutorialArea = ({ tutorial }: IProps) => {
+const TutorialArea = ({ translationKey }: ITutorial) => {
   const levelCompleted = useSelector(selectCurrentLevelCompleted);
   const showTutorials = useSelector(selectShowTutorials);
-  let message;
 
-  if (!showTutorials || !tutorial || levelCompleted) return null;
-
-  switch (tutorial) {
-    case 'INTRO':
-      message = <FormattedMessage id="tutorials_intro" />;
-      break;
-    default:
-  }
+  if (!showTutorials || levelCompleted) return null;
 
   return (
     <Wrapper>
-      <TutorialText>{message}</TutorialText>
+      <TutorialText>
+        <FormattedMessage id={translationKey} />
+      </TutorialText>
     </Wrapper>
   );
 };

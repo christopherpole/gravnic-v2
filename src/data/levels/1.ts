@@ -1,7 +1,9 @@
 import ILevelData from '@/types/levelData';
 
 const levelData: ILevelData = {
-  tutorial: 'INTRO',
+  tutorial: {
+    translationKey: 'tutorials_intro',
+  },
   stars: [2, 4, 6],
   gameState: [
     [
