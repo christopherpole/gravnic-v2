@@ -1,8 +1,10 @@
 import { getInitialGameState, changeGravityDirection } from 'gravnic-game';
-import IGameState from '@/types/gameState';
-import IState from '@/types/state';
 //  @ts-ignore
 import { swipeDirections } from 'react-native-swipe-gestures';
+
+import IGameState from '@/types/gameState';
+import IState from '@/types/state';
+import { playSound } from '@/actions/user';
 
 export const MAKE_MOVE = 'MAKE_MOVE';
 export const SET_ENTITIES_MOVING = 'SET_ENTITIES_MOVING';
@@ -60,7 +62,7 @@ export const makeMove = (
     | swipeDirections.SWIPE_RIGHT
     | swipeDirections.SWIPE_DOWN
     | swipeDirections.SWIPE_LEFT,
-) => (dispatch: (action: IMakeMove) => void, getState: () => IState) => {
+) => (dispatch: (action: IMakeMove | any) => void, getState: () => IState) => {
   const { gameStateHistory, entitiesMoving } = getState().game;
   let direction;
 
@@ -104,6 +106,7 @@ export const makeMove = (
         newGameStates,
       },
     });
+    dispatch(playSound('move'));
   }
 };
 

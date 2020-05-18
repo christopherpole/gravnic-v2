@@ -1,5 +1,7 @@
 import IState from '@/types/state';
 import LanguageCode from '@/types/languageCodes';
+import ISound from '@/types/sound';
+import { playSound as utilPlaySound } from '@/utils/sounds';
 
 export const SET_FAST_MODE = 'SET_FAST_MODE';
 export const SET_LOCALE = 'SET_LOCALE';
@@ -140,3 +142,16 @@ export const updateProgress = () => (
 export const clearProgress = (): IClearProgress => ({
   type: CLEAR_PROGRESS,
 });
+
+//  @TODO - Revise this. Doesn't seem right. Easy way to access muted from state rather than call util directly
+export const playSound = (sound: ISound) => (
+  dispatch: () => void,
+  getState: () => IState,
+) => {
+  const {
+    user: { playSfx },
+  } = getState();
+
+  if (!playSfx) return;
+  utilPlaySound(sound);
+};

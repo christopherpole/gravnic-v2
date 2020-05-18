@@ -22,6 +22,7 @@ import {
   selectGameStateHistory,
   selectColorScheme,
 } from '@/selectors';
+import { playSound } from '@/actions/user';
 import { setEntitiesMoving, setLevelLoaded } from '@/actions/game';
 import IEntityData from '@/types/entityData';
 import getEntitiesDataFromGameState from '@/utils/getEntitiesDataFromGameState';
@@ -274,6 +275,10 @@ const GameRenderer = () => {
 
         //  Opacity
         if (entityData.fading || entityData.shrinking) {
+          if (currentEntitySprite.alpha === 1) {
+            dispatch(playSound('match'));
+          }
+
           currentEntitySprite.alpha -=
             (fadeSpeed / ENTITY_SIZE) * (currentState.undoing ? -1 : 1);
 

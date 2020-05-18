@@ -17,8 +17,8 @@ import {
   selectColorScheme,
 } from '@/selectors';
 import GameRenderer from '@/scenes/game/renderer';
-import Stars from './stars';
 import LevelLostMessage from './levelLostMessage';
+import Stars from './stars';
 import LevelWonMessage from './levelWonMessage';
 import Actions from './actions';
 import TutorialArea from './tutorialArea';
