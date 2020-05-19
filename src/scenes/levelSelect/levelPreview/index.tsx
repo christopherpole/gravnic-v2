@@ -42,7 +42,7 @@ const PreviewWrapper = styled(View)`
 `;
 
 const PreviewWrapperInner = styled(View)`
-  box-shadow: ${(props) => props.theme.shadows.default};
+  /* box-shadow: ${(props) => props.theme.shadows.default}; */
 `;
 
 const Row = styled(View)`

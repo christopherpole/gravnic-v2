@@ -1,6 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { Animated, Easing, Dimensions } from 'react-native';
 
 import IState from '@/types/state';
 import { setShowingSettings } from '@/actions/ui';
@@ -26,7 +28,14 @@ import LanguageSelect from './languageSelect';
 import ClearConfirmation from './clearConfirmation';
 import Credits from './credits';
 
+const Wrapper = styled(Animated.View)`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+`;
+
 const SettingsScene = () => {
+  const rightAnim = useRef(new Animated.Value(0)).current;
   const showing = useSelector(
     ({ ui: { showingSettings } }: IState) => showingSettings,
   );
@@ -37,6 +46,15 @@ const SettingsScene = () => {
   const showTutorials = useSelector(selectShowTutorials);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    Animated.timing(rightAnim, {
+      toValue: showing ? 1 : 0,
+      duration: 400,
+      useNativeDriver: true,
+      easing: Easing.out(Easing.cubic),
+    }).start();
+  }, [showing, rightAnim]);
+
   const [showingLanguageSelect, setShowingLanguageSelect] = useState<boolean>(
     false,
   );
@@ -46,12 +64,23 @@ const SettingsScene = () => {
   const [showingCredits, setShowingCredits] = useState<boolean>(false);
 
   //  Don't render if not showing the settings menu
-  if (!showing) {
-    return null;
-  }
+  // if (!showing) {
+  //   return null;
+  // }
 
   return (
-    <>
+    <Wrapper
+      style={{
+        transform: [
+          {
+            translateX: rightAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [Dimensions.get('window').width, 0],
+            }),
+          },
+        ],
+      }}
+    >
       <Options
         onClose={() => {
           dispatch(setShowingSettings(false));
@@ -176,7 +205,7 @@ const SettingsScene = () => {
           }}
         />
       )}
-    </>
+    </Wrapper>
   );
 };
 

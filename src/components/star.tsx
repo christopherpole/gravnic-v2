@@ -12,7 +12,7 @@ interface IProps {
 const Wrapper = styled(View)<{ fillColor: string }>`
   height: 100%;
   width: 100%;
-  box-shadow: ${(props) => props.theme.shadows.default};
+  /* box-shadow: ${(props) => props.theme.shadows.default}; */
   background: ${(props) => props.fillColor};
 `;
 

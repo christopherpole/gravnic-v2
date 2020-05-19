@@ -10,7 +10,7 @@ const Wrapper = styled(View)`
   border-bottom-color: white;
   border-bottom-width: 2px;
   justify-content: space-between;
-  box-shadow: ${(props) => props.theme.shadows.default};
+  /* box-shadow: ${(props) => props.theme.shadows.default}; */
 `;
 
 interface IProps {

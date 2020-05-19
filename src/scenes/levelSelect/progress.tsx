@@ -26,7 +26,7 @@ const StarsCountText = styled(Text)`
   margin: 0;
   color: white;
   padding-top: 3px;
-  box-shadow: ${(props) => props.theme.shadows.default};
+  /* box-shadow: ${(props) => props.theme.shadows.default}; */
 `;
 
 const Progress = () => {
