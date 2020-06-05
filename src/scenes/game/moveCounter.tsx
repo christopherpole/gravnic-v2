@@ -5,10 +5,9 @@ import { Animated } from 'react-native';
 import useTheme from '@/hooks/useTheme';
 
 const Wrapper = styled(Animated.View)`
-  height: 15px;
-  width: 15px;
+  height: 100%;
+  width: 100%;
   border-radius: 999px;
-  /* box-shadow: ${(props) => props.theme.shadows.default}; */
 `;
 
 interface IProps {

@@ -7,10 +7,9 @@ const Wrapper = styled(View)`
   flex-direction: row;
   background: ${(props) => props.theme.colors.primary};
   align-items: center;
-  border-bottom-color: white;
-  border-bottom-width: 2px;
+  border-bottom-color: ${(props) => props.theme.colors.fonts.primary};
+  border-bottom-width: ${(props) => props.theme.sizing.border};
   justify-content: space-between;
-  /* box-shadow: ${(props) => props.theme.shadows.default}; */
 `;
 
 interface IProps {

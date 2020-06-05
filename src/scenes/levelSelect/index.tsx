@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   TouchableWithoutFeedback,
   FlatList,
@@ -18,6 +18,7 @@ import {
 } from '@/selectors';
 import { loadLevel } from '@/actions/game';
 import { setShowingLevelSelect } from '@/actions/ui';
+import { SCENE_TRANSITION_DURATION } from '@/config';
 import LevelPreview from '@/scenes/levelSelect/levelPreview';
 import Header from './header';
 
@@ -25,27 +26,16 @@ const Wrapper = styled(Animated.View)<{ showing: boolean }>`
   display: flex;
   flex: 1;
   position: absolute;
-  /* top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; */
   height: 100%;
   width: 100%;
-  /* height: 0; */
-  /* overflow: hidden; */
-/* 
-  ${(props) =>
-    props.showing &&
-    css`
-      height: auto;
-    `}; */
 `;
 
 const LevelsWrapper = styled(View)`
   flex: 1;
+  background: ${(props) => props.theme.colors.secondary};
 `;
 
-const levelAspectRatio = 0.76;
+const levelAspectRatio = 0.75;
 const LevelPreviewWrapper = styled(View)`
   aspect-ratio: ${levelAspectRatio};
   width: 33.33333333%;
@@ -63,7 +53,7 @@ const LevelSelectScene = () => {
   useEffect(() => {
     Animated.timing(rightAnim, {
       toValue: showing ? 1 : 0,
-      duration: 400,
+      duration: SCENE_TRANSITION_DURATION,
       useNativeDriver: true,
       easing: Easing.out(Easing.cubic),
     }).start();

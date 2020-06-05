@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components';
 
 import IconButton from '@/components/iconButton';
@@ -19,29 +19,30 @@ const Wrapper = styled(View)`
 `;
 
 const HeaderText = styled(Text)`
-  padding: ${(props) => props.theme.spacing.medium};
   font-size: ${(props) => props.theme.sizing.large};
-  color: ${(props) => props.theme.colors.fonts.secondary};
-  width: 100%;
   text-align: center;
+  margin-top: ${(props) => props.theme.sizing.xxs};
 `;
 
-const CloseButtonWrapper = styled(View)`
-  position: absolute;
-  z-index: 2;
-  right: ${(props) => props.theme.spacing.medium};
+//  @todo - revise
+const BlankSpace = styled(View)`
+  aspect-ratio: 1;
+  width: ${(props) =>
+    parseInt(props.theme.sizing.large.replace('px', ''), 10) +
+    parseInt(props.theme.sizing.large, 10) * 2};
+  padding: ${(props) => props.theme.sizing.large};
 `;
 
+//  @todo - revise
 const CloseButton = styled(IconButton)`
-  align-self: flex-end;
-  margin: 0;
-  height: 40px;
-  width: 40px;
-  padding: 5px;
+  aspect-ratio: 1;
+  width: ${(props) =>
+    parseInt(props.theme.sizing.large.replace('px', ''), 10) +
+    parseInt(props.theme.sizing.large, 10) * 2};
+  padding: ${(props) => props.theme.sizing.large};
 `;
 
-const OptionsWrapper = styled(ScrollView)`
-  padding: ${(props) => props.theme.spacing.medium};
+const OptionsWrapper = styled(View)`
   flex: 1;
 `;
 
@@ -55,16 +56,16 @@ const Options = ({ headerText, onClose, children, ...rest }: IProps) => {
   return (
     <Wrapper {...rest}>
       <Header>
+        <BlankSpace />
+
         <HeaderText>{headerText}</HeaderText>
 
-        <CloseButtonWrapper>
-          <CloseButton onPress={onClose}>
-            <CloseIcon color="white" />
-          </CloseButton>
-        </CloseButtonWrapper>
+        <CloseButton onPress={onClose}>
+          <CloseIcon color="white" />
+        </CloseButton>
       </Header>
 
-      <OptionsWrapper bounces={false}>{children}</OptionsWrapper>
+      <OptionsWrapper>{children}</OptionsWrapper>
     </Wrapper>
   );
 };

@@ -15,18 +15,15 @@ const Wrapper = styled(View)`
 `;
 
 const StarIconContainer = styled(View)`
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+  width: ${(props) => props.theme.sizing.large};
+  height: ${(props) => props.theme.sizing.large};
+  margin-right: ${(props) => props.theme.spacing.small};
 `;
 
 const StarsCountText = styled(Text)`
-  font-size: ${(props) => props.theme.sizing.large};
+  margin-top: ${(props) => props.theme.sizing.xxs};
   font-family: ${(props) => props.theme.fonts.bold};
-  margin: 0;
-  color: white;
-  padding-top: 3px;
-  /* box-shadow: ${(props) => props.theme.shadows.default}; */
+  font-size: ${(props) => props.theme.sizing.large};
 `;
 
 const Progress = () => {

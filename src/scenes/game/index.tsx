@@ -28,6 +28,7 @@ const Wrapper = styled(View)<{ background: string }>`
   flex: 1;
   align-items: center;
   justify-content: center;
+  padding: ${(props) => props.theme.spacing.large};
 
   ${(props) =>
     props.background &&
@@ -37,7 +38,6 @@ const Wrapper = styled(View)<{ background: string }>`
 `;
 
 const StarsWrapper = styled(View)`
-  margin-top: ${(props) => props.theme.spacing.large};
   width: 100%;
   display: flex;
 `;
@@ -54,7 +54,6 @@ const GameAreaWrapper = styled(View)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0 ${(props) => props.theme.spacing.medium};
 `;
 
 const GameScene = () => {

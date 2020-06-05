@@ -12,10 +12,9 @@ const LevelMessageWrapper = styled(View)`
 `;
 
 const LevelMessageWrapperInner = styled(View)`
-  border: 2px solid black;
-  background: #ccc;
-  /* box-shadow: ${(props) => props.theme.shadows.default}; */
-  padding: 25px;
+  border: ${(props) => props.theme.sizing.border} solid black;
+  background: ${(props) => props.theme.colors.primary};
+  padding: ${(props) => props.theme.spacing.large};
   display: flex;
   align-items: center;
   justify-content: center;

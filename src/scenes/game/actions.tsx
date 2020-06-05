@@ -15,7 +15,6 @@ import MenuIcon from '@/components/icons/menu';
 const Wrapper = styled(View)`
   flex-direction: row;
   display: flex;
-  padding: ${(props) => props.theme.spacing.large};
   padding-top: 0;
   width: 100%;
   justify-content: space-between;
@@ -23,7 +22,7 @@ const Wrapper = styled(View)`
 
 const IconButtonWrapper = styled(View)`
   aspect-ratio: 1;
-  width: 15%;
+  width: ${(props) => props.theme.sizing.xxl};
 `;
 
 const Actions = () => {
@@ -65,6 +64,7 @@ const Actions = () => {
           <RestartIcon color={colorScheme.icons} />
         </IconButton>
       </IconButtonWrapper>
+
       <IconButtonWrapper>
         <IconButton
           onPress={() => {

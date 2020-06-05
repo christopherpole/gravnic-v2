@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 
 const Wrapper = styled(View)<{ checked: boolean }>`
-  height: 30px;
-  width: 30px;
+  height: ${(props) => props.theme.sizing.extraLarge};
+  width: ${(props) => props.theme.sizing.extraLarge};
   background: ${(props) =>
     props.checked
       ? props.theme.colors.checkbox.checked

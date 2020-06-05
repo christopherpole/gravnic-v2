@@ -17,23 +17,33 @@ import {
 import LevelMessage from './levelMessage';
 
 const StyledText = styled(Text)`
-  font-size: ${(props) => props.theme.sizing.large};
-  margin-bottom: 10px;
+  margin-bottom: ${(props) => props.theme.spacing.small};
 `;
 
 const StarsWrapper = styled(View)`
   display: flex;
-  width: 100px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: ${(props) => props.theme.spacing.medium};
 `;
 
-const StyledStar = styled(Star)`
-  height: 30px;
-  width: 30px;
-  margin: 0 5px;
+const StarWrapper = styled(View)`
+  height: ${(props) => props.theme.sizing.large};
+  width: ${(props) => props.theme.sizing.large};
+  margin: 0
+    ${(props) =>
+      `${parseInt(props.theme.spacing.small.replace('px', ''), 10) / 2}px`};
+`;
+
+const StyledButton = styled(Button)`
+  background: ${(props) => props.theme.colors.secondary};
+  padding: ${(props) =>
+    `${props.theme.spacing.medium} ${props.theme.spacing.large}`};
+`;
+
+const ButtonText = styled(Text)`
+  font-size: ${(props) => props.theme.sizing.small};
 `;
 
 const LevelWonMessage = () => {
@@ -52,21 +62,27 @@ const LevelWonMessage = () => {
       </StyledText>
 
       <StarsWrapper>
-        <StyledStar filled={currentLevelProgress <= currentLevelStars[2]} />
-        <StyledStar filled={currentLevelProgress <= currentLevelStars[1]} />
-        <StyledStar filled={currentLevelProgress <= currentLevelStars[0]} />
+        <StarWrapper>
+          <Star filled={currentLevelProgress <= currentLevelStars[2]} />
+        </StarWrapper>
+        <StarWrapper>
+          <Star filled={currentLevelProgress <= currentLevelStars[1]} />
+        </StarWrapper>
+        <StarWrapper>
+          <Star filled={currentLevelProgress <= currentLevelStars[0]} />
+        </StarWrapper>
       </StarsWrapper>
 
       {hasNextLevel && (
-        <Button
+        <StyledButton
           onPress={() => {
             dispatch(loadLevel((currentLevelIndex as number) + 1));
           }}
         >
-          <Text>
+          <ButtonText>
             <FormattedMessage id="nextLevel" />
-          </Text>
-        </Button>
+          </ButtonText>
+        </StyledButton>
       )}
     </LevelMessage>
   );

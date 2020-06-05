@@ -1,8 +1,8 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { ScrollView, Animated, Easing, Dimensions, View } from 'react-native';
 import { FormattedMessage } from 'react-intl';
-import { Animated, Easing, Dimensions } from 'react-native';
 
 import IState from '@/types/state';
 import { setShowingSettings } from '@/actions/ui';
@@ -21,6 +21,7 @@ import {
   selectPlayMusic,
   selectPlaySfx,
 } from '@/selectors';
+import { SCENE_TRANSITION_DURATION } from '@/config';
 import Options from '@/components/options';
 import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
@@ -32,6 +33,13 @@ const Wrapper = styled(Animated.View)`
   position: absolute;
   height: 100%;
   width: 100%;
+`;
+
+const StyledScrollView = styled(ScrollView)``;
+
+const OptionsInner = styled(View)`
+  padding: ${(props) =>
+    `${props.theme.spacing.medium} ${props.theme.spacing.medium} 0`};
 `;
 
 const SettingsScene = () => {
@@ -49,7 +57,7 @@ const SettingsScene = () => {
   useEffect(() => {
     Animated.timing(rightAnim, {
       toValue: showing ? 1 : 0,
-      duration: 400,
+      duration: SCENE_TRANSITION_DURATION,
       useNativeDriver: true,
       easing: Easing.out(Easing.cubic),
     }).start();
@@ -62,11 +70,6 @@ const SettingsScene = () => {
     boolean
   >(false);
   const [showingCredits, setShowingCredits] = useState<boolean>(false);
-
-  //  Don't render if not showing the settings menu
-  // if (!showing) {
-  //   return null;
-  // }
 
   return (
     <Wrapper
@@ -87,99 +90,103 @@ const SettingsScene = () => {
         }}
         headerText={<FormattedMessage id="settings" />}
       >
-        <OptionButton
-          onPress={() => {
-            dispatch(setPlayMusic(!playMusic));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="playMusic" />
-          </OptionLabel>
+        <StyledScrollView>
+          <OptionsInner>
+            <OptionButton
+              onPress={() => {
+                dispatch(setPlayMusic(!playMusic));
+              }}
+            >
+              <OptionLabel>
+                <FormattedMessage id="playMusic" />
+              </OptionLabel>
 
-          <Checkbox checked={playMusic} />
-        </OptionButton>
+              <Checkbox checked={playMusic} />
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            dispatch(setPlaySfx(!playSfx));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="playSfx" />
-          </OptionLabel>
+            <OptionButton
+              onPress={() => {
+                dispatch(setPlaySfx(!playSfx));
+              }}
+            >
+              <OptionLabel>
+                <FormattedMessage id="playSfx" />
+              </OptionLabel>
 
-          <Checkbox checked={playSfx} />
-        </OptionButton>
+              <Checkbox checked={playSfx} />
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            dispatch(setFastMode(!isFastMode));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="fastMode" />
-          </OptionLabel>
+            <OptionButton
+              onPress={() => {
+                dispatch(setFastMode(!isFastMode));
+              }}
+            >
+              <OptionLabel>
+                <FormattedMessage id="fastMode" />
+              </OptionLabel>
 
-          <Checkbox checked={isFastMode} />
-        </OptionButton>
+              <Checkbox checked={isFastMode} />
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            dispatch(setDarkMode(!isDarkMode));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="darkMode" />
-          </OptionLabel>
+            <OptionButton
+              onPress={() => {
+                dispatch(setDarkMode(!isDarkMode));
+              }}
+            >
+              <OptionLabel>
+                <FormattedMessage id="darkMode" />
+              </OptionLabel>
 
-          <Checkbox checked={isDarkMode} />
-        </OptionButton>
+              <Checkbox checked={isDarkMode} />
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            dispatch(setShowTutorials(!showTutorials));
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="showTutorials" />
-          </OptionLabel>
+            <OptionButton
+              onPress={() => {
+                dispatch(setShowTutorials(!showTutorials));
+              }}
+            >
+              <OptionLabel>
+                <FormattedMessage id="showTutorials" />
+              </OptionLabel>
 
-          <Checkbox checked={showTutorials} />
-        </OptionButton>
+              <Checkbox checked={showTutorials} />
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            setShowingLanguageSelect(true);
-          }}
-        >
-          <OptionLabel>
-            <FormattedMessage id="language" />
-          </OptionLabel>
+            <OptionButton
+              onPress={() => {
+                setShowingLanguageSelect(true);
+              }}
+            >
+              <OptionLabel>
+                <FormattedMessage id="language" />
+              </OptionLabel>
 
-          <OptionLabel alignment="right">
-            <FormattedMessage id="fullLanguageName" />
-          </OptionLabel>
-        </OptionButton>
+              <OptionLabel alignment="right">
+                <FormattedMessage id="fullLanguageName" />
+              </OptionLabel>
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            setShowingClearConfirmation(true);
-          }}
-        >
-          <OptionLabel alignment="center">
-            <FormattedMessage id="clearProgress" />
-          </OptionLabel>
-        </OptionButton>
+            <OptionButton
+              onPress={() => {
+                setShowingClearConfirmation(true);
+              }}
+            >
+              <OptionLabel alignment="center">
+                <FormattedMessage id="clearProgress" />
+              </OptionLabel>
+            </OptionButton>
 
-        <OptionButton
-          onPress={() => {
-            setShowingCredits(true);
-          }}
-        >
-          <OptionLabel alignment="center">
-            <FormattedMessage id="credits" />
-          </OptionLabel>
-        </OptionButton>
+            <OptionButton
+              onPress={() => {
+                setShowingCredits(true);
+              }}
+            >
+              <OptionLabel alignment="center">
+                <FormattedMessage id="credits" />
+              </OptionLabel>
+            </OptionButton>
+          </OptionsInner>
+        </StyledScrollView>
       </Options>
 
       {showingLanguageSelect && (

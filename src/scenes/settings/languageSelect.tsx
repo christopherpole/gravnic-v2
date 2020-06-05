@@ -1,4 +1,6 @@
 import React, { memo } from 'react';
+import { View } from 'react-native';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
@@ -8,6 +10,12 @@ import Options from '@/components/options';
 import { setLocale } from '@/actions/user';
 import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
+
+const WrapperInner = styled(View)`
+  padding: ${(props) => props.theme.spacing.medium};
+  flex: 1;
+  justify-content: center;
+`;
 
 interface IProps {
   onClose: () => void;
@@ -26,17 +34,19 @@ const LanguageSelect = ({ onClose }: IProps) => {
       onClose={onClose}
       headerText={<FormattedMessage id="selectLanguage" />}
     >
-      {Object.keys(translations).map((key) => (
-        <OptionButton
-          onPress={() => {
-            selectLanguage(key as ILanguageCode);
-          }}
-        >
-          <OptionLabel alignment="center">
-            {translations[key as ILanguageCode].fullLanguageName}
-          </OptionLabel>
-        </OptionButton>
-      ))}
+      <WrapperInner>
+        {Object.keys(translations).map((key) => (
+          <OptionButton
+            onPress={() => {
+              selectLanguage(key as ILanguageCode);
+            }}
+          >
+            <OptionLabel alignment="center">
+              {translations[key as ILanguageCode].fullLanguageName}
+            </OptionLabel>
+          </OptionButton>
+        ))}
+      </WrapperInner>
     </Options>
   );
 };

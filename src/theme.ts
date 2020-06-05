@@ -9,12 +9,12 @@ const theme = {
     tertiary: '#aaa',
     disabled: '#999',
     fonts: {
-      primary: 'black',
-      secondary: 'white',
+      primary: 'white',
+      secondary: 'black',
     },
     checkbox: {
-      unchecked: 'white',
-      checked: 'red',
+      unchecked: 'grey',
+      checked: 'green',
     },
     stars: {
       new: 'yellow',
@@ -22,19 +22,19 @@ const theme = {
     },
   },
   sizing: {
-    small: '14px',
+    xxs: '3px',
+    extraSmall: '15px',
+    small: '18px',
     medium: '18px',
     large: '22px',
+    extraLarge: '30px',
+    xxl: '40px',
+    border: '2px',
   },
   spacing: {
-    extraSmall: '1%',
-    small: '2%',
-    medium: '4%',
-    large: '10%',
-    extraLarge: '15%',
-  },
-  shadows: {
-    default: '2px 2px 2px rgba(0, 0, 0, .3);',
+    small: '10px',
+    medium: '20px',
+    large: '40px',
   },
 };
 
@@ -48,6 +48,10 @@ export const darkTheme = {
       ...theme.colors.stars,
       new: 'white',
       used: 'grey',
+    },
+    checkbox: {
+      ...theme.colors.checkbox,
+      checked: 'white',
     },
   },
 };

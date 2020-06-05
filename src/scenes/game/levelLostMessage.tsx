@@ -5,9 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Text from '@/components/text';
 import LevelMessage from './levelMessage';
 
-const StyledText = styled(Text)`
-  font-size: ${(props) => props.theme.sizing.medium};
-`;
+const StyledText = styled(Text)``;
 
 const LevelLostMessage = () => (
   <LevelMessage>

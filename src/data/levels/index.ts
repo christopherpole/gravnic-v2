@@ -31,26 +31,26 @@ import level27 from './27';
 import level28 from './28';
 import level29 from './29';
 import level30 from './30';
-import level31 from './31';
-import level32 from './32';
-import level33 from './33';
-import level34 from './34';
-import level35 from './35';
-import level36 from './36';
-import level37 from './37';
-import level38 from './38';
-import level39 from './39';
-import level40 from './40';
-import level41 from './41';
-import level42 from './42';
-import level43 from './43';
-import level44 from './44';
-import level45 from './45';
-import level46 from './46';
-import level47 from './47';
-import level48 from './48';
-import level49 from './49';
-import level50 from './50';
+// import level31 from './31';
+// import level32 from './32';
+// import level33 from './33';
+// import level34 from './34';
+// import level35 from './35';
+// import level36 from './36';
+// import level37 from './37';
+// import level38 from './38';
+// import level39 from './39';
+// import level40 from './40';
+// import level41 from './41';
+// import level42 from './42';
+// import level43 from './43';
+// import level44 from './44';
+// import level45 from './45';
+// import level46 from './46';
+// import level47 from './47';
+// import level48 from './48';
+// import level49 from './49';
+// import level50 from './50';
 // import level51 from './51';
 // import level52 from './52';
 // import level53 from './53';
@@ -183,26 +183,26 @@ const levelData: ILevelData[] = [
   level28,
   level29,
   level30,
-  level31,
-  level32,
-  level33,
-  level34,
-  level35,
-  level36,
-  level37,
-  level38,
-  level39,
-  level40,
-  level41,
-  level42,
-  level43,
-  level44,
-  level45,
-  level46,
-  level47,
-  level48,
-  level49,
-  level50,
+  // level31,
+  // level32,
+  // level33,
+  // level34,
+  // level35,
+  // level36,
+  // level37,
+  // level38,
+  // level39,
+  // level40,
+  // level41,
+  // level42,
+  // level43,
+  // level44,
+  // level45,
+  // level46,
+  // level47,
+  // level48,
+  // level49,
+  // level50,
   // level51,
   // level52,
   // level53,

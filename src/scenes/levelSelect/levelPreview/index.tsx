@@ -11,20 +11,15 @@ import rainbowImg from '@/assets/entities/rainbow.png';
 import glassImg from '@/assets/entities/glass.png';
 import blackHoleImg from '@/assets/entities/black-hole.png';
 import stickySpoyImg from '@/assets/entities/sticky-spot.png';
+import LockIcon from '@/components/icons/lock';
 import IState from '@/types/state';
-
-const LockIcon = styled(View)`
-  background: white;
-  height: 20px;
-  width: 20px;
-`;
 
 const Wrapper = styled(View)<{ background: string }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  padding: 5%;
+  padding: ${(props) => props.theme.spacing.medium};
 
   ${(props) =>
     props.background &&
@@ -41,18 +36,18 @@ const PreviewWrapper = styled(View)`
   justify-content: center;
 `;
 
-const PreviewWrapperInner = styled(View)`
-  /* box-shadow: ${(props) => props.theme.shadows.default}; */
-`;
+const PreviewWrapperInner = styled(View)``;
 
 const Row = styled(View)`
   display: flex;
   flex-direction: row;
+  width: 100%;
 `;
 
-const Block = styled(View)<{ color: string }>`
-  height: 15px;
-  width: 15px;
+const Block = styled(View)<{ color: string; size: number }>`
+  width: ${(props) => props.size}%;
+  aspect-ratio: 1;
+  max-width: 20%;
 
   ${(props) =>
     props.color &&
@@ -75,12 +70,14 @@ const StyledImage = styled(Image)<{ isGray?: boolean }>`
 const ProgressWrapper = styled(View)`
   flex-direction: row;
   display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 
 const StarWrapper = styled(View)`
-  margin: 0 ${(props) => props.theme.spacing.small};
+  margin: 0 4%;
+  width: 26%;
   aspect-ratio: 1;
-  width: 20%;
 `;
 
 const Locked = styled(View)`
@@ -98,8 +95,8 @@ const Locked = styled(View)`
 const LockIconWrapper = styled(View)`
   align-items: center;
   justify-content: center;
-  flex: 1;
-  aspect-ratio: 1;
+  width: ${(props) => props.theme.sizing.medium};
+  height: ${(props) => props.theme.sizing.medium};
 `;
 
 interface ILevelPreview extends ILevelData {
@@ -156,7 +153,14 @@ const LevelPreview = ({
                 }
 
                 return (
-                  <Block key={`block-${i}-${j}`} color={color}>
+                  <Block
+                    size={
+                      (10 / Math.max(gameState.length, gameState[0].length)) *
+                      10
+                    }
+                    key={`block-${i}-${j}`}
+                    color={color}
+                  >
                     {img && <StyledImage isGray={locked} source={img} />}
                   </Block>
                 );

@@ -19,21 +19,23 @@ const Wrapper = styled(View)`
 
 const MoveWrapper = styled(View)`
   display: flex;
+  height: ${(props) => props.theme.sizing.extraLarge};
   align-items: center;
   justify-content: center;
-  height: 20px;
-  width: 20px;
-  margin: 0 10px;
+  margin: 0 ${(props) => props.theme.spacing.small};
 `;
 
+//  @todo - revise
 const MoveCounterWrapper = styled(View)`
-  height: 15px;
-  width: 15px;
+  height: ${(props) =>
+    `${parseInt(props.theme.sizing.extraLarge.replace('px', ''), 10) / 2}`};
+  width: ${(props) =>
+    `${parseInt(props.theme.sizing.extraLarge.replace('px', ''), 10) / 2}`};
 `;
 
 const StarWrapper = styled(View)`
-  height: 30px;
-  width: 30px;
+  height: ${(props) => props.theme.sizing.extraLarge};
+  width: ${(props) => props.theme.sizing.extraLarge};
 `;
 
 const Stars = () => {

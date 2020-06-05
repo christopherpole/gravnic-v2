@@ -1,3 +1,6 @@
+//  UI
+export const SCENE_TRANSITION_DURATION = 400; //  ms
+
 //  Swiping
 export const SWIPE_VELOCITY_THRESHOLD = 0.3;
 export const DIRECTIONAL_OFFSET_THRESHOLD = 80;

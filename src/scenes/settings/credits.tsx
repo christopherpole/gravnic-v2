@@ -6,11 +6,12 @@ import { View } from 'react-native';
 import Options from '@/components/options';
 import Text from '@/components/text';
 
-const CreditsBlock = styled(View)``;
+const CreditsBlock = styled(View)`
+  padding: ${(props) => props.theme.spacing.medium};
+`;
 
 const CreditsText = styled(Text)`
-  font-size: 20px;
-  color: white;
+  font-size: ${(props) => props.theme.sizing.small};
 `;
 
 interface IProps {

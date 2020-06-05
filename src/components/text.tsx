@@ -8,6 +8,8 @@ interface IProps {
 
 const Wrapper = styled(Text)<IProps>`
   font-family: ${(props) => props.theme.fonts.default};
+  color: ${(props) => props.theme.colors.fonts.primary};
+  font-size: ${(props) => props.theme.sizing.medium};
 `;
 
 const StyledText = ({ children, ...rest }: IProps) => (

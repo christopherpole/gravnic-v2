@@ -12,12 +12,15 @@ import Text from '@/components/text';
 import OptionButton from './optionButton';
 import OptionLabel from './optionLabel';
 
-const WrapperInner = styled(View)``;
+const WrapperInner = styled(View)`
+  padding: ${(props) => props.theme.spacing.medium};
+  flex: 1;
+  justify-content: center;
+`;
 
 const ConfirmationText = styled(Text)`
+  margin-bottom: ${(props) => props.theme.spacing.large};
   font-size: ${(props) => props.theme.sizing.large};
-  color: ${(props) => props.theme.colors.fonts.secondary};
-  margin-bottom: ${(props) => props.theme.spacing.medium};
   text-align: center;
 `;
 
@@ -88,7 +91,3 @@ const ConfirmClear = ({ onClose }: IProps) => {
 };
 
 export default memo(ConfirmClear);
-
-// dispatch(clearProgress());
-// dispatch(loadInitialLevel());
-// dispatch(setShowingLevelSelect(true));

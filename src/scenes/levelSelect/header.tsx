@@ -10,9 +10,11 @@ import HeaderComponent from '@/components/header';
 import Progress from './progress';
 
 const StyledIconButton = styled(IconButton)`
-  height: 60px;
-  width: 60px;
-  padding: 20px;
+  padding: ${(props) => props.theme.sizing.large};
+  width: ${(props) =>
+    parseInt(props.theme.sizing.large.replace('px', ''), 10) +
+    parseInt(props.theme.sizing.large, 10) * 2};
+  aspect-ratio: 1;
 `;
 
 const Header = () => {
