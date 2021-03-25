@@ -1790,6 +1790,23 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@pixi/constants@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/constants/-/constants-6.0.1.tgz#386c22f033d2ef707dd05fca99e1af55a90500e6"
+  integrity sha512-uui0o0CqmUM4DQUQtt2BQIEI4AfMzh8FNTGmG7nmyxyuX8kzF8Bj9Kr7VvbZqHTOtkEIvkldmfmTJ2JPSn062g==
+
+"@pixi/core@6.0.1", "@pixi/core@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/core/-/core-6.0.1.tgz#5eeb3895ab5722889348d72163645a169e135a2c"
+  integrity sha512-NI3ymQVRNa6G24mYM4dR0mFa6BWyHnc+WqTgtsnV1MJPj7c5JvetwiK1JDy7uXYfBnXp99f3PWwOgDssuzpEmQ==
+  dependencies:
+    "@pixi/constants" "6.0.1"
+    "@pixi/math" "6.0.1"
+    "@pixi/runner" "6.0.1"
+    "@pixi/settings" "6.0.1"
+    "@pixi/ticker" "6.0.1"
+    "@pixi/utils" "6.0.1"
+
 "@pixi/filter-adjustment@4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@pixi/filter-adjustment/-/filter-adjustment-4.0.0.tgz#867f37a4293b28fc28894db11f0396b05d39cae9"
@@ -1801,6 +1818,13 @@
   integrity sha512-JmTAme6jJXAXmaaI2DdzmQHvsr1iMSXWZXIVkxn2wzlKgbzlAZvUcWjxV43WLSuHO7x6C/V781J73kKyWzwRmA==
   dependencies:
     "@pixi/filter-kawase-blur" "4.0.0"
+
+"@pixi/filter-alpha@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/filter-alpha/-/filter-alpha-6.0.1.tgz#ed760d3e4416ddb80ee9b844d539df3cf9409dc3"
+  integrity sha512-tGUw92Z1yQ5wQb/1NmyFToJQnMEWJWoU0e60+ZWXTmWnCl79fWIFD2FEM1gJ517XYRofTYxTAv450RzITocaRw==
+  dependencies:
+    "@pixi/core" "6.0.1"
 
 "@pixi/filter-ascii@4.0.0":
   version "4.0.0"
@@ -1816,6 +1840,14 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@pixi/filter-bloom/-/filter-bloom-4.0.0.tgz#ded8ea2a3d42208e55d2c7c47ad5dbc891fd4697"
   integrity sha512-uSFMv4pMj+Ck9WkvgQzWGZRDvkabB2Dpgk59w1yIJAN8okLnzz83lObxPCBNxIIiI7U2h/+TejpU/3530cFDww==
+
+"@pixi/filter-blur@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/filter-blur/-/filter-blur-6.0.1.tgz#b6f591e5aec93efb332aa928c86aa1b2dd168ad6"
+  integrity sha512-yVk8wBaP+IBNu01dfdpA3TlGXBH/wSq+VZbZqmFVHEKZv3o1io84Yy10HJlC0xi6aL2YEqeramDGfcgdzS6Osg==
+  dependencies:
+    "@pixi/core" "6.0.1"
+    "@pixi/settings" "6.0.1"
 
 "@pixi/filter-bulge-pinch@4.0.0":
   version "4.0.0"
@@ -1958,6 +1990,42 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@pixi/filter-zoom-blur/-/filter-zoom-blur-4.0.0.tgz#8ff990a52a6e9614bf2ff2d99fe10e80d93714f2"
   integrity sha512-xPhkaRB6o0xsOKZ/4PXp3MGkw8JN0JHYBvzEvFZpJWzH/fqmEpECY8Shtj4/yFCrQ2aG3loIumzYKa0MGvLFmw==
+
+"@pixi/math@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/math/-/math-6.0.1.tgz#da8725d040e0be8f4e400033dd13ec6931c1ef6a"
+  integrity sha512-tETa11mjYks3JdUlMkk3KbGr2UQprgKiiq4mhhwVeVwslrYJgVBrOMZwdDq0Hm+z6tdVzVyHviRvtih/c59JSA==
+
+"@pixi/runner@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/runner/-/runner-6.0.1.tgz#a9b0b2d90505e4a4bddd73ff7287bf3bad2cf3e4"
+  integrity sha512-l1NJUMP4IcvrFeIhthKVAbfHtqPx9LDFP0ItnrsBMrBAkIx7ymMlJju7p1RFOTnKHWOI7FVbmOy28utg3kgimg==
+
+"@pixi/settings@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/settings/-/settings-6.0.1.tgz#3dfd71fea4b7a6f75aa4a1306aa8084fe5930351"
+  integrity sha512-Sacsaz9VSzuUC/JuSKs3s/+qEbeinq9uv1dzx69D6P8xj7gc+ne6ogSUmovQGokTh/CCUroEXg7yxRR8jeGKOg==
+  dependencies:
+    ismobilejs "^1.1.0"
+
+"@pixi/ticker@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/ticker/-/ticker-6.0.1.tgz#7c847ff7bf253e4b996d9f6e517d074222068096"
+  integrity sha512-5cjGyvOU6RrAFz69w760x/7Uv5CZuZogs9nyi6HXUIKK0gy1pDW/bfWHUQm34Uh4baIU1k0qQOic0yfZOGO9qg==
+  dependencies:
+    "@pixi/settings" "6.0.1"
+
+"@pixi/utils@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/utils/-/utils-6.0.1.tgz#682ef3481f86e59b61fac10f2d2e783b8962fcb2"
+  integrity sha512-RcbbvlGCsE4G0Rj8TpjWz+JndUAPmuLzKyUtWbIn9sLCLaNRezoMCA0iR68oGjkNkGOBLbpubii60IAfQokiXg==
+  dependencies:
+    "@pixi/constants" "6.0.1"
+    "@pixi/settings" "6.0.1"
+    "@types/earcut" "^2.1.0"
+    earcut "^2.2.2"
+    eventemitter3 "^3.1.0"
+    url "^0.11.0"
 
 "@react-native-community/cli-debugger-ui@^4.13.1":
   version "4.13.1"
@@ -2107,6 +2175,11 @@
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
+
+"@types/earcut@^2.1.0":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@types/earcut/-/earcut-2.1.1.tgz#573a0af609f17005c751f6f4ffec49cfe358ea51"
+  integrity sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
@@ -3673,7 +3746,7 @@ earcut@2.1.1:
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.1.1.tgz#157634e5f3ebb42224e475016e86a5b6ce556b45"
   integrity sha1-FXY05fPrtCIk5HUBboalts5Va0U=
 
-earcut@^2.1.4:
+earcut@^2.1.4, earcut@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.2.2.tgz#41b0bc35f63e0fe80da7cddff28511e7e2e80d11"
   integrity sha512-eZoZPPJcUHnfRZ0PjLvx2qBordSiO8ofC3vt+qACLM95u+4DovnbYNpQtJh0DNsWj8RnxrQytD4WA8gj5cRIaQ==
@@ -4133,7 +4206,7 @@ eventemitter3@^2.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
   integrity sha1-teEHm1n7XhuidxwKmTvgYKWMmbo=
 
-eventemitter3@^3.0.0:
+eventemitter3@^3.0.0, eventemitter3@^3.1.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
@@ -5373,6 +5446,11 @@ ismobilejs@^0.5.1:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/ismobilejs/-/ismobilejs-0.5.2.tgz#e81bacf6187c532ad8348355f4fecd6e6adfdce1"
   integrity sha512-ta9UdV60xVZk/ZafFtSFslQaE76SvNkcs1r73d2PVR21zVzx9xuYv9tNe4MxA1NN7WoeCc2RjGot3Bz1eHDx3Q==
+
+ismobilejs@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ismobilejs/-/ismobilejs-1.1.1.tgz#c56ca0ae8e52b24ca0f22ba5ef3215a2ddbbaa0e"
+  integrity sha512-VaFW53yt8QO61k2WJui0dHf4SlL8lxBofUuUmwBo0ljPk0Drz2TiuDW4jo3wDcv41qy/SxrJ+VAzJ/qYqsmzRw==
 
 isobject@^2.0.0:
   version "2.1.0"
