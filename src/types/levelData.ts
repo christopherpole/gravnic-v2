@@ -4,7 +4,7 @@ import ITutorial from '@/types/tutorial';
 interface ILevelData {
   tutorial?: ITutorial;
   gameState: IGameState;
-  stars: [number, number, number];
+  stars: number[];
 }
 
 export default ILevelData;

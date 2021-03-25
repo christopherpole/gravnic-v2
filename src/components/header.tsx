@@ -16,8 +16,8 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const Header = ({ children, ...rest }: IProps) => {
-  return <Wrapper {...rest}>{children}</Wrapper>;
-};
+const Header = ({ children, ...rest }: IProps) => (
+  <Wrapper {...rest}>{children}</Wrapper>
+);
 
 export default memo(Header);

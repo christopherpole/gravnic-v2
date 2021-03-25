@@ -52,22 +52,20 @@ interface IProps {
   onClose: () => void;
 }
 
-const Options = ({ headerText, onClose, children, ...rest }: IProps) => {
-  return (
-    <Wrapper {...rest}>
-      <Header>
-        <BlankSpace />
+const Options = ({ headerText, onClose, children, ...rest }: IProps) => (
+  <Wrapper {...rest}>
+    <Header>
+      <BlankSpace />
 
-        <HeaderText>{headerText}</HeaderText>
+      <HeaderText>{headerText}</HeaderText>
 
-        <CloseButton onPress={onClose}>
-          <CloseIcon color="white" />
-        </CloseButton>
-      </Header>
+      <CloseButton onPress={onClose}>
+        <CloseIcon color="white" />
+      </CloseButton>
+    </Header>
 
-      <OptionsWrapper>{children}</OptionsWrapper>
-    </Wrapper>
-  );
-};
+    <OptionsWrapper>{children}</OptionsWrapper>
+  </Wrapper>
+);
 
 export default memo(Options);

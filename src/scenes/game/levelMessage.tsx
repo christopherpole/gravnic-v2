@@ -24,12 +24,10 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const LevelMessage = ({ children }: IProps) => {
-  return (
-    <LevelMessageWrapper>
-      <LevelMessageWrapperInner>{children}</LevelMessageWrapperInner>
-    </LevelMessageWrapper>
-  );
-};
+const LevelMessage = ({ children }: IProps) => (
+  <LevelMessageWrapper>
+    <LevelMessageWrapperInner>{children}</LevelMessageWrapperInner>
+  </LevelMessageWrapper>
+);
 
 export default memo(LevelMessage);

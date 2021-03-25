@@ -20,12 +20,10 @@ interface IProps {
   onPress: () => void;
 }
 
-const OptionButton = ({ children, onPress, ...rest }: IProps) => {
-  return (
-    <Wrapper {...rest}>
-      <WrapperInner onPress={onPress}>{children}</WrapperInner>
-    </Wrapper>
-  );
-};
+const OptionButton = ({ children, onPress, ...rest }: IProps) => (
+  <Wrapper {...rest}>
+    <WrapperInner onPress={onPress}>{children}</WrapperInner>
+  </Wrapper>
+);
 
 export default memo(OptionButton);

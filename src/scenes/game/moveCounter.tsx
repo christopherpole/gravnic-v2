@@ -22,6 +22,7 @@ const MoveCounter = ({ filled, ...rest }: IProps) => {
     Animated.timing(fillAnim, {
       toValue: filled ? 1 : 0,
       duration: 200,
+      useNativeDriver: false,
     }).start();
   }, [filled, fillAnim]);
 

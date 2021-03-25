@@ -66,9 +66,10 @@ const SettingsScene = () => {
   const [showingLanguageSelect, setShowingLanguageSelect] = useState<boolean>(
     false,
   );
-  const [showingClearConfirmation, setShowingClearConfirmation] = useState<
-    boolean
-  >(false);
+  const [
+    showingClearConfirmation,
+    setShowingClearConfirmation,
+  ] = useState<boolean>(false);
   const [showingCredits, setShowingCredits] = useState<boolean>(false);
 
   return (

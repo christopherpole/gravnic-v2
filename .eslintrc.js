@@ -9,9 +9,8 @@ module.exports = {
     '@react-native-community',
     'airbnb-typescript',
     'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/react',
   ],
+  ignorePatterns: ["/*.*"],
   plugins: ['prettier'],
   rules: {
     'react/jsx-props-no-spreading': 'off',
@@ -20,6 +19,7 @@ module.exports = {
     'global-require': 'off',
     'react/no-array-index-key': 'off',
     'no-param-reassign': 'off',
+    'react/require-default-props': 'off',
   },
   settings: {
     'import/resolver': {

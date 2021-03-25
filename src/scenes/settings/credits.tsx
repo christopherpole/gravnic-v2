@@ -18,14 +18,12 @@ interface IProps {
   onClose: () => void;
 }
 
-const Credits = ({ onClose }: IProps) => {
-  return (
-    <Options onClose={onClose} headerText={<FormattedMessage id="credits" />}>
-      <CreditsBlock>
-        <CreditsText>Design and Programming by Christopher Pole</CreditsText>
-      </CreditsBlock>
-    </Options>
-  );
-};
+const Credits = ({ onClose }: IProps) => (
+  <Options onClose={onClose} headerText={<FormattedMessage id="credits" />}>
+    <CreditsBlock>
+      <CreditsText>Design and Programming by Christopher Pole</CreditsText>
+    </CreditsBlock>
+  </Options>
+);
 
 export default memo(Credits);
